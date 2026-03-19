@@ -1,12 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EITL</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EITL — Daniel J. Baek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f3f0; --bg-warm: #edeae4; --text: #2a2725; --text-muted: #7a746e;
+    --accent: #b5a49a; --accent-dark: #7a6a62; --charcoal: #595550; --border: #ddd8d2;
+    --font-display: 'Cormorant Garamond', Georgia, serif; --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 30px 64px; transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s; border-bottom: 1px solid transparent; }
+  nav.scrolled { background: rgba(245,243,240,0.94); backdrop-filter: blur(14px); padding: 18px 64px; border-bottom-color: var(--border); }
+  .nav-back { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--text); }
+  .nav-back svg { transition: transform 0.2s ease; }
+  .nav-back:hover svg { transform: translateX(-4px); }
+  .nav-name { font-family: var(--font-display); font-size: 17px; font-weight: 400; letter-spacing: 0.03em; color: var(--text); text-decoration: none; }
+  .proj-hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 64px 80px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .proj-hero-bg { position: absolute; inset: 0; z-index: 0; }
+  .proj-hero-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .proj-hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .proj-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 24px; opacity: 0; }
+  .proj-title { font-family: var(--font-display); font-size: clamp(56px, 8vw, 112px); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px; }
+  .proj-title em { font-style: italic; color: var(--accent-dark); }
+  .proj-title-line { display: block; opacity: 0; transform: translateY(50px); }
+  .proj-tagline { font-size: clamp(15px, 1.4vw, 17px); font-weight: 300; color: var(--text-muted); max-width: 520px; line-height: 1.65; opacity: 0; }
+  .proj-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); opacity: 0; }
+  .proj-meta-item { padding: 32px 40px; border-right: 1px solid var(--border); }
+  .proj-meta-item:last-child { border-right: none; }
+  .meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+  .meta-val { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .proj-body { max-width: 1200px; margin: 0 auto; }
+  .proj-section { padding: 100px 64px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 280px 1fr; gap: 80px; }
+  .proj-section.full { grid-template-columns: 1fr; }
+  .section-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-dark); padding-top: 6px; }
+  .proj-section h2 { font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 24px; }
+  .proj-section h2 em { font-style: italic; color: var(--accent-dark); }
+  .proj-section p { font-size: 16px; line-height: 1.85; color: var(--text-muted); margin-bottom: 20px; }
+  .proj-section p:last-child { margin-bottom: 0; }
+  .proj-section p strong { color: var(--text); font-weight: 400; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .gallery.single { grid-template-columns: 1fr; }
+  .gallery.thirds { grid-template-columns: 1fr 1fr 1fr; }
+  .gallery-item { aspect-ratio: 16/10; background: var(--bg-warm); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .gallery-item.tall { aspect-ratio: 4/5; }
+  .gallery-item svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+  .img-placeholder-label { position: absolute; bottom: 16px; left: 20px; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); background: rgba(245,243,240,0.85); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 2px; border: 1px solid var(--border); }
+  .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .process-step { background: var(--bg-warm); padding: 40px 36px; }
+  .step-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 16px; }
+  .step-title { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
+  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .decisions { display: flex; flex-direction: column; gap: 0; }
+  .decision { padding: 36px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
+  .decision:first-child { padding-top: 0; }
+  .decision:last-child { border-bottom: none; padding-bottom: 0; }
+  .decision-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); padding-top: 4px; }
+  .decision-text h4 { font-family: var(--font-display); font-size: 22px; font-weight: 300; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .decision-text p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
+  .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 48px; }
+  .outcome-card { background: var(--bg-warm); padding: 40px 36px; }
+  .outcome-num { font-family: var(--font-display); font-size: 52px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 8px; }
+  .outcome-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .reveal { opacity: 0; transform: translateY(24px); }
+  @media (max-width: 900px) {
+    nav, nav.scrolled { padding: 20px 28px; }
+    .proj-hero { padding: 0 28px 60px; }
+    .proj-meta { grid-template-columns: 1fr 1fr; }
+    .proj-meta-item:nth-child(2) { border-right: none; }
+    .proj-section { grid-template-columns: 1fr; gap: 24px; padding: 60px 28px; }
+    .gallery, .gallery.thirds { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .decision { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
 </head>
 <body>
-    <h1>Welcome to EITL</h1>
-    <p>This is a sample HTML file for EITL.</p>
+
+<nav id="nav">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Portfolio
+  </a>
+  <a href="index.html" class="nav-name">Daniel J. Baek</a>
+</nav>
+
+<section class="proj-hero">
+  <div class="proj-hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="700" fill="#d8ddd8"/>
+      <defs><radialGradient id="eh1" cx="65%" cy="35%" r="55%"><stop offset="0%" stop-color="#a8b8a8" stop-opacity="0.35"/><stop offset="100%" stop-color="#d8ddd8" stop-opacity="0"/></radialGradient></defs>
+      <ellipse cx="780" cy="245" rx="480" ry="380" fill="url(#eh1)"/>
+      <rect x="760" y="160" width="260" height="340" rx="6" fill="#c4ccc4" opacity="0.3"/>
+      <rect x="776" y="188" width="160" height="10" rx="2" fill="#b0bab0" opacity="0.5"/>
+      <rect x="776" y="210" width="140" height="7" rx="2" fill="#bec6be" opacity="0.4"/>
+      <rect x="776" y="248" width="172" height="30" rx="3" fill="none" stroke="#86986a" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.4"/>
+      <rect x="776" y="292" width="132" height="24" rx="3" fill="none" stroke="#8a7e70" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.35"/>
+    </svg>
+  </div>
+  <div class="proj-hero-content">
+    <p class="proj-eyebrow">Intuit · EITL Platform · 2023–Present</p>
+    <h1 class="proj-title">
+      <span class="proj-title-line">Expert</span>
+      <span class="proj-title-line"><em>in the</em></span>
+      <span class="proj-title-line">Loop</span>
+    </h1>
+    <p class="proj-tagline">Turning domain expertise into structured data that AI models can actually learn from.</p>
+  </div>
+</section>
+
+<div class="proj-meta">
+  <div class="proj-meta-item"><span class="meta-label">Role</span><p class="meta-val">Product Designer</p></div>
+  <div class="proj-meta-item"><span class="meta-label">Team</span><p class="meta-val">Product, Engineering, Data Science</p></div>
+  <div class="proj-meta-item"><span class="meta-label">Timeline</span><p class="meta-val">2023–Present</p></div>
+  <div class="proj-meta-item"><span class="meta-label">Focus</span><p class="meta-val">Expert Workflow & Annotation Tooling</p></div>
+</div>
+
+<div class="proj-body">
+
+  <div class="proj-section reveal">
+    <p class="section-label">Overview</p>
+    <div>
+      <h2>The <em>Problem</em></h2>
+      <p>AI models are only as good as the data they're trained on. At Intuit, domain experts — tax professionals, financial advisors, small business specialists — hold the judgment that makes a model response accurate or not. The challenge was translating that judgment into a form models could use.</p>
+      <p>EITL is a human-in-the-loop evaluation and training ecosystem. Experts act as labelers and annotators, reviewing outputs, flagging issues, and generating <strong>high-quality datasets</strong> that feed directly into model training and evaluation pipelines. My work focused on designing the tools that make this process consistent, efficient, and scalable.</p>
+      <p>[replace-me] Add your own framing of the problem space here.</p>
+    </div>
+  </div>
+
+  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
+    <div class="gallery">
+      <div class="gallery-item">
+        <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="375" fill="#d4d9d4"/><rect x="60" y="50" width="240" height="300" rx="6" fill="#c0c8c0" opacity="0.55"/><rect x="76" y="78" width="170" height="10" rx="2" fill="#aebaaе" opacity="0.8"/><rect x="76" y="98" width="150" height="7" rx="2" fill="#b8c0b8" opacity="0.6"/><rect x="76" y="114" width="138" height="7" rx="2" fill="#b8c0b8" opacity="0.55"/><rect x="76" y="148" width="148" height="28" rx="3" fill="#9aaa9a" opacity="0.4"/><rect x="76" y="148" width="148" height="28" rx="3" fill="none" stroke="#86986a" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/><rect x="76" y="192" width="118" height="22" rx="3" fill="#a09888" opacity="0.35"/><rect x="76" y="192" width="118" height="22" rx="3" fill="none" stroke="#8a7e70" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/><circle cx="430" cy="180" r="70" fill="#b0bab0" opacity="0.22"/><circle cx="430" cy="162" r="30" fill="#9aaa9a" opacity="0.4"/><path d="M390 210 Q430 186 470 210" fill="#9aaa9a" opacity="0.35"/><path d="M340 188 L388 188" stroke="#9aaa9a" stroke-width="1.5" fill="none" opacity="0.5"/><polygon points="385,184 392,188 385,192" fill="#9aaa9a" opacity="0.5"/></svg>
+        <span class="img-placeholder-label">[replace-me] Annotation interface</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="375" fill="#cdd2cd"/><rect x="50" y="50" width="500" height="56" rx="5" fill="#b8c0b8" opacity="0.5"/><rect x="50" y="120" width="500" height="56" rx="5" fill="#b8c0b8" opacity="0.45"/><rect x="50" y="190" width="500" height="56" rx="5" fill="#9aaa9a" opacity="0.4"/><rect x="50" y="260" width="500" height="56" rx="5" fill="#b8c0b8" opacity="0.38"/><rect x="66" y="68" width="120" height="8" rx="2" fill="#a0aaa0" opacity="0.7"/><rect x="66" y="138" width="160" height="8" rx="2" fill="#a0aaa0" opacity="0.65"/><rect x="66" y="208" width="100" height="8" rx="2" fill="#7a8a7a" opacity="0.65"/><rect x="66" y="278" width="140" height="8" rx="2" fill="#a0aaa0" opacity="0.6"/><rect x="480" y="62" width="52" height="22" rx="3" fill="#7a8a7a" opacity="0.4"/><rect x="480" y="132" width="52" height="22" rx="3" fill="#7a8a7a" opacity="0.35"/><rect x="480" y="202" width="52" height="22" rx="3" fill="#5e6e5e" opacity="0.5"/><rect x="480" y="272" width="52" height="22" rx="3" fill="#7a8a7a" opacity="0.3"/></svg>
+        <span class="img-placeholder-label">[replace-me] Task queue</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section reveal">
+    <p class="section-label">Role & Process</p>
+    <div>
+      <h2>How I <em>Worked</em></h2>
+      <p>I designed expert-facing workflows from the ground up — starting with deep sessions with the domain experts themselves to understand how they reason, what slows them down, and where inconsistency crept into their labeling. This shaped every interaction pattern in the tooling.</p>
+      <p>My work covered the full annotation surface: task queue design, label selection interfaces, qualitative input forms, and evaluation review flows. I partnered closely with data science to ensure the outputs matched what the training pipeline needed, and with engineering to keep implementation feasible.</p>
+      <p>[replace-me] Add specifics about your research methods, co-design sessions, or prototyping process.</p>
+    </div>
+  </div>
+
+  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
+    <div class="process-steps">
+      <div class="process-step">
+        <p class="step-num">01</p>
+        <p class="step-title">Expert Research</p>
+        <p class="step-desc">[replace-me] How did you learn how experts think and annotate? What surprised you?</p>
+      </div>
+      <div class="process-step" style="background: #e2e6e2;">
+        <p class="step-num">02</p>
+        <p class="step-title">Workflow Design</p>
+        <p class="step-desc">[replace-me] How did you structure the annotation flow? What were the key design constraints?</p>
+      </div>
+      <div class="process-step">
+        <p class="step-num">03</p>
+        <p class="step-title">Validation</p>
+        <p class="step-desc">[replace-me] How did you test for consistency and quality in the outputs?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
+    <div class="gallery thirds">
+      <div class="gallery-item tall">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#d4d9d4"/><rect x="40" y="50" width="320" height="400" rx="6" fill="#c0c8c0" opacity="0.5"/><rect x="56" y="78" width="180" height="10" rx="2" fill="#aebааe" opacity="0.8"/><rect x="56" y="120" width="288" height="70" rx="4" fill="#9aaa9a" opacity="0.35"/><rect x="56" y="120" width="288" height="70" rx="4" fill="none" stroke="#86986a" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/><rect x="56" y="210" width="288" height="50" rx="4" fill="#b0bab0" opacity="0.3"/><rect x="56" y="276" width="288" height="50" rx="4" fill="#b0bab0" opacity="0.28"/><rect x="56" y="370" width="140" height="36" rx="4" fill="#7a8a7a" opacity="0.4"/></svg>
+        <span class="img-placeholder-label">[replace-me] Label UI</span>
+      </div>
+      <div class="gallery-item tall">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#cdd2cd"/><rect x="40" y="60" width="320" height="380" rx="6" fill="#b8c0b8" opacity="0.4"/><rect x="56" y="88" width="200" height="9" rx="2" fill="#a0aaa0" opacity="0.7"/><rect x="56" y="130" width="288" height="7" rx="2" fill="#b8c0b8" opacity="0.55"/><rect x="56" y="146" width="260" height="7" rx="2" fill="#b8c0b8" opacity="0.5"/><rect x="56" y="162" width="270" height="7" rx="2" fill="#b8c0b8" opacity="0.45"/><rect x="56" y="196" width="160" height="28" rx="3" fill="#9aaa9a" opacity="0.4"/><rect x="226" y="196" width="100" height="28" rx="3" fill="#b0bab0" opacity="0.35"/><rect x="56" y="260" width="288" height="7" rx="2" fill="#b8c0b8" opacity="0.4"/><rect x="56" y="276" width="220" height="7" rx="2" fill="#b8c0b8" opacity="0.35"/></svg>
+        <span class="img-placeholder-label">[replace-me] Review flow</span>
+      </div>
+      <div class="gallery-item tall">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#d4d9d4"/><circle cx="200" cy="200" r="100" fill="#b0bab0" opacity="0.2"/><circle cx="200" cy="200" r="68" fill="#9aaa9a" opacity="0.28"/><circle cx="200" cy="200" r="36" fill="#7a8a7a" opacity="0.45"/><rect x="40" y="340" width="320" height="8" rx="2" fill="#a0aaa0" opacity="0.45"/><rect x="40" y="358" width="260" height="7" rx="2" fill="#b0bab0" opacity="0.4"/><rect x="40" y="380" width="200" height="28" rx="3" fill="#9aaa9a" opacity="0.35"/></svg>
+        <span class="img-placeholder-label">[replace-me] Quality metrics</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section reveal">
+    <p class="section-label">Key Decisions</p>
+    <div>
+      <h2>Design <em>Choices</em></h2>
+      <div class="decisions">
+        <div class="decision">
+          <p class="decision-tag">Annotation model</p>
+          <div class="decision-text">
+            <h4>[replace-me] Decision title</h4>
+            <p>[replace-me] What was the decision, why did you make it, and what was the tradeoff?</p>
+          </div>
+        </div>
+        <div class="decision">
+          <p class="decision-tag">Consistency</p>
+          <div class="decision-text">
+            <h4>[replace-me] Decision title</h4>
+            <p>[replace-me] What was the decision, why did you make it, and what was the tradeoff?</p>
+          </div>
+        </div>
+        <div class="decision">
+          <p class="decision-tag">Expert fatigue</p>
+          <div class="decision-text">
+            <h4>[replace-me] Decision title</h4>
+            <p>[replace-me] What was the decision, why did you make it, and what was the tradeoff?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section reveal">
+    <p class="section-label">Outcomes</p>
+    <div>
+      <h2>Impact & <em>Results</em></h2>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><p class="outcome-num">[—]</p><p class="outcome-label">[replace-me] Metric</p></div>
+        <div class="outcome-card"><p class="outcome-num">[—]</p><p class="outcome-label">[replace-me] Metric</p></div>
+        <div class="outcome-card"><p class="outcome-num">[—]</p><p class="outcome-label">[replace-me] Metric</p></div>
+      </div>
+      <p>[replace-me] Describe outcomes: model performance improvements, expert throughput, annotation quality gains, or qualitative wins.</p>
+    </div>
+  </div>
+
+</div>
+
+<div style="padding: 64px; border-top: 1px solid var(--border);">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:4px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--accent-dark)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to all work
+  </a>
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+  const tl = gsap.timeline({ delay: 0.1 });
+  tl.to('.proj-eyebrow', { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.3)
+    .to('.proj-title-line', { opacity: 1, y: 0, duration: 1.0, stagger: 0.12, ease: 'power3.out' }, 0.5)
+    .to('.proj-tagline', { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0)
+    .to('.proj-meta', { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.2);
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 83%', once: true } });
+  });
+</script>
 </body>
 </html>

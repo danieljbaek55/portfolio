@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Evidence Archive — Daniel J. Baek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f3f0; --bg-warm: #edeae4; --text: #2a2725; --text-muted: #7a746e;
+    --accent: #b5a49a; --accent-dark: #7a6a62; --charcoal: #595550; --border: #ddd8d2;
+    --font-display: 'Cormorant Garamond', Georgia, serif; --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 30px 64px; transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s; border-bottom: 1px solid transparent; }
+  nav.scrolled { background: rgba(245,243,240,0.94); backdrop-filter: blur(14px); padding: 18px 64px; border-bottom-color: var(--border); }
+  .nav-back { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--text); }
+  .nav-back svg { transition: transform 0.2s ease; }
+  .nav-back:hover svg { transform: translateX(-4px); }
+  .nav-name { font-family: var(--font-display); font-size: 17px; font-weight: 400; letter-spacing: 0.03em; color: var(--text); text-decoration: none; }
+  .proj-hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 64px 80px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .proj-hero-bg { position: absolute; inset: 0; z-index: 0; }
+  .proj-hero-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .proj-hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .proj-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 24px; opacity: 0; }
+  .proj-title { font-family: var(--font-display); font-size: clamp(56px, 8vw, 112px); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px; }
+  .proj-title em { font-style: italic; color: var(--accent-dark); }
+  .proj-title-line { display: block; opacity: 0; transform: translateY(50px); }
+  .proj-tagline { font-size: clamp(15px, 1.4vw, 17px); font-weight: 300; color: var(--text-muted); max-width: 520px; line-height: 1.65; opacity: 0; }
+  .proj-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); opacity: 0; }
+  .proj-meta-item { padding: 32px 40px; border-right: 1px solid var(--border); }
+  .proj-meta-item:last-child { border-right: none; }
+  .meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+  .meta-val { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .proj-body { max-width: 1200px; margin: 0 auto; }
+  .proj-section { padding: 100px 64px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 280px 1fr; gap: 80px; }
+  .proj-section.full { grid-template-columns: 1fr; }
+  .section-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-dark); padding-top: 6px; }
+  .proj-section h2 { font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 24px; }
+  .proj-section h2 em { font-style: italic; color: var(--accent-dark); }
+  .proj-section p { font-size: 16px; line-height: 1.85; color: var(--text-muted); margin-bottom: 20px; }
+  .proj-section p:last-child { margin-bottom: 0; }
+  .proj-section p strong { color: var(--text); font-weight: 400; }
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .gallery.thirds { grid-template-columns: 1fr 1fr 1fr; }
+  .gallery-item { aspect-ratio: 16/10; background: var(--bg-warm); position: relative; overflow: hidden; }
+  .gallery-item.tall { aspect-ratio: 4/5; }
+  .gallery-item svg { width: 100%; height: 100%; position: absolute; inset: 0; }
+  .img-placeholder-label { position: absolute; bottom: 16px; left: 20px; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); background: rgba(245,243,240,0.85); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 2px; border: 1px solid var(--border); }
+  .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .process-step { background: var(--bg-warm); padding: 40px 36px; }
+  .step-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 16px; }
+  .step-title { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
+  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .decisions { display: flex; flex-direction: column; }
+  .decision { padding: 36px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
+  .decision:first-child { padding-top: 0; }
+  .decision:last-child { border-bottom: none; padding-bottom: 0; }
+  .decision-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); padding-top: 4px; }
+  .decision-text h4 { font-family: var(--font-display); font-size: 22px; font-weight: 300; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .decision-text p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
+  .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 48px; }
+  .outcome-card { background: var(--bg-warm); padding: 40px 36px; }
+  .outcome-num { font-family: var(--font-display); font-size: 52px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 8px; }
+  .outcome-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .reveal { opacity: 0; transform: translateY(24px); }
+  @media (max-width: 900px) {
+    nav, nav.scrolled { padding: 20px 28px; }
+    .proj-hero { padding: 0 28px 60px; }
+    .proj-meta { grid-template-columns: 1fr 1fr; }
+    .proj-meta-item:nth-child(2) { border-right: none; }
+    .proj-section { grid-template-columns: 1fr; gap: 24px; padding: 60px 28px; }
+    .gallery, .gallery.thirds { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: 1fr 1fr; }
+    .decision { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Portfolio
+  </a>
+  <a href="index.html" class="nav-name">Daniel J. Baek</a>
+</nav>
+
+<section class="proj-hero">
+  <div class="proj-hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <rect width="1200" height="700" fill="#d8d6d0"/>
+      <defs><radialGradient id="dh1" cx="60%" cy="40%" r="55%"><stop offset="0%" stop-color="#b8b4ae" stop-opacity="0.3"/><stop offset="100%" stop-color="#d8d6d0" stop-opacity="0"/></radialGradient></defs>
+      <ellipse cx="720" cy="280" rx="480" ry="380" fill="url(#dh1)"/>
+      <rect x="680" y="120" width="110" height="100" rx="4" fill="#c4c0ba" opacity="0.28"/>
+      <rect x="810" y="120" width="110" height="100" rx="4" fill="#bcb8b2" opacity="0.24"/>
+      <rect x="680" y="240" width="110" height="100" rx="4" fill="#bcb8b2" opacity="0.22"/>
+      <rect x="810" y="240" width="110" height="100" rx="4" fill="#c4c0ba" opacity="0.24"/>
+      <rect x="680" y="380" width="240" height="56" rx="5" fill="#b4b0aa" opacity="0.2"/>
+    </svg>
+  </div>
+  <div class="proj-hero-content">
+    <p class="proj-eyebrow">Amazon · Open Source · Global Law Enforcement</p>
+    <h1 class="proj-title">
+      <span class="proj-title-line">Digital</span>
+      <span class="proj-title-line"><em>Evidence</em></span>
+      <span class="proj-title-line">Archive</span>
+    </h1>
+    <p class="proj-tagline">An open-source application for global police agencies to store and manage digital evidence, built from research to release.</p>
+  </div>
+</section>
+
+<div class="proj-meta">
+  <div class="proj-meta-item"><span class="meta-label">Role</span><p class="meta-val">Lead Designer</p></div>
+  <div class="proj-meta-item"><span class="meta-label">Company</span><p class="meta-val">Amazon</p></div>
+  <div class="proj-meta-item"><span class="meta-label">Release</span><p class="meta-val">Open Source</p></div>
+  <div class="proj-meta-item"><span class="meta-label">Users</span><p class="meta-val">Global Law Enforcement</p></div>
+</div>
+
+<div class="proj-body">
+
+  <div class="proj-section reveal">
+    <p class="section-label">Overview</p>
+    <div>
+      <h2>The <em>Problem</em></h2>
+      <p>Police agencies worldwide lacked a standardized, accessible system for storing and managing digital evidence. Existing tools were proprietary, expensive, or misaligned with the workflows of law enforcement personnel. The result was fragmented evidence handling and accessibility gaps that had real implications for case integrity.</p>
+      <p>The Digital Evidence Archive is an <strong>open-source application</strong> that gives global agencies a purpose-built system for digital evidence management. I led the design from the earliest research phase through a successful implementation, working in close collaboration with software developers, TPMs, and specialists in research, design, and accessibility.</p>
+    </div>
+  </div>
+
+  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
+    <div class="gallery">
+      <div class="gallery-item">
+        <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="375" fill="#d4d2cc"/><rect x="50" y="50" width="500" height="270" rx="6" fill="#c4c0ba" opacity="0.45"/><rect x="50" y="50" width="500" height="36" rx="6" fill="#b4b0aa" opacity="0.5"/><rect x="66" y="68" width="100" height="8" rx="2" fill="#a4a09a" opacity="0.7"/><rect x="66" y="110" width="120" height="100" rx="4" fill="#bcb8b2" opacity="0.5"/><rect x="206" y="110" width="120" height="100" rx="4" fill="#bcb8b2" opacity="0.45"/><rect x="346" y="110" width="120" height="100" rx="4" fill="#bcb8b2" opacity="0.4"/><rect x="66" y="222" width="80" height="22" rx="3" fill="#a4a09a" opacity="0.4"/><text x="73" y="237" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.7">EV-001</text><rect x="206" y="222" width="80" height="22" rx="3" fill="#a4a09a" opacity="0.38"/><text x="213" y="237" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.65">EV-002</text><rect x="346" y="222" width="80" height="22" rx="3" fill="#a4a09a" opacity="0.35"/><text x="353" y="237" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.6">EV-003</text></svg>
+        <span class="img-placeholder-label">[replace-me] Evidence grid view</span>
+      </div>
+      <div class="gallery-item">
+        <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="375" fill="#cccac4"/><rect x="50" y="50" width="200" height="270" rx="6" fill="#bcb8b2" opacity="0.45"/><rect x="66" y="78" width="100" height="9" rx="2" fill="#a4a09a" opacity="0.7"/><rect x="66" y="102" width="168" height="7" rx="2" fill="#b8b4ae" opacity="0.6"/><rect x="66" y="118" width="140" height="7" rx="2" fill="#b8b4ae" opacity="0.55"/><rect x="66" y="146" width="168" height="7" rx="2" fill="#b8b4ae" opacity="0.5"/><rect x="66" y="160" width="120" height="7" rx="2" fill="#b8b4ae" opacity="0.45"/><rect x="66" y="186" width="168" height="36" rx="3" fill="#a4a09a" opacity="0.35"/><rect x="270" y="50" width="280" height="270" rx="6" fill="#c4c0ba" opacity="0.4"/><rect x="286" y="78" width="200" height="9" rx="2" fill="#a4a09a" opacity="0.65"/><rect x="286" y="110" width="248" height="7" rx="2" fill="#b8b4ae" opacity="0.55"/><rect x="286" y="126" width="200" height="7" rx="2" fill="#b8b4ae" opacity="0.5"/><rect x="286" y="166" width="248" height="60" rx="4" fill="#b0aca6" opacity="0.35"/></svg>
+        <span class="img-placeholder-label">[replace-me] Evidence detail view</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section reveal">
+    <p class="section-label">Role & Process</p>
+    <div>
+      <h2>How I <em>Worked</em></h2>
+      <p>This project demanded a rigorous research foundation. Law enforcement workflows are complex, high-stakes, and vary significantly across jurisdictions. I conducted research with personnel across agencies, developing personas and journey maps that captured the range of use cases and user needs.</p>
+      <p>From research, I moved into wireframes and iterative prototyping, with <strong>accessibility as a first-class constraint</strong> throughout. I produced detailed accessibility annotations alongside every design artifact, and validated each with specialists to ensure the final product met WCAG 2.1 standards. Collaboration with software developers and TPMs was continuous — this was a product that had to ship correctly.</p>
+    </div>
+  </div>
+
+  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
+    <div class="process-steps">
+      <div class="process-step">
+        <p class="step-num">01</p>
+        <p class="step-title">Research</p>
+        <p class="step-desc">Interviewed law enforcement personnel across agencies, built personas and journey maps to ground every design decision in real workflows.</p>
+      </div>
+      <div class="process-step" style="background: #e2e0da;">
+        <p class="step-num">02</p>
+        <p class="step-title">Design & Accessibility</p>
+        <p class="step-desc">Produced wireframes with full accessibility annotations, validated against WCAG 2.1 in partnership with accessibility specialists.</p>
+      </div>
+      <div class="process-step">
+        <p class="step-num">03</p>
+        <p class="step-title">Delivery</p>
+        <p class="step-desc">Collaborated closely with engineering and TPMs through to implementation, ensuring design intent was preserved in the final shipped product.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
+    <div class="gallery thirds">
+      <div class="gallery-item tall">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#d4d2cc"/><rect x="40" y="50" width="320" height="400" rx="6" fill="#c4c0ba" opacity="0.45"/><rect x="56" y="78" width="180" height="10" rx="2" fill="#a4a09a" opacity="0.7"/><rect x="56" y="110" width="288" height="120" rx="4" fill="#bcb8b2" opacity="0.4"/><rect x="56" y="246" width="288" height="50" rx="3" fill="#b4b0aa" opacity="0.35"/><rect x="56" y="312" width="288" height="50" rx="3" fill="#b4b0aa" opacity="0.3"/><rect x="56" y="390" width="120" height="36" rx="4" fill="#9a9690" opacity="0.4"/></svg>
+        <span class="img-placeholder-label">[replace-me] Wireframe</span>
+      </div>
+      <div class="gallery-item tall">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#cccac4"/><rect x="40" y="60" width="320" height="380" rx="6" fill="#bcb8b2" opacity="0.4"/><circle cx="76" cy="114" r="14" fill="none" stroke="#9a9690" stroke-width="1.5" opacity="0.7"/><text x="69" y="120" font-size="12" fill="#6a6662" opacity="0.75">♿</text><rect x="100" y="104" width="200" height="9" rx="2" fill="#a4a09a" opacity="0.6"/><rect x="100" y="122" width="160" height="7" rx="2" fill="#b8b4ae" opacity="0.5"/><rect x="56" y="160" width="288" height="7" rx="2" fill="#b8b4ae" opacity="0.45"/><rect x="56" y="176" width="240" height="7" rx="2" fill="#b8b4ae" opacity="0.4"/><rect x="56" y="192" width="260" height="7" rx="2" fill="#b8b4ae" opacity="0.38"/><rect x="56" y="230" width="288" height="50" rx="4" fill="#b0aca6" opacity="0.3"/><rect x="56" y="296" width="288" height="50" rx="4" fill="#b0aca6" opacity="0.28"/></svg>
+        <span class="img-placeholder-label">[replace-me] Accessibility annotations</span>
+      </div>
+      <div class="gallery-item tall">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#d4d2cc"/><circle cx="200" cy="180" r="90" fill="#b4b0aa" opacity="0.2"/><circle cx="200" cy="180" r="60" fill="#a4a09a" opacity="0.25"/><circle cx="200" cy="180" r="30" fill="#9a9690" opacity="0.4"/><circle cx="310" cy="120" r="20" fill="#b0aca6" opacity="0.22"/><circle cx="110" cy="270" r="16" fill="#b0aca6" opacity="0.2"/><circle cx="316" cy="260" r="14" fill="#b0aca6" opacity="0.18"/><line x1="200" y1="120" x2="308" y2="124" stroke="#9a9690" stroke-width="1" opacity="0.35"/><line x1="200" y1="238" x2="112" y2="266" stroke="#9a9690" stroke-width="1" opacity="0.35"/><line x1="200" y1="236" x2="312" y2="256" stroke="#9a9690" stroke-width="1" opacity="0.3"/><text x="56" y="390" font-family="Georgia" font-size="10" fill="#6a6662" letter-spacing="2" opacity="0.5">GLOBAL ADOPTION</text><rect x="56" y="400" width="100" height="4" rx="2" fill="#9a9690" opacity="0.4"/><rect x="56" y="400" width="280" height="4" rx="2" fill="#b4b0aa" opacity="0.25"/></svg>
+        <span class="img-placeholder-label">[replace-me] Persona map</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section reveal">
+    <p class="section-label">Key Decisions</p>
+    <div>
+      <h2>Design <em>Choices</em></h2>
+      <div class="decisions">
+        <div class="decision">
+          <p class="decision-tag">Accessibility first</p>
+          <div class="decision-text">
+            <h4>Treating WCAG compliance as a design constraint, not a checklist</h4>
+            <p>Accessibility was built into every artifact from day one rather than validated at the end. This changed the way I structured information hierarchy, color usage, and interactive states throughout the product.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <p class="decision-tag">Open source design</p>
+          <div class="decision-text">
+            <h4>[replace-me] How did designing for open source change your approach?</h4>
+            <p>[replace-me] The product needed to work across many agencies and contexts. How did you design for that flexibility?</p>
+          </div>
+        </div>
+        <div class="decision">
+          <p class="decision-tag">Research synthesis</p>
+          <div class="decision-text">
+            <h4>[replace-me] How did you translate law enforcement research into design decisions?</h4>
+            <p>[replace-me] What was the most surprising thing you learned from personnel, and how did it shape the product?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-section reveal">
+    <p class="section-label">Outcomes</p>
+    <div>
+      <h2>Impact & <em>Results</em></h2>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><p class="outcome-num">Global</p><p class="outcome-label">Police agency adoption</p></div>
+        <div class="outcome-card"><p class="outcome-num">Open</p><p class="outcome-label">Source release</p></div>
+        <div class="outcome-card"><p class="outcome-num">WCAG</p><p class="outcome-label">2.1 compliant</p></div>
+      </div>
+      <p>[replace-me] Describe the adoption story: which agencies, what the rollout looked like, and what feedback came back from users in the field.</p>
+    </div>
+  </div>
+
+</div>
+
+<div style="padding: 64px; border-top: 1px solid var(--border);">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:4px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--accent-dark)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to all work
+  </a>
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+  const tl = gsap.timeline({ delay: 0.1 });
+  tl.to('.proj-eyebrow', { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.3)
+    .to('.proj-title-line', { opacity: 1, y: 0, duration: 1.0, stagger: 0.12, ease: 'power3.out' }, 0.5)
+    .to('.proj-tagline', { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0)
+    .to('.proj-meta', { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.2);
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 83%', once: true } });
+  });
+</script>
+</body>
+</html>

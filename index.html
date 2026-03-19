@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel J. Baek, Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f3f0;
+    --bg-warm: #edeae4;
+    --text: #2a2725;
+    --text-muted: #7a746e;
+    --accent: #b5a49a;
+    --accent-dark: #7a6a62;
+    --charcoal: #595550;
+    --border: #ddd8d2;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 30px 64px;
+    transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(245,243,240,0.94);
+    backdrop-filter: blur(14px);
+    padding: 18px 64px;
+    border-bottom-color: var(--border);
+  }
+  .nav-name {
+    font-family: var(--font-display);
+    font-size: 17px; font-weight: 400; letter-spacing: 0.03em;
+    color: var(--text); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 64px 88px;
+    position: relative; overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 55%; z-index: 0; pointer-events: none;
+  }
+  .hero-orb svg { width: 100%; height: 100%; }
+  .hero-content { position: relative; z-index: 1; max-width: 860px; }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent-dark); margin-bottom: 26px;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(60px, 9vw, 128px);
+    font-weight: 300; line-height: 0.9;
+    letter-spacing: -0.02em; margin-bottom: 36px;
+  }
+  .hero-name-line { display: block; transform: translateY(0); }
+  .hero-name em { font-style: italic; color: var(--accent-dark); }
+  .hero-tagline {
+    font-size: clamp(15px, 1.4vw, 17px); font-weight: 300;
+    color: var(--text-muted); max-width: 480px; line-height: 1.65;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 88px; right: 64px;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .hero-scroll span {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-muted); writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 56px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    48%  { transform: scaleY(1); transform-origin: top; }
+    52%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ABOUT */
+  #about {
+    padding: 140px 64px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    border-top: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent-dark); margin-bottom: 36px;
+  }
+  .about-left h2 {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 4vw, 58px); font-weight: 300;
+    line-height: 1.1; letter-spacing: -0.01em;
+  }
+  .about-left h2 em { font-style: italic; color: var(--accent-dark); }
+  .about-right { padding-top: 64px; }
+  .about-bio {
+    font-size: 16px; line-height: 1.85;
+    color: var(--text-muted); margin-bottom: 44px;
+  }
+  .about-bio strong { color: var(--text); font-weight: 400; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px;
+    border-top: 1px solid var(--border); padding-top: 36px;
+  }
+  .about-item-label {
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px; display: block;
+  }
+  .about-item-val { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+  /* WORK */
+  #work { border-top: 1px solid var(--border); }
+  .work-header {
+    padding: 80px 64px 80px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .work-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 54px); font-weight: 300; letter-spacing: -0.01em;
+  }
+  .work-count { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* Project rows */
+  .project {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border);
+    min-height: 580px; overflow: hidden;
+  }
+  .project:nth-child(even) .project-media { order: 2; }
+  .project:nth-child(even) .project-info  { order: 1; }
+
+  .project-media {
+    position: relative; overflow: hidden;
+    background: var(--bg-warm);
+  }
+  .proj-svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    transition: transform 0.9s ease;
+  }
+  .project-media:hover .proj-svg { transform: scale(1.03); }
+
+  .project-chip {
+    position: absolute; top: 24px; left: 24px;
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-muted);
+    background: rgba(245,243,240,0.88); backdrop-filter: blur(8px);
+    padding: 6px 14px; border-radius: 2px;
+    border: 1px solid var(--border);
+  }
+
+  .project-info {
+    padding: 72px 68px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .proj-num {
+    font-family: var(--font-display); font-size: 13px;
+    color: var(--accent); margin-bottom: 18px; letter-spacing: 0.08em;
+  }
+  .proj-title {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3vw, 48px); font-weight: 300;
+    line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 10px;
+  }
+  .proj-title em { font-style: italic; color: var(--accent-dark); }
+  .proj-company {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-dark); margin-bottom: 26px;
+  }
+  .proj-desc {
+    font-size: 15px; line-height: 1.78; color: var(--text-muted);
+    margin-bottom: 28px; max-width: 380px;
+  }
+  .proj-role {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--charcoal); margin-bottom: 32px;
+  }
+  .proj-stats {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    border-top: 1px solid var(--border); padding-top: 28px; margin-top: auto;
+  }
+  .stat strong {
+    display: block; font-family: var(--font-display);
+    font-size: 34px; font-weight: 300; line-height: 1; margin-bottom: 4px;
+  }
+  .stat span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .proj-note { font-size: 12px; color: var(--accent); font-style: italic; margin-top: 14px; }
+
+  .proj-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 28px; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px;
+    transition: border-color 0.2s, color 0.2s;
+    width: fit-content;
+  }
+  .proj-link:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+  .proj-link svg { transition: transform 0.2s ease; }
+  .proj-link:hover svg { transform: translateX(4px); }
+
+  /* CONTACT */
+  #contact {
+    padding: 140px 64px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+    border-top: 1px solid var(--border);
+  }
+  .contact-left h2 {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 96px); font-weight: 300;
+    line-height: 0.96; letter-spacing: -0.02em; margin-bottom: 36px;
+  }
+  .contact-left h2 em { font-style: italic; color: var(--accent-dark); }
+  .contact-email {
+    display: inline-block; font-size: 16px;
+    color: var(--text); text-decoration: none;
+    border-bottom: 1px solid var(--accent); padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-email:hover { color: var(--accent-dark); border-color: var(--accent-dark); }
+  .contact-right p {
+    font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 36px;
+  }
+  .contact-links { display: flex; flex-direction: column; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    text-decoration: none; color: var(--text-muted);
+    font-size: 13px; letter-spacing: 0.06em;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--text); }
+  .cl-label {
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); width: 72px; flex-shrink: 0;
+  }
+  .cl-arrow { margin-left: auto; opacity: 0.35; flex-shrink: 0; }
+
+  footer {
+    padding: 28px 64px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+  /* reveal base state */
+  .reveal { }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav, nav.scrolled { padding: 20px 28px; }
+    #hero { padding: 0 28px 64px; }
+    .hero-scroll { right: 28px; }
+    .hero-orb { width: 80%; opacity: 0.5; }
+    #about { grid-template-columns: 1fr; gap: 40px; padding: 80px 28px; }
+    .about-right { padding-top: 0; }
+    .work-header { padding: 60px 28px 50px; }
+    .project { grid-template-columns: 1fr; min-height: auto; }
+    .project:nth-child(even) .project-media { order: 1; }
+    .project:nth-child(even) .project-info  { order: 2; }
+    .project-media { min-height: 280px; }
+    .project-info { padding: 40px 28px; }
+    #contact { grid-template-columns: 1fr; padding: 80px 28px; }
+    footer { padding: 20px 28px; flex-direction: column; gap: 6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-name">Daniel J. Baek</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Soft organic orb background -->
+  <div class="hero-orb" aria-hidden="true">
+    <svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="orb1" cx="50%" cy="40%" r="55%">
+          <stop offset="0%"   stop-color="#c9b99a" stop-opacity="0.22"/>
+          <stop offset="60%"  stop-color="#b5a49a" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#f5f3f0" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="orb2" cx="40%" cy="70%" r="45%">
+          <stop offset="0%"   stop-color="#a8b0a8" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#f5f3f0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="340" cy="340" rx="340" ry="400" fill="url(#orb1)"/>
+      <ellipse cx="260" cy="640" rx="280" ry="300" fill="url(#orb2)"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Sr. Product Designer · Intuit · San Diego, CA</p>
+    <h1 class="hero-name">
+      <span class="hero-name-line">Designing</span>
+      <span class="hero-name-line">where <em>human</em></span>
+      <span class="hero-name-line">meets <em>machine.</em></span>
+    </h1>
+    <p class="hero-tagline">I build AI-powered tools that honor the expertise of the people who use them, from enterprise platforms to open-source public infrastructure.</p>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <p class="section-label">About</p>
+    <h2>Daniel<br>Baek.<br><em>Designer &<br>Co-creator.</em></h2>
+  </div>
+  <div class="about-right reveal">
+    <p class="about-bio">
+      I believe in designing for <strong>function</strong>: systems that integrate seamlessly into user workflows at a fundamental level, not ones that demand behavioral change. My practice is built on <strong>co-creation with users</strong>, leaning on their domain expertise to surface the experiences worth building.
+      <br><br>
+      I believe the craft of design is evolving. I actively leverage AI tools to expedite idea generation, synthesis, and prototype creation, reserving deep craft skills for refinement, judgment, and the nuance that makes work land.
+    </p>
+    <div class="about-grid">
+      <div>
+        <span class="about-item-label">Currently</span>
+        <p class="about-item-val">Sr. Product Designer<br>Intuit Innovation</p>
+      </div>
+      <div>
+        <span class="about-item-label">Focus</span>
+        <p class="about-item-val">AI Systems<br>Human-in-the-Loop UX</p>
+      </div>
+      <div>
+        <span class="about-item-label">Previously</span>
+        <p class="about-item-val">Amazon</p>
+      </div>
+      <div>
+        <span class="about-item-label">Approach</span>
+        <p class="about-item-val">Co-design<br>Expert-driven systems</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header">
+    <h2 class="reveal">Selected Work</h2>
+    <span class="work-count reveal">04 Projects</span>
+  </div>
+
+  <!-- 01 ATLAS -->
+  <article class="project">
+    <div class="project-media">
+      <!-- [replace-me] swap src with your Atlas project image/video -->
+      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Atlas project placeholder">
+        <rect width="700" height="580" fill="#e2dcd4"/>
+        <defs>
+          <radialGradient id="a1" cx="60%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#c8bfb3" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#e2dcd4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="480" cy="240" rx="240" ry="220" fill="url(#a1)"/>
+        <!-- Screen capture metaphor -->
+        <rect x="70" y="90" width="340" height="230" rx="8" fill="#ccc4ba" opacity="0.55"/>
+        <rect x="70" y="90" width="340" height="28" rx="8" fill="#b8afa4" opacity="0.7"/>
+        <circle cx="90"  cy="104" r="5" fill="#d8d0c8" opacity="0.8"/>
+        <circle cx="108" cy="104" r="5" fill="#d8d0c8" opacity="0.8"/>
+        <circle cx="126" cy="104" r="5" fill="#d8d0c8" opacity="0.8"/>
+        <rect x="86" y="138" width="180" height="9" rx="3" fill="#c4bbb0" opacity="0.8"/>
+        <rect x="86" y="156" width="240" height="7" rx="2" fill="#ccc4ba" opacity="0.6"/>
+        <rect x="86" y="170" width="210" height="7" rx="2" fill="#ccc4ba" opacity="0.5"/>
+        <rect x="86" y="184" width="160" height="7" rx="2" fill="#ccc4ba" opacity="0.4"/>
+        <!-- Skill nodes -->
+        <circle cx="510" cy="200" r="50" fill="#b8aea4" opacity="0.3"/>
+        <circle cx="510" cy="200" r="34" fill="#aa9e94" opacity="0.4"/>
+        <circle cx="510" cy="200" r="18" fill="#9a8e84" opacity="0.7"/>
+        <line x1="410" y1="210" x2="478" y2="203" stroke="#9a8e84" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="580" cy="280" r="20" fill="#b0a69c" opacity="0.35"/>
+        <circle cx="455" cy="295" r="16" fill="#b0a69c" opacity="0.3"/>
+        <line x1="510" y1="233" x2="574" y2="274" stroke="#9a8e84" stroke-width="1" opacity="0.35"/>
+        <line x1="510" y1="233" x2="458" y2="290" stroke="#9a8e84" stroke-width="1" opacity="0.35"/>
+        <!-- Waveform transcript -->
+        <g transform="translate(70,390)" opacity="0.45">
+          <rect x="0"   y="22" width="5" height="16" rx="2" fill="#8a8078"/>
+          <rect x="12"  y="10" width="5" height="40" rx="2" fill="#8a8078"/>
+          <rect x="24"  y="16" width="5" height="28" rx="2" fill="#8a8078"/>
+          <rect x="36"  y="4"  width="5" height="52" rx="2" fill="#8a8078"/>
+          <rect x="48"  y="18" width="5" height="24" rx="2" fill="#8a8078"/>
+          <rect x="60"  y="12" width="5" height="36" rx="2" fill="#8a8078"/>
+          <rect x="72"  y="24" width="5" height="12" rx="2" fill="#8a8078"/>
+          <rect x="84"  y="8"  width="5" height="44" rx="2" fill="#8a8078"/>
+          <rect x="96"  y="20" width="5" height="20" rx="2" fill="#8a8078"/>
+          <rect x="108" y="14" width="5" height="32" rx="2" fill="#8a8078"/>
+          <rect x="120" y="6"  width="5" height="48" rx="2" fill="#8a8078"/>
+          <rect x="132" y="22" width="5" height="16" rx="2" fill="#8a8078"/>
+        </g>
+        <text x="70" y="490" font-family="Georgia,serif" font-size="11" fill="#7a7068" letter-spacing="4" opacity="0.5">ATLAS · INTUIT INNOVATION</text>
+      </svg>
+      <span class="project-chip">Innovation · 2024–Present</span>
+    </div>
+    <div class="project-info">
+      <p class="proj-num">01</p>
+      <h3 class="proj-title"><em>Atlas</em><br>Behavior Learning</h3>
+      <p class="proj-company">Intuit · Innovation Team</p>
+      <p class="proj-desc">A behavior learning capability that captures screen and transcript data to create reusable skills, enabling domain experts to encode their expertise and deploy it across Intuit's internal AI platform at scale.</p>
+      <p class="proj-role">Lead Product Designer</p>
+      <div class="proj-stats">
+        <div class="stat"><strong>Lead</strong><span>Designer on project</span></div>
+        <div class="stat"><strong>AI‑First</strong><span>Interaction model</span></div>
+      </div>
+      <p class="proj-note">[replace-me] Swap SVG for your project screenshots when ready</p>
+      <a href="atlas.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </article>
+
+  <!-- 02 EITL -->
+  <article class="project">
+    <div class="project-media">
+      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="EITL project placeholder">
+        <rect width="700" height="580" fill="#d8ddd8"/>
+        <defs>
+          <radialGradient id="e1" cx="30%" cy="60%" r="55%">
+            <stop offset="0%" stop-color="#a8b8a8" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#d8ddd8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="200" cy="360" rx="260" ry="240" fill="url(#e1)"/>
+        <!-- Document -->
+        <rect x="100" y="80" width="260" height="340" rx="6" fill="#c4ccc4" opacity="0.55"/>
+        <rect x="116" y="108" width="228" height="12" rx="2" fill="#b0bab0" opacity="0.8"/>
+        <rect x="116" y="130" width="200" height="7" rx="2" fill="#bec6be" opacity="0.6"/>
+        <rect x="116" y="146" width="188" height="7" rx="2" fill="#bec6be" opacity="0.55"/>
+        <rect x="116" y="162" width="210" height="7" rx="2" fill="#bec6be" opacity="0.5"/>
+        <!-- Annotation highlight -->
+        <rect x="116" y="194" width="172" height="32" rx="3" fill="#9aaa9a" opacity="0.4"/>
+        <rect x="116" y="194" width="172" height="32" rx="3" fill="none" stroke="#86986a" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+        <text x="124" y="214" font-family="Georgia" font-size="9" fill="#4e5e4e" letter-spacing="1.5" opacity="0.8">ENTITY · LABEL</text>
+        <rect x="116" y="240" width="134" height="26" rx="3" fill="#a09888" opacity="0.35"/>
+        <rect x="116" y="240" width="134" height="26" rx="3" fill="none" stroke="#8a7e70" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+        <text x="124" y="257" font-family="Georgia" font-size="9" fill="#5e5248" letter-spacing="1.5" opacity="0.7">SENTIMENT</text>
+        <!-- Expert -->
+        <circle cx="524" cy="200" r="50" fill="#b0bab0" opacity="0.3"/>
+        <circle cx="524" cy="182" r="22" fill="#9aaa9a" opacity="0.5"/>
+        <path d="M480 240 Q524 216 568 240" fill="#9aaa9a" opacity="0.4"/>
+        <!-- Arrow -->
+        <path d="M362 260 L480 260" stroke="#9aaa9a" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <polygon points="477,256 484,260 477,264" fill="#9aaa9a" opacity="0.6"/>
+        <!-- Pipeline dots -->
+        <circle cx="400" cy="330" r="5" fill="#9aaa9a" opacity="0.5"/>
+        <circle cx="424" cy="330" r="5" fill="#9aaa9a" opacity="0.4"/>
+        <circle cx="448" cy="330" r="5" fill="#9aaa9a" opacity="0.35"/>
+        <circle cx="472" cy="330" r="5" fill="#9aaa9a" opacity="0.5"/>
+        <circle cx="496" cy="330" r="5" fill="#9aaa9a" opacity="0.3"/>
+        <text x="100" y="490" font-family="Georgia,serif" font-size="11" fill="#5e6e5e" letter-spacing="4" opacity="0.5">EITL · INTUIT</text>
+      </svg>
+      <span class="project-chip">Human-in-the-Loop · 2023–Present</span>
+    </div>
+    <div class="project-info">
+      <p class="proj-num">02</p>
+      <h3 class="proj-title">Expert <em>in the</em><br>Loop</h3>
+      <p class="proj-company">Intuit · EITL Platform</p>
+      <p class="proj-desc">A human-in-the-loop evaluation and training ecosystem where domain experts act as labelers and annotators to generate high-quality datasets for internal AI models. I designed expert workflows and tooling that support data annotation, qualitative labeling, and evaluation, translating human judgment into structured, reliable training signal.</p>
+      <p class="proj-role">Product Designer · Expert Workflow Systems</p>
+      <div class="proj-stats">
+        <div class="stat"><strong>HITL</strong><span>Ecosystem design</span></div>
+        <div class="stat"><strong>3×</strong><span>Cross-team partnerships</span></div>
+      </div>
+      <a href="eitl.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </article>
+
+  <!-- 03 CIMx -->
+  <article class="project">
+    <div class="project-media">
+      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="CIMx project placeholder">
+        <rect width="700" height="580" fill="#dfd8d0"/>
+        <defs>
+          <radialGradient id="c1" cx="70%" cy="30%" r="50%">
+            <stop offset="0%" stop-color="#c9b99a" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#dfd8d0" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="500" cy="200" rx="260" ry="220" fill="url(#c1)"/>
+        <!-- Upload area -->
+        <rect x="72" y="88" width="220" height="280" rx="6" fill="#cfc5bb" opacity="0.5"/>
+        <!-- Document icon -->
+        <rect x="122" y="130" width="120" height="160" rx="4" fill="#bfb5ab" opacity="0.75"/>
+        <polygon points="202,130 222,148 222,130" fill="#cfc5bb"/>
+        <rect x="136" y="166" width="88" height="7" rx="2" fill="#d4cdc5" opacity="0.8"/>
+        <rect x="136" y="180" width="76" height="6" rx="2" fill="#d4cdc5" opacity="0.6"/>
+        <rect x="136" y="193" width="84" height="6" rx="2" fill="#d4cdc5" opacity="0.55"/>
+        <!-- Scan line -->
+        <rect x="122" y="225" width="120" height="2" rx="1" fill="#a89285" opacity="0.65"/>
+        <!-- AI badge -->
+        <circle cx="346" cy="228" r="26" fill="#c4b8ac" opacity="0.5"/>
+        <text x="338" y="233" font-size="16" fill="#7a6a62" opacity="0.75">✦</text>
+        <!-- Arrow -->
+        <path d="M294 228 L318 228" stroke="#a89285" stroke-width="2" fill="none" opacity="0.7"/>
+        <polygon points="315,224 322,228 315,232" fill="#a89285" opacity="0.7"/>
+        <path d="M372 228 L396 228" stroke="#a89285" stroke-width="2" fill="none" opacity="0.7"/>
+        <polygon points="393,224 400,228 393,232" fill="#a89285" opacity="0.7"/>
+        <!-- Folder list -->
+        <rect x="404" y="94"  width="224" height="46" rx="5" fill="#c4bab0" opacity="0.55"/>
+        <text x="422" y="122" font-family="Georgia" font-size="13" fill="#5a4e46" opacity="0.8">📁 2023 Tax Returns</text>
+        <rect x="404" y="150" width="224" height="46" rx="5" fill="#c4bab0" opacity="0.48"/>
+        <text x="422" y="178" font-family="Georgia" font-size="13" fill="#5a4e46" opacity="0.75">📁 Business Expenses</text>
+        <rect x="404" y="206" width="224" height="46" rx="5" fill="#c4bab0" opacity="0.42"/>
+        <text x="422" y="234" font-family="Georgia" font-size="13" fill="#5a4e46" opacity="0.7">📄 W-2_2023_auto.pdf</text>
+        <!-- Savings callout -->
+        <rect x="404" y="320" width="224" height="96" rx="6" fill="#b5a99e" opacity="0.32"/>
+        <text x="424" y="360" font-family="Georgia,serif" font-size="26" font-weight="300" fill="#4a3e36" opacity="0.85">$3.54M</text>
+        <text x="424" y="380" font-family="Georgia,serif" font-size="10" fill="#7a6e64" letter-spacing="2" opacity="0.65">REALIZED COST SAVINGS</text>
+        <text x="424" y="400" font-family="Georgia,serif" font-size="10" fill="#7a6e64" letter-spacing="1" opacity="0.55">23% handling time reduction</text>
+        <text x="72" y="490" font-family="Georgia,serif" font-size="11" fill="#7a6e64" letter-spacing="4" opacity="0.5">CIMx · INTUIT</text>
+      </svg>
+      <span class="project-chip">TurboTax · QuickBooks · BizTax</span>
+    </div>
+    <div class="project-info">
+      <p class="proj-num">03</p>
+      <h3 class="proj-title">Customer<br><em>Information</em><br>Management</h3>
+      <p class="proj-company">Intuit · CIMx</p>
+      <p class="proj-desc">AI-powered document intelligence across TurboTax, QuickBooks, and BizTax. Designed how customers submit and manage documents. AI analyzes uploads, auto-organizes into structured folders, detects missing or incorrect documentation, and renames files for consistency. Reduced handling time by 23% and delivered $3.54M in realized savings.</p>
+      <p class="proj-role">Product Designer · Document Intelligence</p>
+      <div class="proj-stats">
+        <div class="stat"><strong>23%</strong><span>Handling time reduced</span></div>
+        <div class="stat"><strong>$3.54M</strong><span>Cost savings</span></div>
+        <div class="stat"><strong>46 min</strong><span>Saved per engagement</span></div>
+      </div>
+      <a href="cimx.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </article>
+
+  <!-- 04 DEA @ Amazon -->
+  <article class="project">
+    <div class="project-media">
+      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Digital Evidence Archive project placeholder">
+        <rect width="700" height="580" fill="#d8d6d0"/>
+        <defs>
+          <radialGradient id="d1" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#b8b4ae" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#d8d6d0" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="350" cy="290" rx="300" ry="260" fill="url(#d1)"/>
+        <!-- Evidence grid -->
+        <rect x="72"  y="80"  width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.6"/>
+        <rect x="208" y="80"  width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.55"/>
+        <rect x="344" y="80"  width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.5"/>
+        <rect x="480" y="80"  width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.48"/>
+        <rect x="72"  y="204" width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.5"/>
+        <rect x="208" y="204" width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.55"/>
+        <rect x="344" y="204" width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.45"/>
+        <rect x="480" y="204" width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.5"/>
+        <!-- Metadata chips -->
+        <rect x="76"  y="156" width="112" height="26" rx="3" fill="#a8a4a0" opacity="0.4"/>
+        <text x="84" y="173" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.75">EV-2024-001</text>
+        <rect x="212" y="156" width="112" height="26" rx="3" fill="#a8a4a0" opacity="0.4"/>
+        <text x="220" y="173" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.7">EV-2024-002</text>
+        <!-- Accessibility banner -->
+        <rect x="72" y="368" width="536" height="72" rx="6" fill="#b4b0aa" opacity="0.3"/>
+        <circle cx="100" cy="404" r="16" fill="none" stroke="#9a9690" stroke-width="1.5" opacity="0.7"/>
+        <text x="93" y="410" font-size="14" fill="#6a6662" opacity="0.75">♿</text>
+        <text x="126" y="398" font-family="Georgia" font-size="11" fill="#5a5652" letter-spacing="1.5" opacity="0.8">WCAG 2.1 Compliant</text>
+        <text x="126" y="418" font-family="Georgia" font-size="10" fill="#7a7672" letter-spacing="0.5" opacity="0.6">Accessibility annotations · Law enforcement UX · Global agencies</text>
+        <!-- Global dots -->
+        <circle cx="572" cy="320" r="5" fill="#9a9690" opacity="0.5"/>
+        <circle cx="594" cy="298" r="4" fill="#9a9690" opacity="0.4"/>
+        <circle cx="550" cy="308" r="3" fill="#9a9690" opacity="0.35"/>
+        <circle cx="570" cy="292" r="4" fill="#9a9690" opacity="0.45"/>
+        <circle cx="596" cy="316" r="3" fill="#9a9690" opacity="0.3"/>
+        <text x="72" y="490" font-family="Georgia,serif" font-size="11" fill="#6a6662" letter-spacing="4" opacity="0.5">DEA · AMAZON</text>
+      </svg>
+      <span class="project-chip">Open Source · Global Law Enforcement</span>
+    </div>
+    <div class="project-info">
+      <p class="proj-num">04</p>
+      <h3 class="proj-title">Digital<br><em>Evidence</em><br>Archive</h3>
+      <p class="proj-company">Amazon</p>
+      <p class="proj-desc">Led design of an open-source application used by global police agencies to store and manage digital evidence, from initial research through implementation. Produced wireframes, accessibility annotations, personas, and journey maps in close collaboration with engineering, TPMs, and domain experts in research and accessibility.</p>
+      <p class="proj-role">Lead Designer · Research to Delivery</p>
+      <div class="proj-stats">
+        <div class="stat"><strong>Global</strong><span>Police agency adoption</span></div>
+        <div class="stat"><strong>Open</strong><span>Source release</span></div>
+        <div class="stat"><strong>WCAG</strong><span>Accessibility compliant</span></div>
+      </div>
+      <a href="dea.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </article>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <p class="section-label">Get in touch</p>
+    <h2>Let's<br>work<br><em>together.</em></h2>
+    <br>
+    <a href="mailto:Daniel.j.baek5@gmail.com" class="contact-email">Daniel.j.baek5@gmail.com</a>
+  </div>
+  <div class="contact-right reveal">
+    <p>I'm always open to conversations about meaningful design work, especially at the intersection of AI, enterprise systems, and the humans who use them.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/danieljbaek/" class="contact-link" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+        <span class="cl-label">LinkedIn</span>
+        linkedin.com/in/danieljbaek
+        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+      <a href="https://www.figma.com/proto/QnY8XjVwHryPJ4mpftzDB6/Portfolio" class="contact-link" target="_blank" rel="noopener" aria-label="Figma portfolio">
+        <span class="cl-label">Figma</span>
+        View Figma Portfolio
+        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+      <a href="mailto:Daniel.j.baek5@gmail.com" class="contact-link" aria-label="Send email">
+        <span class="cl-label">Email</span>
+        Daniel.j.baek5@gmail.com
+        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Daniel J. Baek</p>
+  <p>Product Designer · San Diego, CA</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav scroll state (no GSAP needed)
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Only run animations if GSAP loaded
+  if (typeof gsap !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Set initial states in JS so elements are visible if GSAP fails
+    gsap.set('.nav-name, .nav-links', { opacity: 0 });
+    gsap.set('.hero-eyebrow, .hero-tagline, .hero-scroll', { opacity: 0 });
+    gsap.set('.hero-name-line', { opacity: 0, y: 64 });
+    gsap.set('.reveal', { opacity: 0, y: 28 });
+
+    // Hero entrance
+    const tl = gsap.timeline({ delay: 0.15 });
+    tl.to('.nav-name',      { opacity: 1, duration: 0.9, ease: 'power2.out' }, 0.7)
+      .to('.nav-links',     { opacity: 1, duration: 0.9, ease: 'power2.out' }, 0.8)
+      .to('.hero-eyebrow',  { opacity: 1, duration: 0.8, ease: 'power2.out' }, 0.35)
+      .to('.hero-name-line',{ opacity: 1, y: 0, duration: 1.1, stagger: 0.14, ease: 'power3.out' }, 0.55)
+      .to('.hero-tagline',  { opacity: 1, duration: 0.9, ease: 'power2.out' }, 1.15)
+      .to('.hero-scroll',   { opacity: 1, duration: 0.9, ease: 'power2.out' }, 1.5);
+
+    // Scroll reveals
+    gsap.utils.toArray('.reveal').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 83%', once: true }
+      });
+    });
+
+    // Project staggered entrance
+    document.querySelectorAll('.project').forEach((proj, i) => {
+      const info  = proj.querySelector('.project-info');
+      const media = proj.querySelector('.project-media');
+      const even  = i % 2 === 1;
+      gsap.fromTo(info,
+        { opacity: 0, x: even ? -44 : 44 },
+        { opacity: 1, x: 0, duration: 1.0, ease: 'power2.out',
+          scrollTrigger: { trigger: proj, start: 'top 78%', once: true } }
+      );
+      gsap.fromTo(media,
+        { opacity: 0 },
+        { opacity: 1, duration: 1.2, ease: 'power2.out',
+          scrollTrigger: { trigger: proj, start: 'top 82%', once: true } }
+      );
+    });
+  } // end GSAP guard
+</script>
+</body>
+</html>

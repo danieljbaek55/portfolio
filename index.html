@@ -161,8 +161,8 @@
     border-top: 1px solid var(--border);
     min-height: 580px; overflow: hidden;
   }
-  .project:nth-child(even) .project-media { order: 2; }
-  .project:nth-child(even) .project-info  { order: 1; }
+  .project:nth-of-type(even) .project-media { order: 2; }
+  .project:nth-of-type(even) .project-info  { order: 1; }
 
   .project-media {
     position: relative; overflow: hidden;
@@ -290,8 +290,8 @@
     .about-right { padding-top: 0; }
     .work-header { padding: 60px 28px 50px; }
     .project { grid-template-columns: 1fr; min-height: auto; }
-    .project:nth-child(even) .project-media { order: 1; }
-    .project:nth-child(even) .project-info  { order: 2; }
+    .project:nth-of-type(even) .project-media { order: 1; }
+    .project:nth-of-type(even) .project-info  { order: 2; }
     .project-media { min-height: 280px; }
     .project-info { padding: 40px 28px; }
     #contact { grid-template-columns: 1fr; padding: 80px 28px; }
@@ -514,7 +514,85 @@
     </div>
   </article>
 
-  <!-- 03 CIMx -->
+  <!-- 03 ContxtIQ -->
+  <article class="project">
+    <div class="project-media">
+      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="ContxtIQ project placeholder">
+        <rect width="700" height="580" fill="#d8dde4"/>
+        <defs>
+          <radialGradient id="q1" cx="75%" cy="35%" r="55%">
+            <stop offset="0%" stop-color="#9fb0c4" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#d8dde4" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="520" cy="210" rx="270" ry="230" fill="url(#q1)"/>
+        <!-- Desktop app window -->
+        <rect x="60" y="72" width="580" height="412" rx="10" fill="#c6cfdb" opacity="0.55"/>
+        <rect x="60" y="72" width="580" height="28" rx="10" fill="#b5bfcc" opacity="0.6"/>
+        <circle cx="78"  cy="86" r="4" fill="#8a95a4" opacity="0.7"/>
+        <circle cx="92"  cy="86" r="4" fill="#8a95a4" opacity="0.55"/>
+        <circle cx="106" cy="86" r="4" fill="#8a95a4" opacity="0.4"/>
+        <!-- Left: transcript panel -->
+        <rect x="80" y="118" width="280" height="348" rx="6" fill="#d4dce6" opacity="0.75"/>
+        <text x="96" y="140" font-family="Georgia,serif" font-size="10" fill="#566274" letter-spacing="2" opacity="0.7">LIVE TRANSCRIPT</text>
+        <rect x="96" y="156" width="60" height="18" rx="9" fill="#9fb0c4" opacity="0.45"/>
+        <text x="108" y="169" font-family="Georgia" font-size="9" fill="#3c4658" opacity="0.8">Recruiter</text>
+        <rect x="96" y="182" width="248" height="6" rx="2" fill="#b8c2d0" opacity="0.7"/>
+        <rect x="96" y="194" width="214" height="6" rx="2" fill="#b8c2d0" opacity="0.6"/>
+        <rect x="96" y="206" width="232" height="6" rx="2" fill="#b8c2d0" opacity="0.55"/>
+        <rect x="96" y="230" width="60" height="18" rx="9" fill="#7e8fa4" opacity="0.5"/>
+        <text x="112" y="243" font-family="Georgia" font-size="9" fill="#ffffff" opacity="0.9">Candidate</text>
+        <rect x="96" y="256" width="248" height="6" rx="2" fill="#a8b4c4" opacity="0.7"/>
+        <rect x="96" y="268" width="220" height="6" rx="2" fill="#a8b4c4" opacity="0.6"/>
+        <rect x="96" y="280" width="236" height="6" rx="2" fill="#a8b4c4" opacity="0.55"/>
+        <rect x="96" y="292" width="180" height="6" rx="2" fill="#a8b4c4" opacity="0.5"/>
+        <!-- Live indicator -->
+        <circle cx="340" cy="140" r="4" fill="#c07a6a" opacity="0.85"/>
+        <circle cx="340" cy="140" r="8" fill="#c07a6a" opacity="0.25"/>
+        <!-- Right: AI assist panel -->
+        <rect x="380" y="118" width="240" height="168" rx="6" fill="#c4cedb" opacity="0.7"/>
+        <text x="396" y="140" font-family="Georgia,serif" font-size="10" fill="#4a5668" letter-spacing="2" opacity="0.75">RESPONSE GRADING</text>
+        <!-- Score ring -->
+        <circle cx="440" cy="198" r="34" fill="none" stroke="#b0bccc" stroke-width="5" opacity="0.55"/>
+        <path d="M440 164 A34 34 0 0 1 470 215" fill="none" stroke="#6a8a6a" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+        <text x="425" y="205" font-family="Georgia,serif" font-size="20" font-weight="300" fill="#3c4658" opacity="0.9">87</text>
+        <text x="485" y="190" font-family="Georgia" font-size="10" fill="#4a5668" opacity="0.8">Clarity</text>
+        <text x="485" y="205" font-family="Georgia" font-size="10" fill="#4a5668" opacity="0.75">Depth</text>
+        <text x="485" y="220" font-family="Georgia" font-size="10" fill="#4a5668" opacity="0.7">Fit</text>
+        <rect x="396" y="250" width="208" height="24" rx="4" fill="#9fb0c4" opacity="0.35"/>
+        <text x="408" y="266" font-family="Georgia" font-size="10" fill="#2e3848" opacity="0.85">↳ Suggested follow-up</text>
+        <!-- Follow-up chips -->
+        <rect x="380" y="300" width="240" height="166" rx="6" fill="#c4cedb" opacity="0.6"/>
+        <text x="396" y="322" font-family="Georgia,serif" font-size="10" fill="#4a5668" letter-spacing="2" opacity="0.7">AI ASSIST</text>
+        <rect x="396" y="336" width="208" height="22" rx="11" fill="#b5c1d0" opacity="0.55"/>
+        <text x="408" y="351" font-family="Georgia" font-size="10" fill="#2e3848" opacity="0.85">Ask about conflict resolution</text>
+        <rect x="396" y="366" width="186" height="22" rx="11" fill="#b5c1d0" opacity="0.45"/>
+        <text x="408" y="381" font-family="Georgia" font-size="10" fill="#2e3848" opacity="0.8">Probe on scope & ownership</text>
+        <rect x="396" y="396" width="164" height="22" rx="11" fill="#b5c1d0" opacity="0.38"/>
+        <text x="408" y="411" font-family="Georgia" font-size="10" fill="#2e3848" opacity="0.75">Quantify the outcome</text>
+        <rect x="396" y="432" width="208" height="22" rx="4" fill="#8a9ab0" opacity="0.3"/>
+        <text x="408" y="447" font-family="Georgia" font-size="10" fill="#2e3848" opacity="0.85">✦ Ask ContxtIQ anything…</text>
+        <text x="80" y="508" font-family="Georgia,serif" font-size="11" fill="#566274" letter-spacing="4" opacity="0.55">CONTXTIQ · STARTUP</text>
+      </svg>
+      <span class="project-chip">Startup · 2025–Present</span>
+    </div>
+    <div class="project-info">
+      <p class="proj-num">03</p>
+      <h3 class="proj-title">ContxtIQ<br><em>Live Screening</em><br>Copilot</h3>
+      <p class="proj-company">ContxtIQ · Startup</p>
+      <p class="proj-desc">A desktop copilot that supports recruiters during live screening calls for script-based roles. Real-time AI grades candidate responses, surfaces contextual follow-ups, and answers questions on the fly — turning structured interviews into adaptive, evidence-backed conversations.</p>
+      <p class="proj-role">Chief Experience Officer · Full experience lead</p>
+      <div class="proj-stats">
+        <div class="stat"><strong>Live</strong><span>Response grading</span></div>
+        <div class="stat"><strong>In-context</strong><span>AI conversation</span></div>
+        <div class="stat"><strong>0→1</strong><span>End-to-end experience</span></div>
+      </div>
+      <a href="contxtiq.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </article>
+
+  <!-- 03 CIMx (hidden — pending replacement project) -->
+  <template id="hidden-cimx">
   <article class="project">
     <div class="project-media">
       <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="CIMx project placeholder">
@@ -574,6 +652,7 @@
       <a href="cimx.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </article>
+  </template>
 
   <!-- 04 DEA @ Amazon -->
   <article class="project">

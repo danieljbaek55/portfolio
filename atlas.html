@@ -137,86 +137,211 @@
   .proj-section p:last-child { margin-bottom: 0; }
   .proj-section p strong { color: var(--text); font-weight: 400; }
 
-  /* Image gallery */
-  .gallery {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  /* Pain point list */
+  .pain-list { list-style: none; margin-top: 8px; }
+  .pain-list li {
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 160px 1fr; gap: 32px; align-items: start;
   }
-  .gallery.single { grid-template-columns: 1fr; }
-  .gallery.thirds { grid-template-columns: 1fr 1fr 1fr; }
-
-  .gallery-item {
-    aspect-ratio: 16/10;
-    background: var(--bg-warm);
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
+  .pain-list li:last-child { border-bottom: none; }
+  .pain-tag {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-dark); padding-top: 3px;
   }
-  .gallery-item.tall { aspect-ratio: 4/5; }
+  .pain-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
 
-  .gallery-item svg {
-    width: 100%; height: 100%;
-    position: absolute; inset: 0;
-  }
-
-  .img-placeholder-label {
-    position: absolute; bottom: 16px; left: 20px;
-    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--text-muted); background: rgba(245,243,240,0.85);
-    backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 2px;
-    border: 1px solid var(--border);
-  }
-
-  /* Process steps */
-  .process-steps {
+  /* Pillars */
+  .pillars-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-    margin-top: 0;
+    margin-top: 40px;
   }
-  .process-step {
+  .pillar-card {
     background: var(--bg-warm); padding: 40px 36px;
   }
-  .step-num {
+  .pillar-num {
     font-family: var(--font-display); font-size: 48px; font-weight: 300;
     color: var(--accent); line-height: 1; margin-bottom: 16px;
   }
-  .step-title {
+  .pillar-title {
     font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--text); margin-bottom: 12px;
   }
-  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .pillar-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
-  /* Decisions */
-  .decisions { display: flex; flex-direction: column; gap: 0; }
-  .decision {
+  /* How it works diagram */
+  .how-it-works {
+    background: var(--bg-warm); padding: 48px;
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .integration-row {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .integration-chip {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 8px 18px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text-muted);
+    border-radius: 2px;
+  }
+  .integration-chip.center {
+    background: var(--accent-dark); color: #f5f3f0;
+    border-color: var(--accent-dark); font-weight: 400;
+  }
+  .integration-divider {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-top: 4px;
+  }
+
+  /* Use cases */
+  .use-cases { display: flex; flex-direction: column; gap: 0; }
+  .use-case {
     padding: 36px 0; border-bottom: 1px solid var(--border);
     display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start;
   }
-  .decision:first-child { padding-top: 0; }
-  .decision:last-child { border-bottom: none; padding-bottom: 0; }
-  .decision-tag {
+  .use-case:first-child { padding-top: 0; }
+  .use-case:last-child { border-bottom: none; padding-bottom: 0; }
+  .use-case-role {
     font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--accent-dark); padding-top: 4px;
   }
-  .decision-text h4 {
-    font-family: var(--font-display); font-size: 22px; font-weight: 300;
-    margin-bottom: 10px; letter-spacing: -0.01em;
+  .use-case-body h4 {
+    font-family: var(--font-display); font-size: 20px; font-weight: 300;
+    margin-bottom: 10px; letter-spacing: -0.01em; font-style: italic;
+    color: var(--text);
   }
-  .decision-text p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
+  .use-case-body p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
 
-  /* Outcomes */
-  .outcomes-grid {
+  /* Comparison table */
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin-top: 8px;
+  }
+  .compare-table th {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent-dark); font-weight: 400; text-align: left;
+    padding: 14px 24px; border-bottom: 2px solid var(--border);
+  }
+  .compare-table td {
+    font-size: 15px; color: var(--text-muted); line-height: 1.6;
+    padding: 18px 24px; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child {
+    color: var(--text-muted); background: var(--bg-warm);
+  }
+  .compare-table td:last-child {
+    color: var(--text); background: var(--bg);
+  }
+
+  /* Process / Methodology */
+  .workshop-phases {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-    margin-bottom: 48px;
+    margin-top: 32px; margin-bottom: 48px;
   }
-  .outcome-card {
-    background: var(--bg-warm); padding: 40px 36px;
+  .workshop-phase {
+    background: var(--bg-warm); padding: 36px 32px;
   }
-  .outcome-num {
-    font-family: var(--font-display); font-size: 52px; font-weight: 300;
-    color: var(--text); line-height: 1; margin-bottom: 8px;
+  .workshop-phase.alt { background: #e8e3dc; }
+  .phase-tag {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent-dark); margin-bottom: 14px; display: block;
   }
-  .outcome-label {
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  .phase-title {
+    font-family: var(--font-display); font-size: 22px; font-weight: 300;
+    font-style: italic; color: var(--text);
+    line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.01em;
+  }
+  .phase-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  .pivot-callout {
+    background: var(--charcoal); color: #e8e3dc;
+    padding: 48px; margin: 40px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  }
+  .pivot-callout .pivot-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px; display: block;
+  }
+  .pivot-callout h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 300;
+    line-height: 1.2; letter-spacing: -0.01em; color: #f5f3f0;
+  }
+  .pivot-callout h3 em { font-style: italic; color: var(--accent); }
+  .pivot-callout .pivot-body {
+    font-size: 15px; line-height: 1.75; color: #c4bab0;
+  }
+  .pivot-callout .pivot-body strong { color: #f5f3f0; font-weight: 400; }
+
+  /* 9-step process flow */
+  .flow-steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 24px;
+  }
+  .flow-step {
+    background: var(--bg-warm); padding: 24px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .flow-step.phase-orch { background: #e8e3dc; }
+  .flow-step.phase-exec { background: #e0d9d0; }
+  .flow-step-num {
+    font-family: var(--font-display); font-size: 13px; font-weight: 400;
+    color: var(--accent-dark); letter-spacing: 0.05em;
+  }
+  .flow-step-title {
+    font-size: 14px; color: var(--text); font-weight: 400; line-height: 1.4;
+  }
+  .flow-step-role {
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-muted); margin-top: auto;
+  }
+  .flow-legend {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    margin-top: 20px; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--text-muted);
   }
+  .flow-legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .flow-legend .swatch {
+    width: 12px; height: 12px; display: inline-block;
+    border: 1px solid var(--border);
+  }
+
+  /* Scope */
+  .scope-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 48px;
+  }
+  .scope-card {
+    background: var(--bg-warm); padding: 40px 36px;
+  }
+  .scope-card-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent-dark); margin-bottom: 20px; display: block;
+  }
+  .scope-list { list-style: none; }
+  .scope-list li {
+    font-size: 15px; color: var(--text-muted); line-height: 1.7;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .scope-list li:last-child { border-bottom: none; }
+  .scope-list li::before {
+    content: '—'; color: var(--accent); flex-shrink: 0; padding-top: 1px;
+  }
+
+  /* Roadmap */
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
+  .roadmap-step {
+    padding: 24px 0; border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 48px 1fr; gap: 24px; align-items: start;
+  }
+  .roadmap-step:last-child { border-bottom: none; }
+  .roadmap-num {
+    font-family: var(--font-display); font-size: 32px; font-weight: 300;
+    color: var(--accent); line-height: 1; padding-top: 4px;
+  }
+  .roadmap-text h4 {
+    font-size: 14px; font-weight: 400; color: var(--text); margin-bottom: 4px;
+  }
+  .roadmap-text p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
   /* Reveal */
   .reveal { opacity: 0; transform: translateY(24px); }
@@ -228,11 +353,13 @@
     .proj-meta { grid-template-columns: 1fr 1fr; }
     .proj-meta-item:nth-child(2) { border-right: none; }
     .proj-section { grid-template-columns: 1fr; gap: 24px; padding: 60px 28px; }
-    .gallery { grid-template-columns: 1fr; }
-    .gallery.thirds { grid-template-columns: 1fr; }
-    .process-steps { grid-template-columns: 1fr; }
-    .outcomes-grid { grid-template-columns: 1fr 1fr; }
-    .decision { grid-template-columns: 1fr; gap: 8px; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .scope-grid { grid-template-columns: 1fr; }
+    .workshop-phases { grid-template-columns: 1fr; }
+    .flow-steps { grid-template-columns: 1fr; }
+    .pivot-callout { grid-template-columns: 1fr; gap: 20px; padding: 32px; }
+    .use-case { grid-template-columns: 1fr; gap: 8px; }
+    .pain-list li { grid-template-columns: 1fr; gap: 6px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -262,26 +389,32 @@
       </defs>
       <rect width="1200" height="700" fill="#e2dcd4"/>
       <ellipse cx="900" cy="280" rx="480" ry="400" fill="url(#h1)"/>
-      <!-- Decorative node graph -->
-      <circle cx="820" cy="260" r="60" fill="#b8aea4" opacity="0.25"/>
-      <circle cx="820" cy="260" r="40" fill="#aa9e94" opacity="0.3"/>
-      <circle cx="820" cy="260" r="20" fill="#9a8e84" opacity="0.5"/>
-      <circle cx="960" cy="340" r="28" fill="#b0a69c" opacity="0.2"/>
-      <circle cx="720" cy="370" r="22" fill="#b0a69c" opacity="0.2"/>
-      <circle cx="940" cy="180" r="16" fill="#b0a69c" opacity="0.2"/>
-      <line x1="820" y1="220" x2="936" y2="184" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
-      <line x1="820" y1="298" x2="955" y2="336" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
-      <line x1="780" y1="278" x2="724" y2="366" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
+      <!-- Central hub node -->
+      <circle cx="820" cy="260" r="70" fill="#b8aea4" opacity="0.2"/>
+      <circle cx="820" cy="260" r="46" fill="#aa9e94" opacity="0.28"/>
+      <circle cx="820" cy="260" r="22" fill="#9a8e84" opacity="0.5"/>
+      <!-- Satellite nodes -->
+      <circle cx="970" cy="180" r="22" fill="#b0a69c" opacity="0.25"/>
+      <circle cx="990" cy="340" r="18" fill="#b0a69c" opacity="0.22"/>
+      <circle cx="700" cy="360" r="20" fill="#b0a69c" opacity="0.22"/>
+      <circle cx="680" cy="170" r="16" fill="#b0a69c" opacity="0.2"/>
+      <circle cx="870" cy="120" r="14" fill="#b0a69c" opacity="0.2"/>
+      <!-- Connectors -->
+      <line x1="820" y1="238" x2="868" y2="123" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
+      <line x1="842" y1="245" x2="966" y2="183" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
+      <line x1="846" y1="277" x2="985" y2="336" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
+      <line x1="798" y1="278" x2="704" y2="356" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
+      <line x1="800" y1="242" x2="684" y2="174" stroke="#9a8e84" stroke-width="1" opacity="0.3"/>
     </svg>
   </div>
   <div class="proj-hero-content">
-    <p class="proj-eyebrow">Intuit · Innovation Team · 2024–Present</p>
+    <p class="proj-eyebrow">Intuit · Expert Co-Pilot · 2024–Present</p>
     <h1 class="proj-title">
       <span class="proj-title-line"><em>Atlas</em></span>
-      <span class="proj-title-line">Behavior</span>
-      <span class="proj-title-line">Learning</span>
+      <span class="proj-title-line">AI-Powered</span>
+      <span class="proj-title-line">Workspace</span>
     </h1>
-    <p class="proj-tagline">A capability that captures what experts know and turns it into something the platform can use.</p>
+    <p class="proj-tagline">The evolution of Expert Co-Pilot — from AI assistance to AI agency.</p>
   </div>
 </section>
 
@@ -301,137 +434,323 @@
   </div>
   <div class="proj-meta-item">
     <span class="meta-label">Platform</span>
-    <p class="meta-val">Internal AI Platform</p>
+    <p class="meta-val">Native App · Internal AI Platform</p>
   </div>
 </div>
 
 <div class="proj-body">
 
-  <!-- OVERVIEW -->
+  <!-- THE PROBLEM -->
   <div class="proj-section reveal">
-    <p class="section-label">Overview</p>
+    <p class="section-label">The Problem</p>
     <div>
-      <h2>The <em>Problem</em></h2>
-      <p>Intuit's domain experts carry deep procedural knowledge — the kind that lives in their heads, not in documentation. When an expert walks through a complex task, that process is invisible to the rest of the organization and impossible to scale.</p>
-      <p>Atlas is a behavior learning capability that changes this. It captures screen activity and transcript data as an expert works, then structures that behavior into a reusable <strong>skill</strong> — a discrete, deployable unit of knowledge that other experts and AI systems can draw on within Intuit's internal platform.</p>
-      <p>[replace-me] Add your own framing of the problem space here.</p>
+      <h2>Experts are <em>operators,</em> not orchestrators</h2>
+      <p>Today's experts drive every action across disconnected tools — IEP, Slack, Outlook, internal systems — while AI helps task-by-task. The ceiling is the expert's bandwidth, not the AI's capability.</p>
+      <ul class="pain-list">
+        <li>
+          <span class="pain-tag">Context Switching</span>
+          <span class="pain-desc">Experts juggle IEP, Slack, Outlook, and internal tools. Each switch costs time and focus.</span>
+        </li>
+        <li>
+          <span class="pain-tag">Fragmented Context</span>
+          <span class="pain-desc">Customer information lives in silos. Experts manually stitch together the full picture.</span>
+        </li>
+        <li>
+          <span class="pain-tag">AI as Assistant Only</span>
+          <span class="pain-desc">Current AI helps with single tasks but can't execute across systems — experts remain the bottleneck.</span>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <!-- GALLERY 1 -->
-  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
-    <div class="gallery">
-      <div class="gallery-item">
-        <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="375" fill="#ddd6ce"/><rect x="40" y="40" width="340" height="220" rx="6" fill="#ccc4ba" opacity="0.6"/><rect x="40" y="40" width="340" height="26" rx="6" fill="#b8afa4" opacity="0.7"/><circle cx="60" cy="53" r="5" fill="#d8d0c8"/><circle cx="76" cy="53" r="5" fill="#d8d0c8"/><circle cx="92" cy="53" r="5" fill="#d8d0c8"/><rect x="56" y="86" width="160" height="8" rx="2" fill="#c4bbb0" opacity="0.8"/><rect x="56" y="102" width="220" height="6" rx="2" fill="#ccc4ba" opacity="0.6"/><rect x="56" y="115" width="190" height="6" rx="2" fill="#ccc4ba" opacity="0.5"/><rect x="56" y="128" width="140" height="6" rx="2" fill="#ccc4ba" opacity="0.4"/><rect x="56" y="152" width="120" height="2" rx="1" fill="#a89285" opacity="0.7"/><circle cx="450" cy="160" r="46" fill="#b8aea4" opacity="0.25"/><circle cx="450" cy="160" r="30" fill="#aa9e94" opacity="0.35"/><circle cx="450" cy="160" r="15" fill="#9a8e84" opacity="0.6"/><line x1="380" y1="172" x2="425" y2="163" stroke="#9a8e84" stroke-width="1.5" opacity="0.5"/></svg>
-        <span class="img-placeholder-label">[replace-me] Screen capture flow</span>
-      </div>
-      <div class="gallery-item">
-        <svg viewBox="0 0 600 375" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="375" fill="#d8d2ca"/><defs><radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c8bfb3" stop-opacity="0.5"/><stop offset="100%" stop-color="#d8d2ca" stop-opacity="0"/></radialGradient></defs><ellipse cx="300" cy="188" rx="220" ry="180" fill="url(#g2)"/><circle cx="300" cy="188" r="70" fill="#b8aea4" opacity="0.3"/><circle cx="300" cy="188" r="46" fill="#aa9e94" opacity="0.4"/><circle cx="300" cy="188" r="22" fill="#9a8e84" opacity="0.65"/><circle cx="430" cy="120" r="26" fill="#b0a69c" opacity="0.3"/><circle cx="180" cy="270" r="20" fill="#b0a69c" opacity="0.25"/><circle cx="440" cy="280" r="18" fill="#b0a69c" opacity="0.28"/><line x1="300" y1="142" x2="428" y2="124" stroke="#9a8e84" stroke-width="1" opacity="0.4"/><line x1="300" y1="232" x2="184" y2="266" stroke="#9a8e84" stroke-width="1" opacity="0.4"/><line x1="300" y1="228" x2="438" y2="276" stroke="#9a8e84" stroke-width="1" opacity="0.4"/></svg>
-        <span class="img-placeholder-label">[replace-me] Skill node map</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ROLE & PROCESS -->
+  <!-- THE VISION -->
   <div class="proj-section reveal">
-    <p class="section-label">Role & Process</p>
+    <p class="section-label">The Vision</p>
     <div>
-      <h2>How I <em>Worked</em></h2>
-      <p>As the lead product designer on Atlas, I was embedded with the Innovation team from early exploration through initial release. My work spanned research, concept definition, interaction design, and ongoing iteration in partnership with engineering and data science.</p>
-      <p>[replace-me] Describe your specific design activities — workshops, research methods, prototyping tools, stakeholder sessions.</p>
-    </div>
-  </div>
-
-  <!-- PROCESS STEPS -->
-  <div class="proj-section full reveal" style="padding: 0 0 0 0; border-bottom: 1px solid var(--border);">
-    <div class="process-steps">
-      <div class="process-step">
-        <p class="step-num">01</p>
-        <p class="step-title">Discovery</p>
-        <p class="step-desc">[replace-me] How did you research the problem? Who did you talk to? What did you find?</p>
-      </div>
-      <div class="process-step" style="background: #e8e3dc;">
-        <p class="step-num">02</p>
-        <p class="step-title">Definition</p>
-        <p class="step-desc">[replace-me] How did you frame the opportunity? What constraints shaped your approach?</p>
-      </div>
-      <div class="process-step">
-        <p class="step-num">03</p>
-        <p class="step-title">Design & Iteration</p>
-        <p class="step-desc">[replace-me] What did you build? How did you test and refine it with users?</p>
+      <h2>Give AI agents <em>hands</em></h2>
+      <p>Atlas is a unified workspace where agents do the work and experts manage — built as a native app that connects to dependencies, powered by a framework any team can extend.</p>
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <p class="pillar-num">01</p>
+          <p class="pillar-title">New Mental Model</p>
+          <p class="pillar-desc">Agents do the work. Experts manage. The shift from operator to orchestrator.</p>
+        </div>
+        <div class="pillar-card" style="background: #e8e3dc;">
+          <p class="pillar-num">02</p>
+          <p class="pillar-title">Native App Architecture</p>
+          <p class="pillar-desc">Connect to dependencies. Don't build within them. Ship fast with full control.</p>
+        </div>
+        <div class="pillar-card">
+          <p class="pillar-num">03</p>
+          <p class="pillar-title">Framework-Driven SDLC</p>
+          <p class="pillar-desc">Load an expertise file. Atlas does the rest. Any team can extend — no sprints needed.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- GALLERY 2 -->
-  <div class="proj-section full reveal" style="padding: 0; border-bottom: 1px solid var(--border);">
-    <div class="gallery thirds">
-      <div class="gallery-item tall">
-        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#ddd6ce"/><rect x="40" y="40" width="320" height="420" rx="6" fill="#ccc4ba" opacity="0.5"/><rect x="56" y="68" width="200" height="10" rx="2" fill="#b8afa4" opacity="0.8"/><rect x="56" y="90" width="180" height="7" rx="2" fill="#ccc4ba" opacity="0.6"/><rect x="56" y="106" width="160" height="7" rx="2" fill="#ccc4ba" opacity="0.5"/><rect x="56" y="140" width="288" height="80" rx="4" fill="#b8afa4" opacity="0.35"/><rect x="56" y="240" width="288" height="60" rx="4" fill="#b8afa4" opacity="0.3"/><rect x="56" y="320" width="140" height="36" rx="4" fill="#9a8e84" opacity="0.4"/></svg>
-        <span class="img-placeholder-label">[replace-me] Capture UI</span>
-      </div>
-      <div class="gallery-item tall">
-        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#d8d2ca"/><circle cx="200" cy="200" r="100" fill="#b8aea4" opacity="0.22"/><circle cx="200" cy="200" r="68" fill="#aa9e94" opacity="0.3"/><circle cx="200" cy="200" r="36" fill="#9a8e84" opacity="0.55"/><circle cx="310" cy="120" r="30" fill="#b0a69c" opacity="0.22"/><circle cx="110" cy="320" r="24" fill="#b0a69c" opacity="0.2"/><line x1="200" y1="132" x2="308" y2="124" stroke="#9a8e84" stroke-width="1" opacity="0.4"/><line x1="200" y1="266" x2="112" y2="316" stroke="#9a8e84" stroke-width="1" opacity="0.4"/><rect x="40" y="380" width="200" height="8" rx="2" fill="#ccc4ba" opacity="0.5"/><rect x="40" y="398" width="160" height="6" rx="2" fill="#ccc4ba" opacity="0.4"/></svg>
-        <span class="img-placeholder-label">[replace-me] Skill structure</span>
-      </div>
-      <div class="gallery-item tall">
-        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="500" fill="#e2dcd4"/><rect x="40" y="50" width="320" height="50" rx="5" fill="#c4bab0" opacity="0.5"/><rect x="40" y="114" width="320" height="50" rx="5" fill="#c4bab0" opacity="0.45"/><rect x="40" y="178" width="320" height="50" rx="5" fill="#c4bab0" opacity="0.4"/><rect x="40" y="242" width="320" height="50" rx="5" fill="#9a8e84" opacity="0.35"/><rect x="40" y="320" width="220" height="36" rx="4" fill="#b8afa4" opacity="0.4"/><rect x="40" y="370" width="180" height="36" rx="4" fill="#b8afa4" opacity="0.35"/></svg>
-        <span class="img-placeholder-label">[replace-me] Expert review</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- KEY DECISIONS -->
+  <!-- HOW IT WORKS -->
   <div class="proj-section reveal">
-    <p class="section-label">Key Decisions</p>
+    <p class="section-label">How It Works</p>
     <div>
-      <h2>Design <em>Choices</em></h2>
-      <div class="decisions">
-        <div class="decision">
-          <p class="decision-tag">Capture model</p>
-          <div class="decision-text">
-            <h4>[replace-me] Decision title</h4>
-            <p>[replace-me] What was the decision, why did you make it, and what was the tradeoff?</p>
+      <h2>One workspace, <em>every system</em></h2>
+      <p>Atlas sits at the center, connecting to integrated products via API. Experts give intent — Atlas executes across systems. A Framework Layer underneath lets teams load <strong>.md expertise files</strong> to extend Atlas to new domains without feature builds.</p>
+      <div class="how-it-works" style="margin-top: 32px;">
+        <p class="integration-divider">Integrations</p>
+        <div class="integration-row">
+          <span class="integration-chip">Slack</span>
+          <span class="integration-chip">Outlook</span>
+          <span class="integration-chip">Calendar</span>
+          <span class="integration-chip">IEP</span>
+          <span class="integration-chip">Internal Tools</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+          <div style="flex:1;height:1px;background:var(--border);"></div>
+          <span class="integration-chip center">Atlas</span>
+          <div style="flex:1;height:1px;background:var(--border);"></div>
+        </div>
+        <p class="integration-divider">Framework Layer</p>
+        <div class="integration-row">
+          <span class="integration-chip">tax_pro.md</span>
+          <span class="integration-chip">bookkeeper.md</span>
+          <span class="integration-chip">csm.md</span>
+          <span class="integration-chip">payroll.md</span>
+          <span class="integration-chip">+ any team</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="proj-section reveal">
+    <p class="section-label">Use Cases</p>
+    <div>
+      <h2>One command, <em>full execution</em></h2>
+      <div class="use-cases">
+        <div class="use-case">
+          <p class="use-case-role">Tax Pro</p>
+          <div class="use-case-body">
+            <h4>"Follow up with Sarah about her missing 1099"</h4>
+            <p>Atlas drafts the email, schedules a 15-min call in Outlook, and logs the action in IEP — one command.</p>
           </div>
         </div>
-        <div class="decision">
-          <p class="decision-tag">Skill structure</p>
-          <div class="decision-text">
-            <h4>[replace-me] Decision title</h4>
-            <p>[replace-me] What was the decision, why did you make it, and what was the tradeoff?</p>
+        <div class="use-case">
+          <p class="use-case-role">Bookkeeper</p>
+          <div class="use-case-body">
+            <h4>"Prep me for the Henderson review"</h4>
+            <p>Atlas pulls customer context from IEP, surfaces recent Slack threads, and assembles a summary brief — expert reviews and goes.</p>
           </div>
         </div>
-        <div class="decision">
-          <p class="decision-tag">Expert review</p>
-          <div class="decision-text">
-            <h4>[replace-me] Decision title</h4>
-            <p>[replace-me] What was the decision, why did you make it, and what was the tradeoff?</p>
+        <div class="use-case">
+          <p class="use-case-role">CSM</p>
+          <div class="use-case-body">
+            <h4>"Reschedule my 2pm and notify the client"</h4>
+            <p>Atlas moves the calendar event, drafts a Slack DM to the internal team, and sends a client email — all confirmed with one approval.</p>
+          </div>
+        </div>
+        <div class="use-case">
+          <p class="use-case-role">New Team</p>
+          <div class="use-case-body">
+            <h4>"Payroll team loads their expertise file"</h4>
+            <p>Atlas immediately supports payroll workflows — no feature requests, no sprint cycles. Author expertise, not code.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- OUTCOMES -->
+  <!-- WHAT CHANGES -->
   <div class="proj-section reveal">
-    <p class="section-label">Outcomes</p>
+    <p class="section-label">What Changes</p>
     <div>
-      <h2>Impact & <em>Results</em></h2>
-      <div class="outcomes-grid">
-        <div class="outcome-card">
-          <p class="outcome-num">[—]</p>
-          <p class="outcome-label">[replace-me] Metric</p>
+      <h2>Before <em>&</em> After</h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Today</th>
+            <th>With Atlas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Experts drive every action manually</td>
+            <td><strong>Agents execute, experts approve</strong></td>
+          </tr>
+          <tr>
+            <td>AI helps with single tasks in isolation</td>
+            <td><strong>AI works across systems in one flow</strong></td>
+          </tr>
+          <tr>
+            <td>Context lost between tools</td>
+            <td><strong>Continuous context across every tool</strong></td>
+          </tr>
+          <tr>
+            <td>Each team builds features from scratch</td>
+            <td><strong>Teams author expertise files, not features</strong></td>
+          </tr>
+          <tr>
+            <td>SDLC bottleneck: build → test → deploy per feature</td>
+            <td><strong>New SDLC: write .md → load → validate</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DESIGN PROCESS / METHODOLOGY -->
+  <div class="proj-section reveal">
+    <p class="section-label">Design Process</p>
+    <div>
+      <h2>Workshopping a new <em>AI-augmented PDLC</em></h2>
+      <p>Atlas didn't start as a product spec — it started as a question: <strong>what if the product development lifecycle itself was redesigned around AI?</strong> I structured a series of cross-functional workshops with PM, PD, and design partners to prototype the workflow live, with the Atlas concept emerging from the practice.</p>
+
+      <div class="workshop-phases">
+        <div class="workshop-phase">
+          <span class="phase-tag">Phase 01 · 3-Day Workshop</span>
+          <h3 class="phase-title">Define the workflow</h3>
+          <p class="phase-body">PM, XD, and PD co-designed a new AI-augmented process — from Discover → Diverge → Build → Cycle. Shipped three decks: Vision, Exec Pitch, and Workshop Playbook. Established a two-tier context model (shared templates + private agent expertise) and a push → review → learn feedback loop.</p>
         </div>
-        <div class="outcome-card">
-          <p class="outcome-num">[—]</p>
-          <p class="outcome-label">[replace-me] Metric</p>
+        <div class="workshop-phase alt">
+          <span class="phase-tag">Phase 02 · Week 1 Planning</span>
+          <h3 class="phase-title">Run it live</h3>
+          <p class="phase-body">Put the workflow into practice on a real initiative. Parallel agent exploration became a team learning exercise — not me teaching, but all three disciplines discovering AI capabilities alongside each other. FigJam board with color-coded activities kept the session legible.</p>
         </div>
-        <div class="outcome-card">
-          <p class="outcome-num">[—]</p>
-          <p class="outcome-label">[replace-me] Metric</p>
+        <div class="workshop-phase">
+          <span class="phase-tag">Phase 03 · This Week</span>
+          <h3 class="phase-title">Validate Steps 6–9</h3>
+          <p class="phase-body">1.5-day workshop testing the build half of the flow. PM plays Orchestrator (prototype → Jira stories with AI assist). PD plays Executor (builds from stories, Slacks when blocked). I respond to design pings and push UI PRs.</p>
         </div>
       </div>
-      <p>[replace-me] Describe the outcomes of the project. What changed? What did you learn?</p>
+
+      <div class="pivot-callout">
+        <div>
+          <span class="pivot-label">Key Finding · The Pivot</span>
+          <h3>The PM writing requirements first <em>was the bottleneck.</em></h3>
+        </div>
+        <div class="pivot-body">
+          <p>Ideas were too exploratory for detailed specs. So the team pivoted: <strong>PM writes one paragraph, XD prototypes immediately, prototype becomes the living artifact.</strong></p>
+          <p style="margin-top: 16px;">From that pivot, the <strong>AI Orchestrator + Executor</strong> pattern emerged — far more ambitious than the manual tag-team we'd originally imagined. A working Expert Copilot prototype and a refined 9-step process flow came out of a single session.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 24px; margin-bottom: 16px;">The 9-step <em>flow</em></h2>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <span class="flow-step-num">Step 01</span>
+          <span class="flow-step-title">Paragraph brief</span>
+          <span class="flow-step-role">PM</span>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">Step 02</span>
+          <span class="flow-step-title">Prototype immediately</span>
+          <span class="flow-step-role">XD</span>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">Step 03</span>
+          <span class="flow-step-title">Parallel agent exploration</span>
+          <span class="flow-step-role">Team</span>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">Step 04</span>
+          <span class="flow-step-title">Review & align on prototype</span>
+          <span class="flow-step-role">PM · XD · PD</span>
+        </div>
+        <div class="flow-step">
+          <span class="flow-step-num">Step 05</span>
+          <span class="flow-step-title">Refine living artifact</span>
+          <span class="flow-step-role">XD</span>
+        </div>
+        <div class="flow-step phase-orch">
+          <span class="flow-step-num">Step 06</span>
+          <span class="flow-step-title">Orchestrator breaks down work</span>
+          <span class="flow-step-role">PM + AI</span>
+        </div>
+        <div class="flow-step phase-orch">
+          <span class="flow-step-num">Step 07</span>
+          <span class="flow-step-title">Jira stories from prototype</span>
+          <span class="flow-step-role">PM + AI</span>
+        </div>
+        <div class="flow-step phase-exec">
+          <span class="flow-step-num">Step 08</span>
+          <span class="flow-step-title">Executor builds from stories</span>
+          <span class="flow-step-role">PD + AI</span>
+        </div>
+        <div class="flow-step phase-exec">
+          <span class="flow-step-num">Step 09</span>
+          <span class="flow-step-title">Design pings → UI PRs</span>
+          <span class="flow-step-role">XD</span>
+        </div>
+      </div>
+      <div class="flow-legend">
+        <span><span class="swatch" style="background: var(--bg-warm);"></span>Discover / Diverge</span>
+        <span><span class="swatch" style="background: #e8e3dc;"></span>Orchestrator phase</span>
+        <span><span class="swatch" style="background: #e0d9d0;"></span>Executor phase</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOPE & NEXT STEPS -->
+  <div class="proj-section reveal">
+    <p class="section-label">Scope & Next Steps</p>
+    <div>
+      <h2>What's <em>in scope</em></h2>
+      <div class="scope-grid">
+        <div class="scope-card">
+          <span class="scope-card-label">In Scope for Exploration</span>
+          <ul class="scope-list">
+            <li>Native app prototype with core integration points</li>
+            <li>Framework definition and .md expertise file spec</li>
+            <li>Cross-product task execution model (Slack, Outlook, IEP)</li>
+            <li>Expert testing with tax pros, bookkeepers, and CSMs</li>
+          </ul>
+        </div>
+        <div class="scope-card" style="background: #e8e3dc;">
+          <span class="scope-card-label">Not Yet</span>
+          <ul class="scope-list">
+            <li>Production-grade infrastructure decisions</li>
+            <li>Full BU-specific rollout plans</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 0; margin-bottom: 24px;">Proposed <em>Roadmap</em></h2>
+      <div class="roadmap">
+        <div class="roadmap-step">
+          <p class="roadmap-num">01</p>
+          <div class="roadmap-text">
+            <h4>Align on vision & principles</h4>
+            <p>This presentation</p>
+          </div>
+        </div>
+        <div class="roadmap-step">
+          <p class="roadmap-num">02</p>
+          <div class="roadmap-text">
+            <h4>Define framework spec</h4>
+            <p>Expertise file structure + principles</p>
+          </div>
+        </div>
+        <div class="roadmap-step">
+          <p class="roadmap-num">03</p>
+          <div class="roadmap-text">
+            <h4>Build native app prototype</h4>
+            <p>Core integrations + 1 expert type</p>
+          </div>
+        </div>
+        <div class="roadmap-step">
+          <p class="roadmap-num">04</p>
+          <div class="roadmap-text">
+            <h4>Expert validation sessions</h4>
+            <p>Test with real workflows</p>
+          </div>
+        </div>
+        <div class="roadmap-step">
+          <p class="roadmap-num">05</p>
+          <div class="roadmap-text">
+            <h4>Expand & iterate</h4>
+            <p>Load additional expertise files</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

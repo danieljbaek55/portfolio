@@ -11,7 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
   :root {
-    --bg: #f5f3f0; --bg-warm: #edeae4; --text: #2a2725; --text-muted: #7a746e;
+    --bg: #f5f3f0; --bg-warm: #edeae4; --text: #2a2725; --text-muted: #6e6860;
     --accent: #6a8a7a; --accent-dark: #4a6a5a; --charcoal: #2a3d36; --border: #ddd8d2;
     --font-display: 'Cormorant Garamond', Georgia, serif; --font-body: 'DM Sans', sans-serif;
   }
@@ -46,7 +46,7 @@
   .proj-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); opacity: 0; }
   .proj-meta-item { padding: 32px 40px; border-right: 1px solid var(--border); }
   .proj-meta-item:last-child { border-right: none; }
-  .meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+  .meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 8px; display: block; }
   .meta-val { font-size: 14px; color: var(--text); line-height: 1.4; }
 
   .proj-body { max-width: 1200px; margin: 0 auto; }
@@ -81,7 +81,7 @@
   .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; }
   .pillar-card { background: var(--bg-warm); padding: 40px 36px; }
   .pillar-card:nth-child(2) { background: #e4ece8; }
-  .pillar-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 16px; }
+  .pillar-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--accent-dark); line-height: 1; margin-bottom: 16px; }
   .pillar-title { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
   .pillar-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
@@ -103,7 +103,7 @@
   .stat-cell { padding: 56px 40px; border-right: 1px solid var(--border); }
   .stat-cell:last-child { border-right: none; }
   .stat-num { font-family: var(--font-display); font-size: clamp(40px, 5vw, 64px); font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 10px; }
-  .stat-num em { font-style: italic; color: var(--accent); }
+  .stat-num em { font-style: italic; color: var(--accent-dark); }
   .stat-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
 
   /* PULL QUOTE */

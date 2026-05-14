@@ -51,9 +51,16 @@
     border-bottom-color: var(--border);
   }
   .nav-name {
+    display: inline-flex; align-items: center; gap: 12px;
     font-family: var(--font-display);
     font-size: 17px; font-weight: 400; letter-spacing: 0.03em;
     color: var(--text); text-decoration: none;
+  }
+  .nav-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    object-fit: cover; object-position: center top;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
   }
   .nav-links { display: flex; gap: 40px; list-style: none; }
   .nav-links a {
@@ -319,7 +326,10 @@
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#hero" class="nav-name">Daniel J. Baek</a>
+  <a href="#hero" class="nav-name">
+    <img src="IMG_4418.jpeg" alt="Daniel J. Baek" class="nav-avatar">
+    Daniel J. Baek
+  </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#work">Work</a></li>

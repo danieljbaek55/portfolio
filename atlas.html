@@ -6,21 +6,24 @@
 <title>Atlas — Daniel J. Baek</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
   :root {
-    --bg: #f5f3f0;
-    --bg-warm: #edeae4;
+    --bg: #EDE9E3;
+    --bg-warm: #E5E0D8;
+    --bg-light: #F2EDE8;
     --text: #2a2725;
     --text-muted: #7a746e;
-    --accent: #b5a49a;
-    --accent-dark: #7a6a62;
-    --charcoal: #595550;
+    --accent: #A99888;
+    --accent-dark: #6B7164;
+    --charcoal: #3C3834;
     --border: #ddd8d2;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'DM Sans', sans-serif;
+    --marble: #1a1816;
+    --cream: #F0EBE4;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -34,27 +37,25 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 30px 64px;
-    transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s;
-    border-bottom: 1px solid transparent;
+    padding: 26px 64px;
+    transition: padding 0.4s ease;
+    background: linear-gradient(135deg, #1a1816 0%, #2d2926 15%, #1a1816 25%, #3a3530 35%, #1a1816 45%, #2a2520 55%, #1a1816 65%, #3d3832 75%, #1a1816 85%, #2e2a26 95%, #1a1816 100%);
   }
-  nav.scrolled {
-    background: rgba(245,243,240,0.94); backdrop-filter: blur(14px);
-    padding: 18px 64px; border-bottom-color: var(--border);
-  }
+  nav.scrolled { padding: 16px 64px; }
   .nav-back {
     display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--text-muted); text-decoration: none;
-    transition: color 0.2s;
+    font-family: var(--font-body);
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(240,235,228,0.55); text-decoration: none;
+    transition: color 0.2s; font-weight: 400; position: relative; z-index: 1;
   }
-  .nav-back:hover { color: var(--text); }
+  .nav-back:hover { color: var(--cream); }
   .nav-back svg { transition: transform 0.2s ease; }
   .nav-back:hover svg { transform: translateX(-4px); }
   .nav-name {
     font-family: var(--font-display); font-size: 17px;
     font-weight: 400; letter-spacing: 0.03em;
-    color: var(--text); text-decoration: none;
+    color: var(--cream); text-decoration: none; position: relative; z-index: 1;
   }
 
   /* HERO */
@@ -67,15 +68,16 @@
   }
   .proj-hero-bg {
     position: absolute; inset: 0; z-index: 0;
-    background: linear-gradient(135deg, #e2dcd4 0%, #d4cdc5 50%, #c9bfb3 100%);
+    background: linear-gradient(135deg, #E5E0D8 0%, #DDD8D0 50%, #D5CFC6 100%);
   }
   .proj-hero-bg svg {
     position: absolute; inset: 0; width: 100%; height: 100%;
   }
   .proj-hero-content { position: relative; z-index: 1; max-width: 760px; }
   .proj-eyebrow {
+    font-family: var(--font-body);
     font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--accent-dark); margin-bottom: 24px; opacity: 0;
+    color: var(--accent); margin-bottom: 24px; opacity: 0; font-weight: 400;
   }
   .proj-title {
     font-family: var(--font-display);
@@ -83,7 +85,7 @@
     font-weight: 300; line-height: 0.92;
     letter-spacing: -0.02em; margin-bottom: 32px;
   }
-  .proj-title em { font-style: italic; color: var(--accent-dark); }
+  .proj-title em { font-style: italic; font-weight: 400; color: var(--charcoal); }
   .proj-title-line { display: block; opacity: 0; transform: translateY(50px); }
   .proj-tagline {
     font-size: clamp(15px, 1.4vw, 17px); font-weight: 300;
@@ -120,8 +122,9 @@
   }
 
   .section-label {
+    font-family: var(--font-body);
     font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--accent-dark); padding-top: 6px;
+    color: var(--accent); padding-top: 6px; font-weight: 400;
   }
 
   .proj-section h2 {
@@ -129,7 +132,7 @@
     font-size: clamp(28px, 3vw, 42px); font-weight: 300;
     line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 24px;
   }
-  .proj-section h2 em { font-style: italic; color: var(--accent-dark); }
+  .proj-section h2 em { font-style: italic; font-weight: 400; color: var(--charcoal); }
 
   .proj-section p {
     font-size: 16px; line-height: 1.85; color: var(--text-muted); margin-bottom: 20px;
@@ -168,6 +171,40 @@
   }
   .pillar-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
+  /* Product screenshots */
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border-bottom: 1px solid var(--border);
+  }
+  .img-cell {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    background: #0f0f0f;
+  }
+  .img-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .img-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px 16px;
+    background: linear-gradient(to top, rgba(15, 15, 15, 0.72), rgba(15, 15, 15, 0));
+  }
+  .img-caption span {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245, 243, 240, 0.92);
+  }
+
   /* How it works diagram */
   .how-it-works {
     background: var(--bg-warm); padding: 48px;
@@ -183,8 +220,8 @@
     border-radius: 2px;
   }
   .integration-chip.center {
-    background: var(--accent-dark); color: #f5f3f0;
-    border-color: var(--accent-dark); font-weight: 400;
+    background: linear-gradient(135deg, #1a1816 0%, #2d2926 15%, #1a1816 25%, #3a3530 35%, #1a1816 45%, #2a2520 55%, #1a1816 65%, #3d3832 75%, #1a1816 85%, #2e2a26 95%, #1a1816 100%);
+    color: #F0EBE4; border-color: #1a1816; font-weight: 400;
   }
   .integration-divider {
     font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
@@ -253,7 +290,8 @@
   .phase-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
   .pivot-callout {
-    background: var(--charcoal); color: #e8e3dc;
+    background: linear-gradient(135deg, #1a1816 0%, #2d2926 15%, #1a1816 25%, #3a3530 35%, #1a1816 45%, #2a2520 55%, #1a1816 65%, #3d3832 75%, #1a1816 85%, #2e2a26 95%, #1a1816 100%);
+    color: #e8e3dc;
     padding: 48px; margin: 40px 0;
     display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
   }
@@ -348,7 +386,8 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav, nav.scrolled { padding: 20px 28px; }
+    nav, nav.scrolled { padding: 18px 28px; }
+    .nav-name { font-size: 14px; }
     .proj-hero { padding: 0 28px 60px; }
     .proj-meta { grid-template-columns: 1fr 1fr; }
     .proj-meta-item:nth-child(2) { border-right: none; }
@@ -360,6 +399,7 @@
     .pivot-callout { grid-template-columns: 1fr; gap: 20px; padding: 32px; }
     .use-case { grid-template-columns: 1fr; gap: 8px; }
     .pain-list li { grid-template-columns: 1fr; gap: 6px; }
+    .img-grid-2 { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -486,6 +526,37 @@
           <p class="pillar-desc">Load an expertise file. Atlas does the rest. Any team can extend — no sprints needed.</p>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT WALKTHROUGH -->
+  <div class="proj-section reveal" style="grid-template-columns: 1fr; padding-bottom: 40px;">
+    <div>
+      <p class="section-label" style="margin-bottom: 12px;">Product Walkthrough</p>
+      <h2>From kickoff to proposal, <em>inside Atlas</em></h2>
+      <p style="max-width: 780px;">These screens show the core journey: orient on account context, run the live discovery call with AI support, generate the upgrade proposal, and carry that context into an actionable customer record.</p>
+    </div>
+  </div>
+
+  <div class="img-grid-2 reveal">
+    <div class="img-cell">
+      <img src="assets/images/atlas/atlas_img1.png" alt="Atlas dashboard with live discovery call entry for Greenfield Manufacturing"/>
+      <div class="img-caption"><span>01 · Dashboard — kickoff and join discovery call</span></div>
+    </div>
+    <div class="img-cell">
+      <img src="assets/images/atlas/atlas_img2.png" alt="Atlas live call experience with AI transcript and context panel notes"/>
+      <div class="img-caption"><span>02 · Live call — transcript, AI suggestions, and context panel</span></div>
+    </div>
+  </div>
+
+  <div class="img-grid-2 reveal">
+    <div class="img-cell">
+      <img src="assets/images/atlas/atlas_img3.png" alt="Atlas generated upgrade proposal with recommended solution and ROI projection"/>
+      <div class="img-caption"><span>03 · Proposal generation — solution and ROI in-context</span></div>
+    </div>
+    <div class="img-cell">
+      <img src="assets/images/atlas/atlas_img4.png" alt="Atlas customer profile view with summary, history, and activity timeline"/>
+      <div class="img-caption"><span>04 · Customer record — summarized context and activity trail</span></div>
     </div>
   </div>
 

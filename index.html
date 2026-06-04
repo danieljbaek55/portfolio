@@ -212,30 +212,28 @@
   .project:nth-of-type(even) .project-media { order: 2; }
   .project:nth-of-type(even) .project-info  { order: 1; }
 
-  /* Even project info panels get marble background */
+  /* Even project info panels: warm paper-lantern texture */
   .project:nth-of-type(even) .project-info {
-    background: linear-gradient(135deg, #1a1816 0%, #2d2926 15%, #1a1816 25%, #3a3530 35%, #1a1816 45%, #2a2520 55%, #1a1816 65%, #3d3832 75%, #1a1816 85%, #2e2a26 95%, #1a1816 100%);
+    background:
+      radial-gradient(ellipse at 50% 28%, rgba(255,238,205,0.55) 0%, transparent 60%),
+      linear-gradient(135deg, #DCD0B8 0%, #CDC0A5 45%, #BDAE93 100%);
     position: relative;
   }
   .project:nth-of-type(even) .project-info::after {
     content: '';
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at 20% 30%, rgba(200,185,160,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse at 75% 65%, rgba(180,165,140,0.07) 0%, transparent 40%),
-      radial-gradient(ellipse at 45% 80%, rgba(160,145,120,0.05) 0%, transparent 45%);
+      radial-gradient(ellipse at 50% 22%, rgba(255,235,195,0.45) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 100%, rgba(80,55,30,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse at 0% 50%, rgba(80,60,35,0.12) 0%, transparent 35%),
+      radial-gradient(ellipse at 100% 50%, rgba(80,60,35,0.12) 0%, transparent 35%),
+      repeating-linear-gradient(to right, transparent 0, transparent 24px, rgba(110,80,45,0.045) 24px, rgba(110,80,45,0.045) 25px),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 42px, rgba(110,80,45,0.025) 42px, rgba(110,80,45,0.025) 43px);
     pointer-events: none;
   }
-  .project:nth-of-type(even) .project-info .proj-num,
-  .project:nth-of-type(even) .project-info .proj-title,
-  .project:nth-of-type(even) .project-info .proj-company,
-  .project:nth-of-type(even) .project-info .proj-desc,
-  .project:nth-of-type(even) .project-info .proj-role,
-  .project:nth-of-type(even) .project-info .proj-status { color: rgba(240,235,228,0.65); }
-  .project:nth-of-type(even) .project-info .proj-title { color: var(--cream); }
-  .project:nth-of-type(even) .project-info .proj-stats { border-top-color: rgba(240,235,228,0.12); }
-  .project:nth-of-type(even) .project-info .stat strong { color: var(--cream); }
-  .project:nth-of-type(even) .project-info .stat span { color: rgba(240,235,228,0.5); }
+  .project:nth-of-type(even) .project-info .proj-num { color: var(--charcoal); }
+  .project:nth-of-type(even) .project-info .proj-company { color: var(--charcoal); }
+  .project:nth-of-type(even) .project-info .proj-stats { border-top-color: rgba(60,50,35,0.18); }
 
   .project-media {
     position: relative; overflow: hidden;
@@ -324,13 +322,8 @@
   .proj-link svg { transition: transform 0.2s ease; }
   .proj-link:hover svg { transform: translateX(4px); }
 
-  /* proj-link on marble panels — invert to cream */
-  .project:nth-of-type(even) .proj-link {
-    background: rgba(240,235,228,0.12);
-    border: 1px solid rgba(240,235,228,0.2);
-    color: var(--cream);
-  }
-  .project:nth-of-type(even) .proj-link:hover { background: rgba(240,235,228,0.18); opacity: 1; }
+  /* proj-link on lantern panels — keep marble CTA for action contrast */
+  .project:nth-of-type(even) .proj-link:hover { opacity: 0.85; }
 
   .proj-status {
     font-family: var(--font-body);

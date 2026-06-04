@@ -102,9 +102,25 @@
     display: block; filter: saturate(0.7) contrast(0.95) brightness(1.02);
     opacity: 0.78;
   }
+  .hero-portrait::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      /* ambient bloom */
+      radial-gradient(ellipse 60% 70% at 68% 48%, rgba(255,205,135,0.16) 0%, transparent 65%),
+      /* core warm lantern glow */
+      radial-gradient(ellipse 38% 48% at 68% 48%,
+        rgba(255,230,170,0.42) 0%,
+        rgba(248,205,145,0.30) 28%,
+        rgba(225,175,120,0.16) 55%,
+        rgba(195,150,100,0.06) 80%,
+        transparent 100%);
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+  }
   .hero-portrait::after {
     content: '';
-    position: absolute; inset: 0;
+    position: absolute; inset: 0; z-index: 2;
     background:
       linear-gradient(to right, var(--bg) 0%, rgba(237,233,227,0.96) 22%, rgba(237,233,227,0.4) 55%, transparent 100%),
       linear-gradient(to bottom, var(--bg) 0%, transparent 18%),
@@ -583,13 +599,13 @@
     </div>
     <div class="project-info">
       <p class="proj-num">01</p>
-      <h3 class="proj-title"><em>Atlas</em><br>Behavior Learning</h3>
+      <h3 class="proj-title"><em>Atlas</em><br>AI-Powered Workspace</h3>
       <p class="proj-company">Intuit · Innovation Team</p>
-      <p class="proj-desc">A behavior learning capability that captures screen and transcript data to create reusable skills, enabling domain experts to encode their expertise and deploy it across Intuit's internal AI platform at scale.</p>
+      <p class="proj-desc">A unified workspace where AI agents do the work and experts manage — the shift from operator to orchestrator. Built as a native app that connects to Slack, Outlook, IEP, and internal systems, powered by a framework any team can extend with .md expertise files.</p>
       <p class="proj-role">Lead Product Designer</p>
       <div class="proj-stats">
         <div class="stat"><strong>Lead</strong><span>Designer on project</span></div>
-        <div class="stat"><strong>AI‑First</strong><span>Interaction model</span></div>
+        <div class="stat"><strong>Agent‑First</strong><span>Interaction model</span></div>
       </div>
       <a href="atlas.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>

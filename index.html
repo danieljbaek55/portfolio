@@ -212,22 +212,54 @@
   .project:nth-of-type(even) .project-media { order: 2; }
   .project:nth-of-type(even) .project-info  { order: 1; }
 
-  /* Even project info panels: translucent paper-lantern overlay */
+  /* Even project info panels: circular paper-lantern with warm glow */
   .project:nth-of-type(even) .project-info {
-    background:
-      radial-gradient(ellipse at 50% 30%, rgba(255,240,210,0.28) 0%, transparent 65%),
-      linear-gradient(135deg, rgba(216,200,170,0.32) 0%, rgba(196,178,148,0.38) 100%);
+    background: var(--bg);
     position: relative;
+    overflow: hidden;
+  }
+  .project:nth-of-type(even) .project-info::before {
+    content: '';
+    position: absolute;
+    width: 720px; height: 760px;
+    top: 50%; right: -180px;
+    transform: translateY(-50%);
+    background:
+      /* outer ambient bloom */
+      radial-gradient(ellipse 60% 65% at 50% 50%, rgba(255,200,130,0.08) 0%, transparent 70%),
+      /* core glow */
+      radial-gradient(ellipse 48% 54% at 50% 50%,
+        rgba(255,245,215,0.85) 0%,
+        rgba(252,228,175,0.75) 22%,
+        rgba(232,195,140,0.55) 45%,
+        rgba(195,160,110,0.30) 65%,
+        rgba(150,120,80,0.12) 82%,
+        transparent 100%);
+    pointer-events: none;
+    filter: blur(0.5px);
   }
   .project:nth-of-type(even) .project-info::after {
     content: '';
-    position: absolute; inset: 0;
+    position: absolute;
+    width: 480px; height: 540px;
+    top: 50%; right: 0;
+    transform: translate(80px, -50%);
     background:
-      radial-gradient(ellipse at 50% 25%, rgba(255,235,195,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse at 50% 100%, rgba(80,55,30,0.08) 0%, transparent 65%),
-      repeating-linear-gradient(to right, transparent 0, transparent 26px, rgba(110,80,45,0.025) 26px, rgba(110,80,45,0.025) 27px),
-      repeating-linear-gradient(to bottom, transparent 0, transparent 44px, rgba(110,80,45,0.015) 44px, rgba(110,80,45,0.015) 45px);
+      /* soft horizontal bamboo bands - very subtle */
+      repeating-linear-gradient(to bottom,
+        transparent 0, transparent 28px,
+        rgba(140,95,50,0.035) 28px, rgba(140,95,50,0.035) 29px,
+        transparent 30px, transparent 56px),
+      /* warm paper inner glow */
+      radial-gradient(ellipse at 50% 45%,
+        rgba(255,235,185,0.45) 0%,
+        rgba(240,205,150,0.28) 35%,
+        rgba(200,165,115,0.10) 65%,
+        transparent 100%);
     pointer-events: none;
+    -webkit-mask: radial-gradient(ellipse at 50% 50%, black 0%, black 38%, transparent 75%);
+    mask: radial-gradient(ellipse at 50% 50%, black 0%, black 38%, transparent 75%);
+    filter: blur(0.3px);
   }
   .project:nth-of-type(even) .project-info .proj-num { color: var(--charcoal); }
   .project:nth-of-type(even) .project-info .proj-company { color: var(--charcoal); }

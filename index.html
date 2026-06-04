@@ -212,23 +212,21 @@
   .project:nth-of-type(even) .project-media { order: 2; }
   .project:nth-of-type(even) .project-info  { order: 1; }
 
-  /* Even project info panels: warm paper-lantern texture */
+  /* Even project info panels: translucent paper-lantern overlay */
   .project:nth-of-type(even) .project-info {
     background:
-      radial-gradient(ellipse at 50% 28%, rgba(255,238,205,0.55) 0%, transparent 60%),
-      linear-gradient(135deg, #DCD0B8 0%, #CDC0A5 45%, #BDAE93 100%);
+      radial-gradient(ellipse at 50% 30%, rgba(255,240,210,0.28) 0%, transparent 65%),
+      linear-gradient(135deg, rgba(216,200,170,0.32) 0%, rgba(196,178,148,0.38) 100%);
     position: relative;
   }
   .project:nth-of-type(even) .project-info::after {
     content: '';
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at 50% 22%, rgba(255,235,195,0.45) 0%, transparent 55%),
-      radial-gradient(ellipse at 50% 100%, rgba(80,55,30,0.18) 0%, transparent 65%),
-      radial-gradient(ellipse at 0% 50%, rgba(80,60,35,0.12) 0%, transparent 35%),
-      radial-gradient(ellipse at 100% 50%, rgba(80,60,35,0.12) 0%, transparent 35%),
-      repeating-linear-gradient(to right, transparent 0, transparent 24px, rgba(110,80,45,0.045) 24px, rgba(110,80,45,0.045) 25px),
-      repeating-linear-gradient(to bottom, transparent 0, transparent 42px, rgba(110,80,45,0.025) 42px, rgba(110,80,45,0.025) 43px);
+      radial-gradient(ellipse at 50% 25%, rgba(255,235,195,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(80,55,30,0.08) 0%, transparent 65%),
+      repeating-linear-gradient(to right, transparent 0, transparent 26px, rgba(110,80,45,0.025) 26px, rgba(110,80,45,0.025) 27px),
+      repeating-linear-gradient(to bottom, transparent 0, transparent 44px, rgba(110,80,45,0.015) 44px, rgba(110,80,45,0.015) 45px);
     pointer-events: none;
   }
   .project:nth-of-type(even) .project-info .proj-num { color: var(--charcoal); }

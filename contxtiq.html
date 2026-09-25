@@ -12,7 +12,7 @@
 <style>
   :root {
     --bg: #EDE9E3; --bg-warm: #E5E0D8; --bg-light: #F2EDE8; --text: #2a2725; --text-muted: #7a746e;
-    --accent: #A99888; --accent-dark: #6B7164; --charcoal: #3C3834; --border: #ddd8d2;
+    --accent: #A99888; --accent-dark: #7D6A55; --charcoal: #3C3834; --border: #ddd8d2;
     --marble: #1a1816; --cream: #F0EBE4;
     --font-display: 'Fraunces', Georgia, serif; --font-body: 'Outfit', sans-serif;
   }
@@ -29,10 +29,10 @@
   .nav-name { font-family: var(--font-display); font-size: 17px; font-weight: 400; letter-spacing: 0.03em; color: var(--text); text-decoration: none; position: relative; z-index: 1; }
 
   /* HERO */
-  .proj-hero { min-height: 92vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 64px 88px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; background: #0e1513; }
+  .proj-hero { min-height: 92vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 64px 88px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; background: #15120f; }
   .hero-img { position: absolute; inset: 0; z-index: 0; }
   .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.55; }
-  .hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,21,19,0.96) 0%, rgba(14,21,19,0.65) 55%, rgba(14,21,19,0.35) 100%); }
+  .hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(21,18,15,0.96) 0%, rgba(21,18,15,0.65) 55%, rgba(21,18,15,0.35) 100%); }
   .proj-hero-content { position: relative; z-index: 1; max-width: 820px; }
   .proj-eyebrow { font-family: var(--font-body); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; opacity: 0; font-weight: 400; }
   .proj-title { font-family: var(--font-display); font-size: clamp(56px, 8vw, 112px); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px; color: #F0EBE4; }
@@ -59,13 +59,13 @@
   .proj-section p strong { color: var(--text); font-weight: 400; }
 
   /* IMAGE BLOCKS (dark — matches app chrome) */
-  .img-full { width: 100%; border-bottom: 1px solid var(--border); overflow: hidden; background: #0e1513; }
+  .img-full { width: 100%; border-bottom: 1px solid var(--border); overflow: hidden; background: #15120f; }
   .img-full img { width: 100%; max-height: 720px; object-fit: contain; display: block; margin: 0 auto; }
   .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-bottom: 1px solid var(--border); }
-  .img-cell { position: relative; overflow: hidden; min-height: 520px; background: #0e1513; }
+  .img-cell { position: relative; overflow: hidden; min-height: 520px; background: #15120f; }
   .img-cell img { width: 100%; height: 100%; object-fit: contain; padding: 32px; display: block; transition: transform 0.8s ease; }
   .img-cell:hover img { transform: scale(1.02); }
-  .img-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 20px; background: linear-gradient(to top, rgba(14,21,19,0.85), transparent); }
+  .img-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 20px; background: linear-gradient(to top, rgba(21,18,15,0.85), transparent); }
   .img-caption span { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,243,240,0.9); }
 
   /* PAIN LIST */
@@ -78,7 +78,7 @@
   /* PILLARS */
   .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 40px; }
   .pillar-card { background: var(--bg-warm); padding: 40px 36px; }
-  .pillar-card:nth-child(2) { background: #e4ece8; }
+  .pillar-card:nth-child(2) { background: #EAE3D9; }
   .pillar-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 16px; }
   .pillar-title { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
   .pillar-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
@@ -86,9 +86,9 @@
   /* PROCESS — build story */
   .build-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 32px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .build-step { background: var(--bg-warm); padding: 40px 28px; position: relative; }
-  .build-step:nth-child(2) { background: #e4ece8; }
-  .build-step:nth-child(3) { background: #dde6e1; }
-  .build-step:nth-child(4) { background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); color: #e4ece8; }
+  .build-step:nth-child(2) { background: #EAE3D9; }
+  .build-step:nth-child(3) { background: #E3D9CC; }
+  .build-step:nth-child(4) { background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); color: #EAE3D9; }
   .build-step:nth-child(4) .build-tag { color: var(--accent); }
   .build-step:nth-child(4) .build-title { color: var(--cream); }
   .build-step:nth-child(4) .build-body { color: rgba(240,235,228,0.65); }
@@ -152,14 +152,13 @@
 <!-- HERO -->
 <section class="proj-hero">
   <div class="hero-img" aria-hidden="true">
-    <img src="assets/images/contxtiq/product-shots/native-welcome.png" alt="ContxtIQ welcome screen — start a session to begin"/>
+    <img src="assets/images/contxtiq/product-shots/app-welcome.jpg" alt="ContxtIQ welcome screen — name a session and pick a script to begin"/>
   </div>
   <div class="proj-hero-content">
     <p class="proj-eyebrow">ContxtIQ · Startup · 2025–Present</p>
     <h1 class="proj-title">
       <span class="proj-title-line"><em>ContxtIQ</em></span>
-      <span class="proj-title-line">A live copilot</span>
-      <span class="proj-title-line">for screening calls.</span>
+      <span class="proj-title-line">Screening Copilot</span>
     </h1>
     <p class="proj-tagline">A desktop app that sits beside recruiters during live screens — grading responses, suggesting follow-ups, and answering questions in-context as the conversation unfolds.</p>
   </div>
@@ -222,7 +221,7 @@
 
   <!-- HERO SCREENSHOT -->
   <div class="img-full reveal">
-    <img src="assets/images/contxtiq/product-shots/native-new-session-dialog.png" alt="New session dialog — name the session and select a script template"/>
+    <img src="assets/images/contxtiq/product-shots/app-new-session.jpg" alt="New session — name the session and select a script template"/>
   </div>
 
   <!-- THE PRODUCT -->
@@ -262,22 +261,22 @@
 
   <div class="img-grid-2 reveal">
     <div class="img-cell">
-      <img src="assets/images/contxtiq/product-shots/native-welcome.png" alt="Welcome screen — start a new session"/>
-      <div class="img-caption"><span>01 · Welcome — open app and start a new session</span></div>
+      <img src="assets/images/contxtiq/product-shots/app-welcome.jpg" alt="Welcome screen — name a session and pick a script"/>
+      <div class="img-caption"><span>01 · Welcome — name a session to begin</span></div>
     </div>
     <div class="img-cell">
-      <img src="assets/images/contxtiq/product-shots/native-new-session-dialog.png" alt="New session dialog — name the session and select a script template"/>
+      <img src="assets/images/contxtiq/product-shots/app-new-session.jpg" alt="New session — name the session and select a script template"/>
       <div class="img-caption"><span>02 · New session — name it and pick a script template</span></div>
     </div>
   </div>
   <div class="img-grid-2 reveal">
     <div class="img-cell">
-      <img src="assets/images/contxtiq/product-shots/native-session-ruby-fundamentals.jpg" alt="Script view — work through questions with live guidance"/>
+      <img src="assets/images/contxtiq/product-shots/app-session-live.jpg" alt="Live session — the active question is highlighted while ContxtIQ listens"/>
       <div class="img-caption"><span>03 · Script — work through prompts in real time</span></div>
     </div>
     <div class="img-cell">
-      <img src="assets/images/contxtiq/product-shots/native-session-question-completed.jpg" alt="Completed question — score and follow-up generated"/>
-      <div class="img-caption"><span>04 · Completed — score and AI-generated follow-up</span></div>
+      <img src="assets/images/contxtiq/product-shots/app-session-evaluated.jpg" alt="Evaluated question — score, follow-up and AI rationale"/>
+      <div class="img-caption"><span>04 · Evaluated — score, rationale and follow-up</span></div>
     </div>
   </div>
 

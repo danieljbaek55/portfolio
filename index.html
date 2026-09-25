@@ -17,9 +17,9 @@
     --text: #2a2725;
     --text-muted: #7a746e;
     --accent: #A99888;
-    --accent-dark: #6B7164;
-    --sage: #5E7268;
-    --sage-muted: #7D9486;
+    --accent-dark: #7D6A55;
+    --sage: #7D6A55;
+    --sage-muted: #A99888;
     --charcoal: #3C3834;
     --border: #ddd8d2;
     --marble: #1a1816;
@@ -241,6 +241,80 @@
     transition: transform 0.9s ease;
   }
   .project-media:hover .proj-svg { transform: scale(1.03); }
+  /* Floating laptop mockup */
+  .laptop {
+    --s: 0.8; --rx: 56deg; --rz: -24deg; --open: -78deg; --w: 812px; --h: 790px; --tx: 26px; --ty: 178px;
+    position: relative; width: calc(var(--w) * var(--s)); height: calc(var(--h) * var(--s));
+    perspective: calc(2750px * var(--s)); pointer-events: none;
+  }
+  .lt-scale {
+    position: absolute; left: 50%; top: 50%; width: 640px; height: 430px;
+    margin: -215px 0 0 -320px; transform-style: preserve-3d;
+    transform: translate(calc(var(--tx) * var(--s)), calc(var(--ty) * var(--s))) scale3d(var(--s), var(--s), var(--s));
+  }
+  .lt-bob { width: 100%; height: 100%; transform-style: preserve-3d; animation: lt-bob 7s ease-in-out infinite; }
+  .lt {
+    position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
+    transform: rotateX(var(--rx)) rotateZ(var(--rz));
+    border-radius: 18px;
+    background: linear-gradient(180deg, #e4e4e6 0%, #d6d6d9 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+  }
+  .lt::after {
+    content: ''; position: absolute; left: 10px; right: 10px; bottom: 0; height: 12px;
+    transform-origin: bottom; transform: rotateX(-90deg); border-radius: 0 0 12px 12px;
+    background: linear-gradient(#c9c9cc, #a9a9ad);
+  }
+  .lt-screen {
+    position: absolute; left: 0; right: 0; bottom: 100%; height: 392px;
+    transform-origin: bottom center; transform: rotateX(var(--open));
+    background: #111; border-radius: 16px 16px 4px 4px; padding: 14px 14px 30px;
+    box-shadow: inset 0 0 0 2px #3a3a3c;
+  }
+  .lt-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; border-radius: 3px; }
+  .lt-kb {
+    position: absolute; left: 78px; right: 78px; top: 30px; height: 196px;
+    display: grid; grid-template-rows: 0.55fr 1fr 1fr 1fr 1fr 1fr; gap: 4px;
+  }
+  .lt-kb i { --k: calc(100% / 14); display: block; background: repeating-linear-gradient(90deg, #1d1d1f 0 calc(var(--k) - 4px), transparent calc(var(--k) - 4px) var(--k)); }
+  .lt-kb i.f { --k: calc(100% / 16); }
+  .lt-kb i.s { background: linear-gradient(90deg, #1d1d1f 0 calc(100%/7*2 - 4px), transparent 0 calc(100%/7*2), #1d1d1f 0 calc(100%/7*5 - 4px), transparent 0 calc(100%/7*5), #1d1d1f 0 calc(100%/7*6 - 4px), transparent 0 calc(100%/7*6), #1d1d1f 0); }
+  .lt-spk { position: absolute; top: 30px; width: 48px; height: 196px; background: radial-gradient(circle, #8e8e93 1px, transparent 1.4px) 0 0 / 5px 5px; opacity: 0.7; }
+  .lt-spk.l { left: 18px; } .lt-spk.r { right: 18px; }
+  .lt-pad {
+    position: absolute; left: 50%; top: 246px; width: 250px; height: 156px; margin-left: -125px;
+    border-radius: 10px; background: linear-gradient(#dcdcdf, #d2d2d5); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+  }
+  .lt-shadow {
+    position: absolute; inset: 40px 30px -10px 30px; transform: translateZ(-150px);
+    background: rgba(42,39,37,0.5); filter: blur(34px); border-radius: 50%;
+  }
+  @keyframes lt-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  /* Laptop poses: rotation, lid angle, and the measured box/offset for each */
+  .pose-a     { --rx: 56deg; --rz: -24deg; --open: -78deg; --w: 812px; --h: 756px; --tx: 26px;  --ty: 181px; }
+  .pose-b     { --rx: 58deg; --rz: 22deg;  --open: -78deg; --w: 802px; --h: 734px; --tx: -21px; --ty: 184px; }
+  .pose-front { --rx: 62deg; --rz: -4deg;  --open: -84deg; --w: 688px; --h: 626px; --tx: -8px;  --ty: 194px; }
+  .pose-steep { --rx: 48deg; --rz: 34deg;  --open: -80deg; --w: 844px; --h: 848px; --tx: -44px; --ty: 167px; }
+  /* Floating phone mockup */
+  .phone {
+    --s: 0.8; position: absolute; width: calc(170px * var(--s)); height: calc(350px * var(--s));
+    perspective: calc(1400px * var(--s)); pointer-events: none;
+  }
+  .ph-bob { width: 100%; height: 100%; transform-style: preserve-3d; animation: lt-bob 7s -2.5s ease-in-out infinite; }
+  .ph {
+    width: 100%; height: 100%; box-sizing: border-box; padding: calc(7px * var(--s));
+    border-radius: calc(28px * var(--s)); background: #111;
+    box-shadow: inset 0 0 0 calc(2px * var(--s)) #3a3a3c, calc(-18px * var(--s)) calc(30px * var(--s)) calc(50px * var(--s)) calc(-12px * var(--s)) rgba(42,39,37,0.45);
+    transform: rotateX(14deg) rotateY(-24deg) rotateZ(7deg);
+  }
+  .ph img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: calc(22px * var(--s)); }
+  .project-media .laptop {
+    --s: 0.64; position: absolute; left: 50%; top: 50%;
+    margin: calc(var(--h) * var(--s) / -2) 0 0 calc(var(--w) * var(--s) / -2);
+  }
+  .project-media.duo .laptop { --s: 0.52; margin-left: calc(var(--w) * var(--s) / -2 + 7%); }
+  .project-media .phone { --s: 0.78; left: 10%; top: 36%; }
+  @media (max-width: 1200px) { .project-media .laptop, .project-media.duo .laptop { --s: 0.42; } .project-media .phone { --s: 0.62; } }
 
   .project-chip {
     position: absolute; top: 24px; left: 24px;
@@ -315,11 +389,11 @@
     width: fit-content; font-weight: 400;
     position: relative; z-index: 1;
   }
-  .proj-link:hover { background: #4E6258; }
+  .proj-link:hover { background: #7D6A55; }
   .proj-link svg { transition: transform 0.2s ease; }
   .proj-link:hover svg { transform: translateX(4px); }
 
-  .project:nth-of-type(even) .proj-link:hover { background: #4E6258; }
+  .project:nth-of-type(even) .proj-link:hover { background: #7D6A55; }
 
   .proj-status {
     font-family: var(--font-body);
@@ -410,11 +484,15 @@
     .project { grid-template-columns: 1fr; min-height: auto; }
     .project:nth-of-type(even) .project-media { order: 1; }
     .project:nth-of-type(even) .project-info  { order: 2; }
-    .project-media { min-height: 280px; }
+    .project-media { min-height: 340px; }
+    .project-media .laptop, .project-media.duo .laptop { --s: 0.36; }
+    .project-media .phone { --s: 0.5; left: 12%; top: 30%; }
     .project-info { padding: 40px 28px; }
     #contact { grid-template-columns: 1fr; padding: 80px 28px; }
     footer { padding: 20px 28px; flex-direction: column; gap: 6px; min-height: auto; }
   }
+
+  @media (max-width: 480px) { .project-media .laptop, .project-media.duo .laptop { --s: 0.32; } .project-media .phone { --s: 0.42; left: 8%; } }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -499,52 +577,15 @@
   <!-- 01 ATLAS -->
   <article class="project">
     <div class="project-media">
-      <!-- [replace-me] swap src with your Atlas project image/video -->
-      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Atlas project placeholder">
-        <rect width="700" height="580" fill="#e2dcd4"/>
-        <defs>
-          <radialGradient id="a1" cx="60%" cy="40%" r="50%">
-            <stop offset="0%" stop-color="#c8bfb3" stop-opacity="0.8"/>
-            <stop offset="100%" stop-color="#e2dcd4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="480" cy="240" rx="240" ry="220" fill="url(#a1)"/>
-        <!-- Screen capture metaphor -->
-        <rect x="70" y="90" width="340" height="230" rx="8" fill="#ccc4ba" opacity="0.55"/>
-        <rect x="70" y="90" width="340" height="28" rx="8" fill="#b8afa4" opacity="0.7"/>
-        <circle cx="90"  cy="104" r="5" fill="#d8d0c8" opacity="0.8"/>
-        <circle cx="108" cy="104" r="5" fill="#d8d0c8" opacity="0.8"/>
-        <circle cx="126" cy="104" r="5" fill="#d8d0c8" opacity="0.8"/>
-        <rect x="86" y="138" width="180" height="9" rx="3" fill="#c4bbb0" opacity="0.8"/>
-        <rect x="86" y="156" width="240" height="7" rx="2" fill="#ccc4ba" opacity="0.6"/>
-        <rect x="86" y="170" width="210" height="7" rx="2" fill="#ccc4ba" opacity="0.5"/>
-        <rect x="86" y="184" width="160" height="7" rx="2" fill="#ccc4ba" opacity="0.4"/>
-        <!-- Skill nodes -->
-        <circle cx="510" cy="200" r="50" fill="#b8aea4" opacity="0.3"/>
-        <circle cx="510" cy="200" r="34" fill="#aa9e94" opacity="0.4"/>
-        <circle cx="510" cy="200" r="18" fill="#9a8e84" opacity="0.7"/>
-        <line x1="410" y1="210" x2="478" y2="203" stroke="#9a8e84" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="580" cy="280" r="20" fill="#b0a69c" opacity="0.35"/>
-        <circle cx="455" cy="295" r="16" fill="#b0a69c" opacity="0.3"/>
-        <line x1="510" y1="233" x2="574" y2="274" stroke="#9a8e84" stroke-width="1" opacity="0.35"/>
-        <line x1="510" y1="233" x2="458" y2="290" stroke="#9a8e84" stroke-width="1" opacity="0.35"/>
-        <!-- Waveform transcript -->
-        <g transform="translate(70,390)" opacity="0.45">
-          <rect x="0"   y="22" width="5" height="16" rx="2" fill="#8a8078"/>
-          <rect x="12"  y="10" width="5" height="40" rx="2" fill="#8a8078"/>
-          <rect x="24"  y="16" width="5" height="28" rx="2" fill="#8a8078"/>
-          <rect x="36"  y="4"  width="5" height="52" rx="2" fill="#8a8078"/>
-          <rect x="48"  y="18" width="5" height="24" rx="2" fill="#8a8078"/>
-          <rect x="60"  y="12" width="5" height="36" rx="2" fill="#8a8078"/>
-          <rect x="72"  y="24" width="5" height="12" rx="2" fill="#8a8078"/>
-          <rect x="84"  y="8"  width="5" height="44" rx="2" fill="#8a8078"/>
-          <rect x="96"  y="20" width="5" height="20" rx="2" fill="#8a8078"/>
-          <rect x="108" y="14" width="5" height="32" rx="2" fill="#8a8078"/>
-          <rect x="120" y="6"  width="5" height="48" rx="2" fill="#8a8078"/>
-          <rect x="132" y="22" width="5" height="16" rx="2" fill="#8a8078"/>
-        </g>
-        <text x="70" y="490" font-family="Georgia,serif" font-size="11" fill="#7a7068" letter-spacing="4" opacity="0.5">ATLAS · INTUIT INNOVATION</text>
-      </svg>
+      <div class="laptop pose-a" aria-hidden="true">
+        <div class="lt-scale"><div class="lt-bob"><div class="lt">
+          <div class="lt-shadow"></div>
+          <div class="lt-screen"><img src="assets/images/atlas/atlas_walkthrough_1.jpg" alt="" loading="lazy"/></div>
+          <div class="lt-spk l"></div><div class="lt-spk r"></div>
+          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
+          <div class="lt-pad"></div>
+        </div></div></div>
+      </div>
       <span class="project-chip">Innovation · 2024–Present</span>
     </div>
     <div class="project-info">
@@ -561,122 +602,47 @@
     </div>
   </article>
 
-  <!-- 02 EITL -->
+  <!-- 02 Service Studio -->
   <article class="project">
     <div class="project-media">
-      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="EITL project placeholder">
-        <rect width="700" height="580" fill="#e2dcd4"/>
-        <defs>
-          <radialGradient id="e1" cx="30%" cy="60%" r="55%">
-            <stop offset="0%" stop-color="#c8bfb3" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="#e2dcd4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="200" cy="360" rx="260" ry="240" fill="url(#e1)"/>
-        <!-- Document -->
-        <rect x="100" y="80" width="260" height="340" rx="6" fill="#ccc4ba" opacity="0.55"/>
-        <rect x="116" y="108" width="228" height="12" rx="2" fill="#b8afa4" opacity="0.8"/>
-        <rect x="116" y="130" width="200" height="7" rx="2" fill="#c4bbb0" opacity="0.6"/>
-        <rect x="116" y="146" width="188" height="7" rx="2" fill="#c4bbb0" opacity="0.55"/>
-        <rect x="116" y="162" width="210" height="7" rx="2" fill="#c4bbb0" opacity="0.5"/>
-        <!-- Annotation highlight -->
-        <rect x="116" y="194" width="172" height="32" rx="3" fill="#aa9e94" opacity="0.4"/>
-        <rect x="116" y="194" width="172" height="32" rx="3" fill="none" stroke="#8a7e70" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
-        <text x="124" y="214" font-family="Georgia" font-size="9" fill="#5e5248" letter-spacing="1.5" opacity="0.8">ENTITY · LABEL</text>
-        <rect x="116" y="240" width="134" height="26" rx="3" fill="#a09888" opacity="0.35"/>
-        <rect x="116" y="240" width="134" height="26" rx="3" fill="none" stroke="#8a7e70" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
-        <text x="124" y="257" font-family="Georgia" font-size="9" fill="#5e5248" letter-spacing="1.5" opacity="0.7">SENTIMENT</text>
-        <!-- Expert -->
-        <circle cx="524" cy="200" r="50" fill="#b8afa4" opacity="0.3"/>
-        <circle cx="524" cy="182" r="22" fill="#aa9e94" opacity="0.5"/>
-        <path d="M480 240 Q524 216 568 240" fill="#aa9e94" opacity="0.4"/>
-        <!-- Arrow -->
-        <path d="M362 260 L480 260" stroke="#aa9e94" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <polygon points="477,256 484,260 477,264" fill="#aa9e94" opacity="0.6"/>
-        <!-- Pipeline dots -->
-        <circle cx="400" cy="330" r="5" fill="#aa9e94" opacity="0.5"/>
-        <circle cx="424" cy="330" r="5" fill="#aa9e94" opacity="0.4"/>
-        <circle cx="448" cy="330" r="5" fill="#aa9e94" opacity="0.35"/>
-        <circle cx="472" cy="330" r="5" fill="#aa9e94" opacity="0.5"/>
-        <circle cx="496" cy="330" r="5" fill="#aa9e94" opacity="0.3"/>
-        <text x="100" y="490" font-family="Georgia,serif" font-size="11" fill="#7a7068" letter-spacing="4" opacity="0.5">EITL · INTUIT</text>
-      </svg>
-      <span class="project-chip">Human-in-the-Loop · 2023–Present</span>
+      <div class="laptop pose-b" aria-hidden="true">
+        <div class="lt-scale"><div class="lt-bob"><div class="lt">
+          <div class="lt-shadow"></div>
+          <div class="lt-screen"><img src="assets/images/servicestudio/blueprint.jpg" alt="" loading="lazy"/></div>
+          <div class="lt-spk l"></div><div class="lt-spk r"></div>
+          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
+          <div class="lt-pad"></div>
+        </div></div></div>
+      </div>
+      <span class="project-chip">Platform Design · 2026</span>
     </div>
     <div class="project-info">
       <p class="proj-num">02</p>
-      <h3 class="proj-title">Expert <em>in the</em><br>Loop</h3>
-      <p class="proj-company">Intuit · EITL Platform</p>
-      <p class="proj-desc">A human-in-the-loop evaluation and training ecosystem where domain experts act as labelers and annotators to generate high-quality datasets for internal AI models. I designed expert workflows and tooling that support data annotation, qualitative labeling, and evaluation, translating human judgment into structured, reliable training signal.</p>
-      <p class="proj-role">Product Designer · Expert Workflow Systems</p>
+      <h3 class="proj-title"><em>Service</em><br>Studio</h3>
+      <p class="proj-company">Intuit · Expert Workspace Platform</p>
+      <p class="proj-desc">A workspace where new expert services get fully defined before anyone builds them. A builder agent that already knows the platform drafts the service blueprint, previews it in Expert Workspace, and validates readiness across every craft — so services are assembled from shared parts instead of hand-built one at a time.</p>
+      <p class="proj-role">Product Designer · Concept, vision &amp; prototype</p>
       <div class="proj-stats">
-        <div class="stat"><strong>HITL</strong><span>Ecosystem design</span></div>
-        <div class="stat"><strong>3×</strong><span>Cross-team partnerships</span></div>
+        <div class="stat"><strong>2→n</strong><span>Services on the platform</span></div>
+        <div class="stat"><strong>Agent‑ready</strong><span>Service definition</span></div>
+        <div class="stat"><strong>6</strong><span>Pieces, one spine</span></div>
       </div>
-      <p class="proj-status">TBD</p>
+      <a href="servicestudio.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </article>
 
   <!-- 03 ContxtIQ -->
   <article class="project">
     <div class="project-media">
-      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="ContxtIQ project placeholder">
-        <rect width="700" height="580" fill="#e2dcd4"/>
-        <defs>
-          <radialGradient id="q1" cx="75%" cy="35%" r="55%">
-            <stop offset="0%" stop-color="#c8bfb3" stop-opacity="0.28"/>
-            <stop offset="100%" stop-color="#e2dcd4" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="520" cy="210" rx="270" ry="230" fill="url(#q1)"/>
-        <!-- Desktop app window -->
-        <rect x="60" y="72" width="580" height="412" rx="10" fill="#ccc4ba" opacity="0.55"/>
-        <rect x="60" y="72" width="580" height="28" rx="10" fill="#b8afa4" opacity="0.6"/>
-        <circle cx="78"  cy="86" r="4" fill="#8a8078" opacity="0.7"/>
-        <circle cx="92"  cy="86" r="4" fill="#8a8078" opacity="0.55"/>
-        <circle cx="106" cy="86" r="4" fill="#8a8078" opacity="0.4"/>
-        <!-- Left: transcript panel -->
-        <rect x="80" y="118" width="280" height="348" rx="6" fill="#d8d0c8" opacity="0.75"/>
-        <text x="96" y="140" font-family="Georgia,serif" font-size="10" fill="#7a7068" letter-spacing="2" opacity="0.7">LIVE TRANSCRIPT</text>
-        <rect x="96" y="156" width="60" height="18" rx="9" fill="#c8bfb3" opacity="0.45"/>
-        <text x="108" y="169" font-family="Georgia" font-size="9" fill="#5e5248" opacity="0.8">Recruiter</text>
-        <rect x="96" y="182" width="248" height="6" rx="2" fill="#c4bbb0" opacity="0.7"/>
-        <rect x="96" y="194" width="214" height="6" rx="2" fill="#c4bbb0" opacity="0.6"/>
-        <rect x="96" y="206" width="232" height="6" rx="2" fill="#c4bbb0" opacity="0.55"/>
-        <rect x="96" y="230" width="60" height="18" rx="9" fill="#9a8e84" opacity="0.5"/>
-        <text x="112" y="243" font-family="Georgia" font-size="9" fill="#ffffff" opacity="0.9">Candidate</text>
-        <rect x="96" y="256" width="248" height="6" rx="2" fill="#b8afa4" opacity="0.7"/>
-        <rect x="96" y="268" width="220" height="6" rx="2" fill="#b8afa4" opacity="0.6"/>
-        <rect x="96" y="280" width="236" height="6" rx="2" fill="#b8afa4" opacity="0.55"/>
-        <rect x="96" y="292" width="180" height="6" rx="2" fill="#b8afa4" opacity="0.5"/>
-        <!-- Live indicator -->
-        <circle cx="340" cy="140" r="4" fill="#c07a6a" opacity="0.85"/>
-        <circle cx="340" cy="140" r="8" fill="#c07a6a" opacity="0.25"/>
-        <!-- Right: AI assist panel -->
-        <rect x="380" y="118" width="240" height="168" rx="6" fill="#ccc4ba" opacity="0.7"/>
-        <text x="396" y="140" font-family="Georgia,serif" font-size="10" fill="#5e5248" letter-spacing="2" opacity="0.75">RESPONSE GRADING</text>
-        <!-- Score ring -->
-        <circle cx="440" cy="198" r="34" fill="none" stroke="#b8afa4" stroke-width="5" opacity="0.55"/>
-        <path d="M440 164 A34 34 0 0 1 470 215" fill="none" stroke="#8a8078" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
-        <text x="425" y="205" font-family="Georgia,serif" font-size="20" font-weight="300" fill="#5e5248" opacity="0.9">87</text>
-        <text x="485" y="190" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.8">Clarity</text>
-        <text x="485" y="205" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.75">Depth</text>
-        <text x="485" y="220" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.7">Fit</text>
-        <rect x="396" y="250" width="208" height="24" rx="4" fill="#c8bfb3" opacity="0.35"/>
-        <text x="408" y="266" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.85">↳ Suggested follow-up</text>
-        <!-- Follow-up chips -->
-        <rect x="380" y="300" width="240" height="166" rx="6" fill="#ccc4ba" opacity="0.6"/>
-        <text x="396" y="322" font-family="Georgia,serif" font-size="10" fill="#5e5248" letter-spacing="2" opacity="0.7">AI ASSIST</text>
-        <rect x="396" y="336" width="208" height="22" rx="11" fill="#c4bbb0" opacity="0.55"/>
-        <text x="408" y="351" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.85">Ask about conflict resolution</text>
-        <rect x="396" y="366" width="186" height="22" rx="11" fill="#c4bbb0" opacity="0.45"/>
-        <text x="408" y="381" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.8">Probe on scope & ownership</text>
-        <rect x="396" y="396" width="164" height="22" rx="11" fill="#c4bbb0" opacity="0.38"/>
-        <text x="408" y="411" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.75">Quantify the outcome</text>
-        <rect x="396" y="432" width="208" height="22" rx="4" fill="#8a8078" opacity="0.3"/>
-        <text x="408" y="447" font-family="Georgia" font-size="10" fill="#5e5248" opacity="0.85">✦ Ask ContxtIQ anything…</text>
-        <text x="80" y="508" font-family="Georgia,serif" font-size="11" fill="#7a7068" letter-spacing="4" opacity="0.55">CONTXTIQ · STARTUP</text>
-      </svg>
+      <div class="laptop pose-front" aria-hidden="true">
+        <div class="lt-scale"><div class="lt-bob"><div class="lt">
+          <div class="lt-shadow"></div>
+          <div class="lt-screen"><img src="assets/images/contxtiq/product-shots/app-welcome.jpg" alt="" loading="lazy"/></div>
+          <div class="lt-spk l"></div><div class="lt-spk r"></div>
+          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
+          <div class="lt-pad"></div>
+        </div></div></div>
+      </div>
       <span class="project-chip">Startup · 2025–Present</span>
     </div>
     <div class="project-info">
@@ -759,44 +725,19 @@
 
   <!-- 04 DEA @ Amazon -->
   <article class="project">
-    <div class="project-media">
-      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="Digital Evidence Archive project placeholder">
-        <rect width="700" height="580" fill="#d8d6d0"/>
-        <defs>
-          <radialGradient id="d1" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stop-color="#b8b4ae" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#d8d6d0" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="350" cy="290" rx="300" ry="260" fill="url(#d1)"/>
-        <!-- Evidence grid -->
-        <rect x="72"  y="80"  width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.6"/>
-        <rect x="208" y="80"  width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.55"/>
-        <rect x="344" y="80"  width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.5"/>
-        <rect x="480" y="80"  width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.48"/>
-        <rect x="72"  y="204" width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.5"/>
-        <rect x="208" y="204" width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.55"/>
-        <rect x="344" y="204" width="120" height="108" rx="4" fill="#bcb8b2" opacity="0.45"/>
-        <rect x="480" y="204" width="120" height="108" rx="4" fill="#c4c0ba" opacity="0.5"/>
-        <!-- Metadata chips -->
-        <rect x="76"  y="156" width="112" height="26" rx="3" fill="#a8a4a0" opacity="0.4"/>
-        <text x="84" y="173" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.75">EV-2024-001</text>
-        <rect x="212" y="156" width="112" height="26" rx="3" fill="#a8a4a0" opacity="0.4"/>
-        <text x="220" y="173" font-family="Georgia" font-size="9" fill="#5a5652" letter-spacing="1" opacity="0.7">EV-2024-002</text>
-        <!-- Accessibility banner -->
-        <rect x="72" y="368" width="536" height="72" rx="6" fill="#b4b0aa" opacity="0.3"/>
-        <circle cx="100" cy="404" r="16" fill="none" stroke="#9a9690" stroke-width="1.5" opacity="0.7"/>
-        <text x="93" y="410" font-size="14" fill="#6a6662" opacity="0.75">♿</text>
-        <text x="126" y="398" font-family="Georgia" font-size="11" fill="#5a5652" letter-spacing="1.5" opacity="0.8">WCAG 2.1 Compliant</text>
-        <text x="126" y="418" font-family="Georgia" font-size="10" fill="#7a7672" letter-spacing="0.5" opacity="0.6">Accessibility annotations · Law enforcement UX · Global agencies</text>
-        <!-- Global dots -->
-        <circle cx="572" cy="320" r="5" fill="#9a9690" opacity="0.5"/>
-        <circle cx="594" cy="298" r="4" fill="#9a9690" opacity="0.4"/>
-        <circle cx="550" cy="308" r="3" fill="#9a9690" opacity="0.35"/>
-        <circle cx="570" cy="292" r="4" fill="#9a9690" opacity="0.45"/>
-        <circle cx="596" cy="316" r="3" fill="#9a9690" opacity="0.3"/>
-        <text x="72" y="490" font-family="Georgia,serif" font-size="11" fill="#6a6662" letter-spacing="4" opacity="0.5">DEA · AMAZON</text>
-      </svg>
+    <div class="project-media duo">
+      <div class="laptop pose-steep" aria-hidden="true">
+        <div class="lt-scale"><div class="lt-bob"><div class="lt">
+          <div class="lt-shadow"></div>
+          <div class="lt-screen"><img src="assets/images/dea/dea_img8.png" alt="" loading="lazy"/></div>
+          <div class="lt-spk l"></div><div class="lt-spk r"></div>
+          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
+          <div class="lt-pad"></div>
+        </div></div></div>
+      </div>
+      <div class="phone" aria-hidden="true">
+        <div class="ph-bob"><div class="ph"><img src="assets/images/dea/dea_img9.png" alt="" loading="lazy"/></div></div>
+      </div>
       <span class="project-chip">Open Source · Global Law Enforcement</span>
     </div>
     <div class="project-info">
@@ -830,11 +771,6 @@
       <a href="https://www.linkedin.com/in/danieljbaek/" class="contact-link" target="_blank" rel="noopener" aria-label="LinkedIn profile">
         <span class="cl-label">LinkedIn</span>
         linkedin.com/in/danieljbaek
-        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
-      </a>
-      <a href="https://www.figma.com/proto/QnY8XjVwHryPJ4mpftzDB6/Portfolio" class="contact-link" target="_blank" rel="noopener" aria-label="Figma portfolio">
-        <span class="cl-label">Figma</span>
-        View Figma Portfolio
         <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
       <a href="mailto:Daniel.j.baek5@gmail.com" class="contact-link" aria-label="Send email">

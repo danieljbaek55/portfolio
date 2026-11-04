@@ -11,6 +11,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
   :root {
+    --type-display: clamp(3.5rem, 8vw, 7rem);
+    --type-heading: clamp(2rem, 3vw, 2.625rem);
+    --type-subheading: 1.5rem;
+    --type-lead: 1.25rem;
+    --type-body: 1rem;
+    --type-small: 0.875rem;
+    --type-label: 0.6875rem;
+    --track-label: 0.16em;
     --bg: #EDE9E3; --bg-warm: #E5E0D8; --bg-light: #F2EDE8; --text: #2a2725; --text-muted: #625c56;
     --accent: #6e5d4c; --accent-dark: #5e4e3d; --charcoal: #3C3834; --border: #ddd8d2;
     --marble: #1a1816; --cream: #F0EBE4;
@@ -18,10 +26,10 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: var(--type-body); line-height: 1.7; overflow-x: hidden; }
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 16px 64px; transition: padding 0.4s ease; background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
   nav.scrolled { padding: 12px 64px; }
-  .nav-back { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 400; position: relative; z-index: 1; }
+  .nav-back { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 400; position: relative; z-index: 1; }
   .nav-back:hover { color: var(--sage); }
   .nav-back svg { transition: transform 0.2s ease; }
   .nav-back:hover svg { transform: translateX(-4px); }
@@ -30,23 +38,23 @@
   .proj-hero-bg { position: absolute; inset: 0; z-index: 0; }
   .proj-hero-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
   .proj-hero-content { position: relative; z-index: 1; max-width: 760px; }
-  .proj-eyebrow { font-family: var(--font-body); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; opacity: 0; font-weight: 400; }
-  .proj-title { font-family: var(--font-display); font-size: clamp(56px, 8vw, 112px); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px; }
+  .proj-eyebrow { font-family: var(--font-body); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); margin-bottom: 24px; opacity: 0; font-weight: 400; }
+  .proj-title { font-family: var(--font-display); font-size: var(--type-display); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px; }
   .proj-title em { font-style: italic; font-weight: 400; color: var(--charcoal); }
   .proj-title-line { display: block; opacity: 0; transform: translateY(50px); }
-  .proj-tagline { font-size: clamp(15px, 1.4vw, 17px); font-weight: 300; color: var(--text-muted); max-width: 520px; line-height: 1.65; opacity: 0; }
+  .proj-tagline { font-size: var(--type-lead); font-weight: 300; color: var(--text-muted); max-width: 520px; line-height: 1.65; opacity: 0; }
   .proj-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); opacity: 0; }
   .proj-meta-item { padding: 32px 40px; border-right: 1px solid var(--border); }
   .proj-meta-item:last-child { border-right: none; }
-  .meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
-  .meta-val { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .meta-label { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; font-weight: 400; }
+  .meta-val { font-size: var(--type-body); color: var(--text); line-height: 1.4; }
   .proj-body { max-width: 1200px; margin: 0 auto; }
   .proj-section { padding: 100px 64px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 280px 1fr; gap: 80px; }
   .proj-section.full { grid-template-columns: 1fr; }
-  .section-label { font-family: var(--font-body); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); padding-top: 6px; font-weight: 400; }
-  .proj-section h2 { font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 24px; }
+  .section-label { font-family: var(--font-body); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); padding-top: 6px; font-weight: 400; }
+  .proj-section h2 { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 24px; }
   .proj-section h2 em { font-style: italic; font-weight: 400; color: var(--charcoal); }
-  .proj-section p { font-size: 16px; line-height: 1.85; color: var(--text-muted); margin-bottom: 20px; }
+  :where(.proj-section) p { font-size: var(--type-body); line-height: 1.85; color: var(--text-muted); margin-bottom: 20px; }
   .proj-section p:last-child { margin-bottom: 0; }
   .proj-section p strong { color: var(--text); font-weight: 400; }
   .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
@@ -55,23 +63,23 @@
   .gallery-item { aspect-ratio: 16/10; background: var(--bg-warm); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
   .gallery-item.tall { aspect-ratio: 4/5; }
   .gallery-item svg { width: 100%; height: 100%; position: absolute; inset: 0; }
-  .img-placeholder-label { position: absolute; bottom: 16px; left: 20px; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); background: rgba(245,243,240,0.85); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 2px; border: 1px solid var(--border); }
+  .img-placeholder-label { position: absolute; bottom: 16px; left: 20px; font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); background: rgba(245,243,240,0.85); backdrop-filter: blur(6px); padding: 5px 12px; border-radius: 2px; border: 1px solid var(--border); font-weight: 400; }
   .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
   .process-step { background: var(--bg-warm); padding: 40px 36px; }
-  .step-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 16px; }
-  .step-title { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
-  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .step-num { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 16px; }
+  .step-title { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text); margin-bottom: 12px; font-weight: 400; }
+  .step-desc { font-size: var(--type-body); color: var(--text-muted); line-height: 1.7; }
   .decisions { display: flex; flex-direction: column; gap: 0; }
   .decision { padding: 36px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
   .decision:first-child { padding-top: 0; }
   .decision:last-child { border-bottom: none; padding-bottom: 0; }
-  .decision-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); padding-top: 4px; }
-  .decision-text h4 { font-family: var(--font-display); font-size: 22px; font-weight: 300; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .decision-text p { font-size: 15px; color: var(--text-muted); line-height: 1.75; }
+  .decision-tag { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-dark); padding-top: 4px; font-weight: 400; }
+  .decision-text h4 { font-family: var(--font-display); font-size: var(--type-subheading); font-weight: 300; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .decision-text p { font-size: var(--type-body); color: var(--text-muted); line-height: 1.75; }
   .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 48px; }
   .outcome-card { background: var(--bg-warm); padding: 40px 36px; }
-  .outcome-num { font-family: var(--font-display); font-size: 52px; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 8px; }
-  .outcome-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+  .outcome-num { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 8px; }
+  .outcome-label { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
   .reveal { opacity: 0; transform: translateY(24px); }
   @media (max-width: 900px) {
     nav, nav.scrolled { padding: 12px 20px; }
@@ -252,7 +260,7 @@
 </div>
 
 <div style="padding: 64px; border-top: 1px solid var(--border);">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:4px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--accent-dark)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:10px;font-size: var(--type-label);font-weight:400;letter-spacing: var(--track-label);text-transform:uppercase;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:4px;transition:color 0.2s,border-color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--accent-dark)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Back to all work
   </a>

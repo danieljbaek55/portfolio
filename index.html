@@ -11,6 +11,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
   :root {
+    --type-display: clamp(3.5rem, 8vw, 7rem);
+    --type-heading: clamp(2rem, 3vw, 2.625rem);
+    --type-subheading: 1.5rem;
+    --type-lead: 1.25rem;
+    --type-body: 1rem;
+    --type-small: 0.875rem;
+    --type-label: 0.6875rem;
+    --track-label: 0.16em;
     --bg: #EDE9E3;
     --bg-warm: #E5E0D8;
     --bg-light: #F2EDE8;
@@ -53,7 +61,7 @@
     color: var(--text);
     font-family: var(--font-body);
     font-weight: 300;
-    font-size: 16px;
+    font-size: var(--type-body);
     line-height: 1.7;
     overflow-x: hidden;
   }
@@ -75,8 +83,8 @@
   .nav-links { display: flex; gap: 40px; list-style: none; position: relative; z-index: 1; }
   .nav-links a {
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--text-muted); text-decoration: none; transition: color 0.2s;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 400;
   }
   .nav-links a:hover { color: var(--sage); }
 
@@ -129,12 +137,12 @@
   .hero-content { position: relative; z-index: 1; max-width: 860px; }
   .hero-eyebrow {
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 26px; font-weight: 300;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--accent); margin-bottom: 26px; font-weight: 400;
   }
   .hero-name {
     font-family: var(--font-display);
-    font-size: clamp(60px, 9vw, 128px);
+    font-size: var(--type-display);
     font-weight: 300; line-height: 0.92;
     letter-spacing: -0.02em; margin-bottom: 36px;
   }
@@ -142,7 +150,7 @@
   .hero-name em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
   .hero-tagline {
     font-family: var(--font-body);
-    font-size: clamp(15px, 1.4vw, 17px); font-weight: 300;
+    font-size: var(--type-lead); font-weight: 300;
     color: var(--text-muted); max-width: 480px; line-height: 1.65;
   }
   .hero-scroll {
@@ -151,8 +159,8 @@
   }
   .hero-scroll span {
     font-family: var(--font-body);
-    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--text-muted); writing-mode: vertical-rl;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--text-muted); writing-mode: vertical-rl; font-weight: 400;
   }
   .scroll-line {
     width: 1px; height: 56px;
@@ -174,19 +182,19 @@
   }
   .section-label {
     font-family: var(--font-body);
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: var(--accent); margin-bottom: 36px; font-weight: 400;
   }
   .about-left h2 {
     font-family: var(--font-display);
-    font-size: clamp(38px, 4vw, 58px); font-weight: 300;
+    font-size: var(--type-heading); font-weight: 300;
     line-height: 1.1; letter-spacing: -0.01em;
   }
   .about-left h2 em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
   .about-right { padding-top: 64px; }
   .about-bio {
     font-family: var(--font-body);
-    font-size: 16px; line-height: 1.85;
+    font-size: var(--type-body); line-height: 1.85;
     color: var(--text-muted); margin-bottom: 44px; font-weight: 300;
   }
   .about-bio strong { color: var(--text); font-weight: 400; }
@@ -196,12 +204,12 @@
   }
   .about-item-label {
     font-family: var(--font-body);
-    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: var(--accent); margin-bottom: 6px; display: block; font-weight: 400;
   }
   .about-item-val {
     font-family: var(--font-body);
-    font-size: 13px; color: var(--text); line-height: 1.5; font-weight: 300;
+    font-size: var(--type-small); color: var(--text); line-height: 1.5; font-weight: 300;
   }
 
   /* WORK */
@@ -212,11 +220,11 @@
   }
   .work-header h2 {
     font-family: var(--font-display);
-    font-size: clamp(36px, 4vw, 54px); font-weight: 300; letter-spacing: -0.01em;
+    font-size: var(--type-heading); font-weight: 300; letter-spacing: -0.01em;
   }
   .work-count {
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); font-weight: 300;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); font-weight: 400;
   }
 
   /* Project rows */
@@ -319,7 +327,7 @@
   .project-chip {
     position: absolute; top: 24px; left: 24px;
     font-family: var(--font-body);
-    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: var(--text-muted);
     background: rgba(237,233,227,0.90); backdrop-filter: blur(8px);
     padding: 6px 14px; border-radius: 2px;
@@ -333,32 +341,32 @@
     position: relative;
   }
   .proj-num {
-    font-family: var(--font-display); font-size: 13px;
-    color: var(--accent); margin-bottom: 18px; letter-spacing: 0.08em;
+    font-family: var(--font-display); font-size: var(--type-small);
+    color: var(--accent); margin-bottom: 18px; letter-spacing: 0;
     position: relative; z-index: 1;
   }
   .proj-title {
     font-family: var(--font-display);
-    font-size: clamp(30px, 3vw, 48px); font-weight: 300;
+    font-size: var(--type-heading); font-weight: 300;
     line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 10px;
     position: relative; z-index: 1;
   }
   .proj-title em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
   .proj-company {
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: var(--accent); margin-bottom: 26px; font-weight: 400;
     position: relative; z-index: 1;
   }
   .proj-desc {
     font-family: var(--font-body);
-    font-size: 15px; line-height: 1.78; color: var(--text-muted);
+    font-size: var(--type-body); line-height: 1.78; color: var(--text-muted);
     margin-bottom: 28px; max-width: 380px; font-weight: 300;
     position: relative; z-index: 1;
   }
   .proj-role {
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: var(--charcoal); margin-bottom: 32px; font-weight: 400;
     position: relative; z-index: 1;
   }
@@ -369,19 +377,19 @@
   }
   .stat strong {
     display: block; font-family: var(--font-display);
-    font-size: 34px; font-weight: 300; line-height: 1; margin-bottom: 4px;
+    font-size: var(--type-subheading); font-weight: 300; line-height: 1; margin-bottom: 4px;
   }
   .stat span {
     font-family: var(--font-body);
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 300;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); font-weight: 400;
   }
-  .proj-note { font-family: var(--font-body); font-size: 12px; color: var(--accent); font-style: italic; margin-top: 14px; }
+  .proj-note { font-family: var(--font-body); font-size: var(--type-small); color: var(--accent); font-style: italic; margin-top: 14px; }
 
   .proj-link {
     display: inline-flex; align-items: center; gap: 12px;
     margin-top: 32px;
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: #fff; text-decoration: none;
     background: var(--sage);
     padding: 14px 28px; border-radius: 2px;
@@ -397,8 +405,8 @@
 
   .proj-status {
     font-family: var(--font-body);
-    margin-top: 28px; font-size: 11px; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--text-muted); font-weight: 300;
+    margin-top: 28px; font-size: var(--type-label); letter-spacing: var(--track-label);
+    text-transform: uppercase; color: var(--text-muted); font-weight: 400;
     position: relative; z-index: 1;
   }
 
@@ -410,7 +418,7 @@
   }
   .contact-left h2 {
     font-family: var(--font-display);
-    font-size: clamp(48px, 7vw, 96px); font-weight: 300;
+    font-size: var(--type-display); font-weight: 300;
     line-height: 0.96; letter-spacing: -0.02em; margin-bottom: 36px;
   }
   .contact-left h2 em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
@@ -420,7 +428,7 @@
   }
   .contact-email {
     font-family: var(--font-body);
-    display: inline-block; font-size: 16px; font-weight: 300;
+    display: inline-block; font-size: var(--type-body); font-weight: 300;
     color: var(--text); text-decoration: none;
     border-bottom: 1px solid var(--charcoal); padding-bottom: 3px;
     transition: color 0.2s, border-color 0.2s;
@@ -428,21 +436,21 @@
   .contact-email:hover { color: var(--sage); border-color: var(--sage); }
   .contact-right p {
     font-family: var(--font-body);
-    font-size: 14px; color: var(--text-muted); line-height: 1.75; margin-bottom: 36px; font-weight: 300;
+    font-size: var(--type-body); color: var(--text-muted); line-height: 1.75; margin-bottom: 36px; font-weight: 300;
   }
   .contact-links { display: flex; flex-direction: column; }
   .contact-link {
     font-family: var(--font-body);
     display: flex; align-items: center; gap: 16px;
     text-decoration: none; color: var(--text-muted);
-    font-size: 13px; letter-spacing: 0.06em; font-weight: 300;
+    font-size: var(--type-small); letter-spacing: 0; font-weight: 300;
     padding: 14px 0; border-bottom: 1px solid var(--border);
     transition: color 0.2s;
   }
   .contact-link:hover { color: var(--sage); }
   .cl-label {
     font-family: var(--font-body);
-    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
     color: var(--accent); width: 72px; flex-shrink: 0; font-weight: 400;
   }
   .cl-arrow { margin-left: auto; opacity: 0.35; flex-shrink: 0; }
@@ -463,7 +471,7 @@
   }
   footer p {
     font-family: var(--font-body);
-    font-size: 12px; color: rgba(240,235,228,0.6); letter-spacing: 0.08em; font-weight: 300;
+    font-size: var(--type-small); color: rgba(240,235,228,0.6); letter-spacing: 0; font-weight: 300;
     position: relative; z-index: 1;
   }
 

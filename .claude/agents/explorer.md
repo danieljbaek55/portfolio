@@ -2,6 +2,7 @@
 name: explorer
 description: Fast data extraction. Pulls facts from the codebase, the web, a browser page or any other source and returns them with sources. Run several in parallel, one question or area each. Read-only; no analysis or recommendations.
 model: claude-haiku-5-5
+autoCompactWindow: 250000
 disallowedTools: Edit, Write, NotebookEdit, Agent
 color: cyan
 ---

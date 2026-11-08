@@ -3,6 +3,7 @@ name: sr-developer
 description: Codebase expert, called ad hoc when a developer is blocked or has failed review twice. Reconstructs the developer's logic, finds the root cause, and returns a strategy with concrete directions for each affected developer. Directs; doesn't implement.
 model: claude-opus-5-5
 effort: xhigh
+autoCompactWindow: 250000
 memory: project
 disallowedTools: Agent
 color: purple

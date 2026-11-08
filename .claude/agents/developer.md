@@ -2,6 +2,7 @@
 name: developer
 description: Implementer. Builds one assigned area of an approved plan (its own pages/files) and returns a handoff report for the reviewer. Several run in parallel, one area each. Use for all plan implementation.
 model: claude-sonnet-5-5
+autoCompactWindow: 250000
 disallowedTools: Agent
 color: blue
 ---

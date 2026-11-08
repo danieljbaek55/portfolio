@@ -3,6 +3,7 @@ name: reviewer
 description: Plan expert and quality gate. Reviews each developer handoff against the plan and the actual files, then approves, requests changes, or returns questions for the orchestrator. Catches poor code, design drift and hallucinations. Read-only.
 model: claude-opus-5-5
 effort: high
+autoCompactWindow: 250000
 disallowedTools: Edit, Write, NotebookEdit, Agent
 color: orange
 ---

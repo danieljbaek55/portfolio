@@ -4,7 +4,7 @@ Daniel's portfolio site: static HTML with no build step, served by GitHub Pages 
 
 ## Layout
 
-- Pages: `index.html` (home) plus one case study per file: `atlas.html`, `cimx.html`, `contxtiq.html`, `dea.html`, `eitl.html`, `servicestudio.html`. Each page is self-contained, with its CSS and JS inline. Images live in `assets/images/`.
+- Pages: `index.html` (home) plus one case study per file: `atlas.html`, `contxtiq.html`, `dea.html`, `servicestudio.html`. `cimx.html` is offline until its case study is finished (see `.claude/plans/portfolio-overhaul.md`). Each page is self-contained, with its CSS and JS inline. Images live in `assets/images/`.
 - **Edit in `/Users/danielbaek/portfolio_clone`**, not `/Users/danielbaek/portfolio`. The preview (`.claude/launch.json`, config `portfolio`) serves the clone. Once changes are approved, the orchestrator copies the changed files into `/Users/danielbaek/portfolio` so both copies match.
 
 ## Conventions

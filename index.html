@@ -116,9 +116,19 @@
 
   /* Hero */
   .hero { padding-block: var(--space-9) var(--space-8); }
-  .hero h1 { font-size: var(--type-display); line-height: 1.05; letter-spacing: -0.02em; max-width: 16ch; grid-column: 1 / span 10; }
-  .hero-lead { grid-column: 1 / span 8; font-size: var(--type-lead); line-height: 1.5; margin-top: var(--space-6); max-width: 60ch; }
-  .hero-links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+  .hero h1 { font-size: var(--type-display); line-height: 1.05; letter-spacing: -0.02em; max-width: 16ch; grid-column: 1 / span 8; grid-row: 1; }
+  .hero-lead { grid-column: 1 / span 8; grid-row: 2; font-size: var(--type-lead); line-height: 1.5; margin-top: var(--space-6); max-width: 60ch; }
+  /* Hero drawing: decorative, top-aligned with the h1 in the right four columns. */
+  .hero-art { grid-column: 9 / -1; grid-row: 1 / span 2; align-self: start; justify-self: end; width: 100%; max-width: 20rem; }
+  .hero-art svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .hero-art .ln { fill: none; stroke: var(--text-muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .hero-art .nd { fill: var(--bg); stroke: var(--text); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .hero-art .wait { stroke: var(--accent); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; }
+  .hero-art .mk { fill: var(--accent); transform: translate(210px, 70px); }
+  @supports (offset-path: path("M0 0")) {
+    .hero-art .mk { transform: none; offset-path: path("M100 140 L140 70 H290 V210 H140 Z"); offset-rotate: 0deg; offset-distance: 25%; }
+  }
+  .hero-links { grid-column: 1 / -1; grid-row: 3; display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 
   .btn {
     display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-5);
@@ -165,14 +175,23 @@
   .fig-frame::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--rule); pointer-events: none; }
   .fig-frame img, .fig-frame video {
     display: block; width: 100%; height: 100%; object-fit: cover; background: var(--surface);
-    transform-origin: var(--zx, 50%) var(--zy, 50%); transition: transform var(--dur-base) var(--ease);
+  }
+  /* Hover lift: the frame rises on devices with a real pointer. The figure wrapper carries the scroll-in, so the frame animates alone. */
+  .fig-frame { transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease); }
+  @media (hover: hover) and (pointer: fine) {
+    .fig:hover > .fig-frame {
+      transform: translateY(-6px);
+      box-shadow: 0 1px 2px color-mix(in srgb, var(--text) 8%, transparent), 0 16px 24px -12px color-mix(in srgb, var(--text) 26%, transparent);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+    .fig:hover > .fig-frame { transform: none; }
   }
 
   /* Figure caption: numbered in the document format, with one control. */
   .fig-cap { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); margin-top: var(--space-2); color: var(--text-muted); }
   .cap-text { display: grid; padding-block: var(--space-1); }
   .cap-text > span { grid-area: 1 / 1; }
-  .cap-zoom { visibility: hidden; }
   .fig-btn {
     display: none; flex-shrink: 0; align-items: center; min-height: 2rem; padding: var(--space-1) 0; cursor: pointer;
     font-family: var(--font-sans); font-size: var(--type-small); font-weight: 500; color: var(--text); background: none; border: 0;
@@ -182,18 +201,6 @@
   .js .fig-btn { display: inline-flex; }
   .fig-btn[hidden] { display: none; }
   @media (pointer: coarse) { .fig-btn { min-height: 2.75rem; min-width: 2.75rem; } }
-
-  /* Zoom: one component per figure, set by --zx, --zy and --zs on the figure. Hover and the button share one state. */
-  .fig-zoom.is-zoomed .fig-frame img { transform: scale(var(--zs)); }
-  .fig-zoom.is-zoomed .fig-frame::after { border-color: var(--accent); }
-  .fig-zoom.is-zoomed .cap-base { visibility: hidden; }
-  .fig-zoom.is-zoomed .cap-zoom { visibility: visible; }
-  @media (hover: hover) and (pointer: fine) {
-    .fig-zoom .fig-frame:hover img { transform: scale(var(--zs)); }
-    .fig-zoom .fig-frame:hover::after { border-color: var(--accent); }
-    .fig-zoom .fig-frame:hover + .fig-cap .cap-base { visibility: hidden; }
-    .fig-zoom .fig-frame:hover + .fig-cap .cap-zoom { visibility: visible; }
-  }
 
   /* About */
   .about-grid { row-gap: var(--space-7); }
@@ -243,7 +250,9 @@
   /* Tablet and below */
   @media (max-width: 860px) {
     .hero { padding-block: var(--space-8) var(--space-7); }
-    .hero h1, .hero-lead { grid-column: 1 / -1; }
+    .hero h1, .hero-lead { grid-column: 1 / -1; grid-row: auto; }
+    .hero-art { display: none; }
+    .hero-links { grid-row: auto; }
     .card { grid-template-rows: none; }
     .card-head, .card-body, .card-fig { grid-column: 1 / -1; grid-row: auto; }
     .card-fig { margin-top: var(--space-5); }
@@ -260,6 +269,24 @@
     .nav ul { gap: var(--space-4); }
     .facts > div { grid-template-columns: 7rem 1fr; gap: var(--space-3); }
     .section { padding-block: var(--space-7); }
+  }
+
+  /* Hero drawing loop: 10s. The marker acts along the lower branch and waits at the accent node on the upper one. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (offset-path: path("M0 0")) {
+      .hero-art .mk { animation: hero-run 10s infinite; }
+      .hero-art .wait { animation: hero-ask 10s ease-in-out infinite; }
+    }
+    @keyframes hero-run {
+      0% { offset-distance: 0%; animation-timing-function: cubic-bezier(0.1, 0.4, 0.4, 1); }
+      22% { offset-distance: 25%; }
+      40% { offset-distance: 25%; animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.7); }
+      100% { offset-distance: 100%; }
+    }
+    @keyframes hero-ask {
+      0%, 22%, 40%, 100% { transform: scale(1); }
+      31% { transform: scale(1.35); }
+    }
   }
 
   /* Scroll-in motion. Start states are transforms of fully visible content, with one deliberate exception: the project cards also fade in (see the card keyframes below and "Round 4 change" in .claude/plans/home-scroll-in.md). */
@@ -366,6 +393,18 @@
     <div class="wrap grid">
       <h1>I design AI tools that know when to act and when to ask.</h1>
       <p class="hero-lead">Senior Product Designer at Intuit in San Diego. My document automation for TurboTax Live, QuickBooks Live and BizTax experts cut 46 minutes from each engagement and saved $3.54M. I prototype in code as well as Figma.</p>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 54 320 172" focusable="false">
+          <path class="ln" d="M24 140 H100 L140 70 H290 V210 H140 L100 140"/>
+          <circle class="nd" cx="24" cy="140" r="4"/>
+          <circle class="nd" cx="100" cy="140" r="5"/>
+          <circle class="nd" cx="290" cy="70" r="5"/>
+          <circle class="nd" cx="290" cy="210" r="5"/>
+          <circle class="nd" cx="210" cy="210" r="5"/>
+          <circle class="nd wait" cx="210" cy="70" r="8"/>
+          <circle class="mk" cx="0" cy="0" r="3.5"/>
+        </svg>
+      </div>
       <div class="hero-links">
         <a class="btn btn-secondary" href="assets/resume/daniel-j-baek-resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
         <a class="btn btn-primary" href="#work">See the work</a>
@@ -412,13 +451,12 @@
           </ul>
           <a class="card-link" href="dea.html">Read the case study<span class="sr-only"> on the Digital Evidence Archive</span></a>
         </div>
-        <figure class="card-fig fig fig-zoom" style="--zx: 67%; --zy: 78%; --zs: 1.5">
+        <figure class="card-fig fig">
           <div class="fig-frame">
             <img src="assets/images/home/dea.jpg" width="803" height="502" loading="lazy" alt="Digital Evidence Archive All Cases screen: a table of cases with file counts, sizes, creation dates and status.">
           </div>
           <figcaption class="fig-cap">
-            <span class="cap-text mono"><span class="cap-base">Fig. 2 · Digital Evidence Archive, all cases</span><span class="cap-zoom">Fig. 2a · Case table</span></span>
-            <button type="button" class="fig-btn" data-zoom>Zoom: case table</button>
+            <span class="cap-text mono"><span class="cap-base">Fig. 2 · Digital Evidence Archive, all cases</span></span>
           </figcaption>
         </figure>
       </article>
@@ -541,20 +579,9 @@
     update();
   })();
 
-  // Figure zoom (DEA) and the three product clips
+  // The two product clips
   (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Zoom: the button pins the same state that hover sets in CSS.
-    document.querySelectorAll('.fig-zoom').forEach(function (fig) {
-      var btn = fig.querySelector('.fig-btn'), on = btn.textContent;
-      btn.setAttribute('aria-pressed', 'false');
-      btn.addEventListener('click', function () {
-        var z = fig.classList.toggle('is-zoomed');
-        btn.setAttribute('aria-pressed', z ? 'true' : 'false');
-        btn.textContent = z ? 'Zoom out' : on;
-      });
-    });
 
     // Clip: the still stays until the card is near the screen, then a muted video replaces it.
     // The button and aria-pressed follow the viewer's choice (wantPlay), never the observer's play and pause.

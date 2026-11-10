@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=Red+Hat+Mono:wght@400;500&display=swap">
 
+<script>document.documentElement.classList.add('js');</script>
 <style>
   :root {
     /* Color */
@@ -160,7 +161,39 @@
   .card-link:hover { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 
   /* One frame for every card figure: 16:10, full column width, one whole product screen; see design-system.md 4.3a. */
-  .fig img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--surface); outline: 1px solid var(--rule); outline-offset: -1px; }
+  .fig-frame { position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: var(--surface); }
+  .fig-frame::after { content: ""; position: absolute; inset: 0; border: 1px solid var(--rule); pointer-events: none; }
+  .fig-frame img, .fig-frame video {
+    display: block; width: 100%; height: 100%; object-fit: cover; background: var(--surface);
+    transform-origin: var(--zx, 50%) var(--zy, 50%); transition: transform var(--dur-base) var(--ease);
+  }
+
+  /* Figure caption: numbered in the document format, with one control. */
+  .fig-cap { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); margin-top: var(--space-2); color: var(--text-muted); }
+  .cap-text { display: grid; padding-block: var(--space-1); }
+  .cap-text > span { grid-area: 1 / 1; }
+  .cap-zoom { visibility: hidden; }
+  .fig-btn {
+    display: none; flex-shrink: 0; align-items: center; min-height: 2rem; padding: var(--space-1) 0; cursor: pointer;
+    font-family: var(--font-sans); font-size: var(--type-small); font-weight: 500; color: var(--text); background: none; border: 0;
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em;
+  }
+  .fig-btn:hover { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+  .js .fig-btn { display: inline-flex; }
+  .fig-btn[hidden] { display: none; }
+  @media (pointer: coarse) { .fig-btn { min-height: 2.75rem; min-width: 2.75rem; } }
+
+  /* Zoom: one component per figure, set by --zx, --zy and --zs on the figure. Hover and the button share one state. */
+  .fig-zoom.is-zoomed .fig-frame img { transform: scale(var(--zs)); }
+  .fig-zoom.is-zoomed .fig-frame::after { border-color: var(--accent); }
+  .fig-zoom.is-zoomed .cap-base { visibility: hidden; }
+  .fig-zoom.is-zoomed .cap-zoom { visibility: visible; }
+  @media (hover: hover) and (pointer: fine) {
+    .fig-zoom .fig-frame:hover img { transform: scale(var(--zs)); }
+    .fig-zoom .fig-frame:hover::after { border-color: var(--accent); }
+    .fig-zoom .fig-frame:hover + .fig-cap .cap-base { visibility: hidden; }
+    .fig-zoom .fig-frame:hover + .fig-cap .cap-zoom { visibility: visible; }
+  }
 
   /* About */
   .about-grid { row-gap: var(--space-7); }
@@ -219,6 +252,9 @@
     .about-copy { grid-column: 1 / -1; }
     .wall { grid-column: 1 / -1; order: -1; width: 100%; max-width: 36rem; }
   }
+  @media (max-width: 560px) {
+    .fig-cap { flex-direction: column; gap: 0; }
+  }
   @media (max-width: 480px) {
     :root { --grid-margin: 1rem; }
     .nav ul { gap: var(--space-4); }
@@ -272,10 +308,16 @@
           <p class="card-meta mono">Intuit · Senior Product Designer, concept through launch · 2025–present · Shipping 2026</p>
         </div>
         <div class="card-body">
-          <p class="card-summary">New expert services were defined in decks and tickets, then settled downstream by whoever hit the gap first. In Service Studio a team describes the service in plain English, one question at a time, and the journey, the expert's screens and the agent bundle draw as they answer. The result is one definition people can't misread and an agent can build from. I designed it from the first prototype to a 2026 launch. Shown with internal names removed.</p>
+          <p class="card-summary">New expert services were defined in decks and tickets, then settled downstream by whoever hit the gap first. In Service Studio a team describes the service in plain English, one question at a time, and the journey, the expert's screens and the agent bundle draw as they answer. The result is one definition people can't misread and an agent can build from. I designed it from the first prototype to a 2026 launch.</p>
         </div>
-        <figure class="card-fig fig">
-          <img src="assets/images/home/servicestudio.jpg" srcset="assets/images/home/servicestudio.jpg 2x" width="690" height="431" loading="lazy" alt="Service Studio drafting a new service: on the left a conversation in which the assistant asks one question at a time and the designer answers in plain English, on the right a journey of four connected steps, Onboarding, Monitoring, Return assembly and Filing, with a dashed line for a step that waits on a condition.">
+        <figure class="card-fig fig" data-clip-src="assets/video/servicestudio-home.mp4" data-clip-caption="Fig. 1 · Service Studio, drafting a service blueprint" data-clip-poster="assets/video/servicestudio-home.jpg" data-clip-label="Service Studio drafting a service: a grid of steps by role and milestone, and one step is dragged from the client lane to the tax expert lane.">
+          <div class="fig-frame">
+            <img src="assets/images/home/servicestudio.jpg" srcset="assets/images/home/servicestudio.jpg 2x" width="690" height="431" loading="lazy" alt="Service Studio drafting a new service: on the left a conversation in which the assistant asks one question at a time and the designer answers in plain English, on the right a journey of four connected steps, Onboarding, Monitoring, Return assembly and Filing, with a dashed line for a step that waits on a condition.">
+          </div>
+          <figcaption class="fig-cap">
+            <span class="cap-text mono"><span class="cap-base">Fig. 1 · Service Studio, a draft journey of four steps</span></span>
+            <button type="button" class="fig-btn" data-clip>Pause</button>
+          </figcaption>
         </figure>
       </article>
 
@@ -294,8 +336,14 @@
           </ul>
           <a class="card-link" href="dea.html">Read the case study<span class="sr-only"> on the Digital Evidence Archive</span></a>
         </div>
-        <figure class="card-fig fig">
-          <img src="assets/images/home/dea.jpg" width="803" height="502" loading="lazy" alt="Digital Evidence Archive All Cases screen: a table of cases with file counts, sizes, creation dates and status.">
+        <figure class="card-fig fig fig-zoom" style="--zx: 67%; --zy: 78%; --zs: 1.5">
+          <div class="fig-frame">
+            <img src="assets/images/home/dea.jpg" width="803" height="502" loading="lazy" alt="Digital Evidence Archive All Cases screen: a table of cases with file counts, sizes, creation dates and status.">
+          </div>
+          <figcaption class="fig-cap">
+            <span class="cap-text mono"><span class="cap-base">Fig. 2 · Digital Evidence Archive, all cases</span><span class="cap-zoom">Fig. 2a · Case table</span></span>
+            <button type="button" class="fig-btn" data-zoom>Zoom: case table</button>
+          </figcaption>
         </figure>
       </article>
 
@@ -306,10 +354,16 @@
           <p class="card-meta mono">Intuit · Senior Product Designer, concept through launch · 2024–present · In pilot</p>
         </div>
         <div class="card-body">
-          <p class="card-summary">Experts drove every action across disconnected tools while AI helped one task at a time. In this workspace agents do the work and experts approve it: a new client arrives with documents pulled, a refund estimated and a welcome message drafted. I designed it from the first prototype through launch, and it's now in a limited pilot. Shown with internal names removed.</p>
+          <p class="card-summary">Experts drove every action across disconnected tools while AI helped one task at a time. In this workspace agents do the work and experts approve it: a new client arrives with documents pulled, a refund estimated and a welcome message drafted. I designed it from the first prototype through launch, and it's now in a limited pilot.</p>
         </div>
-        <figure class="card-fig fig">
-          <img src="assets/images/home/vision.jpg" srcset="assets/images/home/vision.jpg 2x" width="690" height="431" loading="lazy" alt="Agent workspace prototype home screen: activity cards with 18 of 22 active returns and a 92 percent completion rate, a call-activity card, a daily schedule and a customers table.">
+        <figure class="card-fig fig" data-clip-src="assets/video/agentworkspace-home.mp4" data-clip-caption="Fig. 3 · Agent workspace, a new client arrives" data-clip-poster="assets/video/agentworkspace-home.jpg" data-clip-label="Agent workspace: the home screen of activity cards and a customers table, then a new client matched to the expert with a drafted welcome message and a folder of documents.">
+          <div class="fig-frame">
+            <img src="assets/images/home/vision.jpg" srcset="assets/images/home/vision.jpg 2x" width="690" height="431" loading="lazy" alt="Agent workspace prototype home screen: activity cards with 18 of 22 active returns and a 92 percent completion rate, a call-activity card, a daily schedule and a customers table.">
+          </div>
+          <figcaption class="fig-cap">
+            <span class="cap-text mono"><span class="cap-base">Fig. 3 · Agent workspace, home screen with activity cards</span></span>
+            <button type="button" class="fig-btn" data-clip>Pause</button>
+          </figcaption>
         </figure>
       </article>
 
@@ -329,7 +383,12 @@
           <a class="card-link" href="contxtiq.html">Read the case study<span class="sr-only"> on ContxtIQ</span></a>
         </div>
         <figure class="card-fig fig">
-          <img src="assets/images/home/contxtiq.jpg" width="1338" height="836" loading="lazy" alt="ContxtIQ review screen after a screening call for an HVAC technician role: three sections of questions, each answer with a score badge such as 85.7% and a response summary of bullet points written by the AI, and an average score for each section.">
+          <div class="fig-frame">
+            <img src="assets/images/home/contxtiq.jpg" width="1338" height="836" loading="lazy" alt="ContxtIQ review screen after a screening call for an HVAC technician role: three sections of questions, each answer with a score badge such as 85.7% and a response summary of bullet points written by the AI, and an average score for each section.">
+          </div>
+          <figcaption class="fig-cap">
+            <span class="cap-text mono"><span class="cap-base">Fig. 4 · ContxtIQ, review screen after a call</span></span>
+          </figcaption>
         </figure>
       </article>
     </div>
@@ -404,6 +463,58 @@
     }
     window.addEventListener('scroll', update, { passive: true });
     update();
+  })();
+
+  // Figure zoom (DEA) and the three product clips
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Zoom: the button pins the same state that hover sets in CSS.
+    document.querySelectorAll('.fig-zoom').forEach(function (fig) {
+      var btn = fig.querySelector('.fig-btn'), on = btn.textContent;
+      btn.setAttribute('aria-pressed', 'false');
+      btn.addEventListener('click', function () {
+        var z = fig.classList.toggle('is-zoomed');
+        btn.setAttribute('aria-pressed', z ? 'true' : 'false');
+        btn.textContent = z ? 'Zoom out' : on;
+      });
+    });
+
+    // Clip: the still stays until the card is near the screen, then a muted video replaces it.
+    // The button and aria-pressed follow the viewer's choice (wantPlay), never the observer's play and pause.
+    document.querySelectorAll('[data-clip-src]').forEach(function (fig) {
+      var btn = fig.querySelector('.fig-btn'), frame = fig.querySelector('.fig-frame'), cap = fig.querySelector('.cap-base');
+      var video = null, wantPlay = !reduce, visible = false, started = false;
+      if (!('IntersectionObserver' in window)) { btn.hidden = true; return; }
+      function label() {
+        btn.setAttribute('aria-pressed', wantPlay ? 'true' : 'false');
+        btn.textContent = wantPlay ? 'Pause' : (started ? 'Play' : 'Play clip');
+      }
+      function make() {
+        if (video) return;
+        video = document.createElement('video');
+        video.muted = true; video.defaultMuted = true; video.setAttribute('muted', '');
+        video.loop = true; video.playsInline = true; video.preload = 'none';
+        video.poster = fig.getAttribute('data-clip-poster');
+        video.setAttribute('aria-label', fig.getAttribute('data-clip-label'));
+        video.src = fig.getAttribute('data-clip-src');
+        video.addEventListener('playing', function () { started = true; });
+        frame.replaceChild(video, frame.querySelector('img'));
+        cap.textContent = fig.getAttribute('data-clip-caption');
+      }
+      function sync() {
+        if (!video) return;
+        if (wantPlay && visible) { var p = video.play(); if (p && p.catch) p.catch(function () {}); } else video.pause();
+      }
+      label();
+      btn.addEventListener('click', function () {
+        wantPlay = !wantPlay;
+        if (wantPlay) make();
+        label(); sync();
+      });
+      new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting && !reduce) { make(); sync(); } }, { rootMargin: '200px 0px' }).observe(fig);
+      new IntersectionObserver(function (es) { visible = es[es.length - 1].isIntersecting; sync(); }, { threshold: 0.5 }).observe(frame);
+    });
   })();
 </script>
 </body>

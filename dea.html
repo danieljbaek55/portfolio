@@ -2,391 +2,429 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Digital Evidence Archive · Daniel J. Baek</title>
+<meta name="description" content="Designing an open-source digital evidence archive for police agencies at Amazon, from research to accessible handoff. About 45 minutes saved per case.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Digital Evidence Archive · Daniel J. Baek">
+<meta property="og:description" content="Designing an open-source digital evidence archive for police agencies at Amazon, from research to accessible handoff. About 45 minutes saved per case.">
+<meta property="og:url" content="https://danieljbaek.com/dea.html">
+<meta property="og:image" content="https://danieljbaek.com/assets/images/dea/dea_img8.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=Red+Hat+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --type-display: clamp(3.5rem, 8vw, 7rem);
-    --type-heading: clamp(2rem, 3vw, 2.625rem);
-    --type-subheading: 1.5rem;
-    --type-lead: 1.25rem;
+    /* Color */
+    --bg: #F2F4F6;            /* paper, tinted toward blue-gray */
+    --surface: #FFFFFF;       /* figures, frames */
+    --surface-2: #E8ECF0;     /* image wells */
+    --text: #14181D;
+    --text-muted: #4B5563;
+    --rule: #CBD2DA;          /* hairlines, never text */
+    --accent: #2457C5;        /* reviewer's blue pen: outcomes, current section */
+    --on-dark: #F2F4F6;       /* text on --text surfaces */
+    --text-hover: #2B323A;    /* hover fill for --text buttons */
+
+    /* Type families */
+    --font-sans: 'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'Red Hat Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    /* Type scale: the only seven sizes */
+    --type-display: clamp(2.25rem, 1.4rem + 3.6vw, 4rem);
+    --type-heading: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+    --type-subheading: 1.375rem;
+    --type-lead: clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem);
     --type-body: 1rem;
     --type-small: 0.875rem;
-    --type-label: 0.6875rem;
-    --track-label: 0.16em;
-    --bg: #EDE9E3; --bg-warm: #E5E0D8; --bg-light: #F2EDE8; --text: #2a2725; --text-muted: #625c56;
-    --accent: #6e5d4c; --accent-dark: #5e4e3d; --charcoal: #3C3834; --border: #ddd8d2;
-    --marble: #1a1816; --cream: #F0EBE4;
-    --font-display: 'Fraunces', Georgia, serif; --font-body: 'Outfit', sans-serif;
+    --type-label: 0.8125rem;
+
+    /* Spacing scale (4px base) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+    --space-9: 6rem;
+
+    /* Grid */
+    --grid-max: 1200px;
+    --grid-cols: 12;
+    --grid-gap: 1.5rem;
+    --grid-margin: 1.5rem;
+
+    /* Motion */
+    --dur-fast: 150ms;
+    --dur-base: 300ms;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; font-size: var(--type-body); line-height: 1.7; overflow-x: hidden; }
 
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 16px 64px; transition: padding 0.4s ease; background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-  nav.scrolled { padding: 12px 64px; }
-  .nav-back { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 400; position: relative; z-index: 1; }
-  .nav-back:hover { color: var(--sage); }
-  .nav-back svg { transition: transform 0.2s ease; }
-  .nav-back:hover svg { transform: translateX(-4px); }
-  .nav-name { font-family: var(--font-display); font-size: 17px; font-weight: 400; letter-spacing: 0.03em; color: var(--text); text-decoration: none; position: relative; z-index: 1; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: var(--type-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  ul, ol, dl, dd, p, figure { margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 
-  /* HERO */
-  .proj-hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 64px 80px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
-  .hero-img { position: absolute; inset: 0; z-index: 0; }
-  .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .hero-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,26,24,0.95) 0%, rgba(28,26,24,0.5) 55%, rgba(28,26,24,0.2) 100%); }
-  .proj-hero-content { position: relative; z-index: 1; max-width: 760px; }
-  .proj-eyebrow { font-family: var(--font-body); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: #A99888; margin-bottom: 24px; font-weight: 400; }
-  .proj-title { font-family: var(--font-display); font-size: var(--type-display); font-weight: 300; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 32px; color: #F0EBE4; }
-  .proj-title em { font-style: italic; font-weight: 400; color: rgba(240,235,228,0.75); }
-  .proj-title-line { display: block; }
-  .proj-tagline { font-size: var(--type-lead); font-weight: 300; color: rgba(245,243,240,0.65); max-width: 520px; line-height: 1.65; }
+  .mono { font-family: var(--font-mono); font-size: var(--type-label); letter-spacing: 0; }
 
-  /* META */
-  .proj-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
-  .proj-meta-item { padding: 32px 40px; border-right: 1px solid var(--border); }
-  .proj-meta-item:last-child { border-right: none; }
-  .meta-label { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; font-weight: 400; }
-  .meta-val { font-size: var(--type-body); color: var(--text); line-height: 1.4; }
+  .skip { position: absolute; left: var(--space-4); top: -4rem; z-index: 20; background: var(--text); color: var(--on-dark); padding: var(--space-2) var(--space-4); font-size: var(--type-small); }
+  .skip:focus { top: var(--space-3); }
 
-  .proj-body { max-width: 1200px; margin: 0 auto; }
+  .wrap { width: 100%; max-width: calc(var(--grid-max) + 2 * var(--grid-margin)); margin-inline: auto; padding-inline: var(--grid-margin); }
 
-  /* SECTIONS */
-  .proj-section { padding: 100px 64px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 280px 1fr; gap: 80px; }
-  .section-label { font-family: var(--font-body); font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); padding-top: 6px; font-weight: 400; }
-  .proj-section h2 { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 24px; }
-  .proj-section h2 em { font-style: italic; font-weight: 400; color: var(--charcoal); }
-  :where(.proj-section) p { font-size: var(--type-body); line-height: 1.85; color: var(--text-muted); margin-bottom: 20px; }
-  .proj-section p:last-child { margin-bottom: 0; }
-  .proj-section p strong { color: var(--text); font-weight: 400; }
-
-  /* IMAGE BLOCKS */
-  .img-full { width: 100%; border-bottom: 1px solid var(--border); overflow: hidden; }
-  .img-full img { width: 100%; height: 580px; object-fit: cover; display: block; }
-
-  .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-bottom: 1px solid var(--border); }
-  .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; border-bottom: 1px solid var(--border); }
-
-  .img-cell { position: relative; overflow: hidden; min-height: 420px; }
-  .img-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
-  .img-cell:hover img { transform: scale(1.03); }
-  .img-cell.light-bg { background: #fff; }
-  .img-cell.light-bg img { object-fit: contain; padding: 40px; }
-  .img-cell.dark-bg { background: #111418; }
-  .img-cell.dark-bg img { object-fit: contain; padding: 20px; }
-  .img-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 20px; background: linear-gradient(to top, rgba(28,26,24,0.75), transparent); }
-  .img-caption span { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: rgba(245,243,240,0.85); font-weight: 400; }
-
-  /* STATS */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
-  .stat-cell { padding: 56px 40px; border-right: 1px solid var(--border); }
-  .stat-cell:last-child { border-right: none; }
-  .stat-num { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 10px; }
-  .stat-label { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
-
-  /* PROCESS */
-  .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-bottom: 1px solid var(--border); }
-  .process-step { background: var(--bg-warm); padding: 48px 40px; }
-  .process-step:nth-child(2) { background: #e8e3dc; }
-  .step-num { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 20px; }
-  .step-title { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text); margin-bottom: 14px; font-weight: 400; }
-  .step-desc { font-size: var(--type-body); color: var(--text-muted); line-height: 1.75; }
-
-  /* DECISIONS */
-  .decisions { display: flex; flex-direction: column; }
-  .decision { padding: 40px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
-  .decision:first-child { padding-top: 0; }
-  .decision:last-child { border-bottom: none; padding-bottom: 0; }
-  .decision-tag { font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-dark); padding-top: 4px; font-weight: 400; }
-  .decision-text h4 { font-family: var(--font-display); font-size: var(--type-subheading); font-weight: 300; margin-bottom: 10px; letter-spacing: -0.01em; }
-  .decision-text p { font-size: var(--type-body); color: var(--text-muted); line-height: 1.75; }
-
-  /* LESSONS */
-  .lessons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-  .lesson { background: var(--bg-warm); padding: 44px 40px; }
-  .lesson:nth-child(2) { background: #e8e3dc; }
-  .lesson-num { font-family: var(--font-display); font-size: var(--type-heading); font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 18px; }
-  .lesson p { font-size: var(--type-body); color: var(--text-muted); line-height: 1.75; }
-
-  .back-footer { padding: 64px; border-top: 1px solid var(--border); }
-  .back-link { display: inline-flex; align-items: center; gap: 10px; font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 4px; transition: color 0.2s, border-color 0.2s; font-weight: 400; }
-  .back-link:hover { color: var(--text); border-color: var(--accent-dark); }
-  .back-link svg { transition: transform 0.2s ease; }
-  .back-link:hover svg { transform: translateX(-4px); }
-
-  @media (max-width: 900px) {
-    nav, nav.scrolled { padding: 12px 20px; }
-    .proj-hero { padding: 0 28px 60px; }
-    .proj-meta { grid-template-columns: 1fr 1fr; }
-    .proj-meta-item:nth-child(2) { border-right: none; }
-    .proj-section { grid-template-columns: 1fr; gap: 24px; padding: 60px 28px; }
-    .img-grid-2, .img-grid-3 { grid-template-columns: 1fr; }
-    .process-steps, .lessons { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: 1fr 1fr; }
-    .stats-row .stat-cell:nth-child(2) { border-right: none; }
-    .decision { grid-template-columns: 1fr; gap: 8px; }
-    .back-footer { padding: 40px 28px; }
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: 3.5rem; }
+  .nav-name { font-weight: 600; text-decoration: none; font-size: var(--type-body); white-space: nowrap; }
+  .nav ul { display: flex; gap: var(--space-5); }
+  .nav ul a {
+    font-size: var(--type-small); text-decoration: none; color: var(--text-muted);
+    padding-block: var(--space-2); border-bottom: 2px solid transparent;
+    transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-  /* Inset screenshots from the section dividers */
-  .img-full, .img-grid-2, .img-grid-3 { padding: 40px 64px; gap: 16px; background-clip: content-box; }
-  .img-cell, .img-full img { border-radius: 10px; }
-  @media (max-width: 900px) {
-    .img-full, .img-grid-2, .img-grid-3 { padding: 32px 20px; gap: 12px; }
+  .nav ul a:hover { color: var(--text); }
+
+  /* Case-study header: meta row and TL;DR */
+  .cs-head { position: relative; overflow: clip; padding-block: var(--space-7) var(--space-6); }
+  .cs-head > .wrap { position: relative; z-index: 1; }
+  .cs-head h1 { font-size: var(--type-display); line-height: 1.05; letter-spacing: -0.02em; }
+  .cs-lead { font-size: var(--type-lead); line-height: 1.5; max-width: 62ch; margin-top: var(--space-4); }
+  .meta { display: grid; grid-template-columns: 0.8fr 1.2fr 0.7fr 0.7fr 1.3fr; gap: var(--space-4) var(--grid-gap); margin-top: var(--space-5); padding-block: var(--space-4); border-block: 1px solid var(--rule); }
+  .meta dt { color: var(--text-muted); }
+  .meta dd { font-size: var(--type-small); margin-top: var(--space-1); }
+  .tldr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); margin-top: var(--space-5); }
+  .tldr h2 { font-size: var(--type-label); font-weight: 500; color: var(--text-muted); margin-bottom: var(--space-2); }
+  .tldr p { font-size: var(--type-small); line-height: 1.5; }
+  .tldr-outcome { padding-left: var(--space-4); border-left: 2px solid var(--accent); }
+
+  /* Header drawing: the homepage rosette, faint, behind the right side of the header. */
+  .hero-art { position: absolute; z-index: 0; pointer-events: none; top: 50%; right: -6vw; width: clamp(520px, 50vw, 760px); aspect-ratio: 1; transform: translateY(-50%); }
+  .hero-art svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .hero-art svg * { fill: none; stroke-width: 0.75; vector-effect: non-scaling-stroke; }
+  .hero-art .l-rule { stroke: var(--rule); }
+  .hero-art .l-mute { stroke: color-mix(in srgb, var(--text) 10%, transparent); }
+  .hero-art .l-text { stroke: color-mix(in srgb, var(--text) 14%, transparent); }
+  .hero-art .ring, .hero-art .spokes, .hero-art .rose { transform-origin: 200px 200px; }
+
+  /* Sections */
+  .section { padding-block: var(--space-8); border-top: 1px solid var(--rule); }
+  .section > .wrap > h2 { font-size: var(--type-heading); line-height: 1.15; margin-bottom: var(--space-7); }
+  .prose { max-width: 62ch; }
+  .prose p + p { margin-top: var(--space-4); }
+  .prose strong { font-weight: 600; }
+
+  /* Flat figures: "Fig. N · Caption" */
+  .figs { display: grid; gap: var(--space-6) var(--grid-gap); margin-block: var(--space-6) 0; align-items: start; }
+  .figs-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .figs-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .figure { margin: 0; }
+  .fig-frame { position: relative; width: fit-content; max-width: 100%; background: var(--surface); transition: translate var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease); }
+  .fig-frame img { background: var(--surface); outline: 1px solid var(--rule); outline-offset: -1px; }
+  .figure figcaption { margin-top: var(--space-3); color: var(--text-muted); max-width: 70ch; }
+  .figure figcaption span { color: var(--text); }
+  /* Hover lift: the frame rises on devices with a real pointer. */
+  @media (hover: hover) and (pointer: fine) {
+    .figure:hover > .fig-frame {
+      translate: 0 -6px;
+      box-shadow: 0 1px 2px color-mix(in srgb, var(--text) 8%, transparent), 0 16px 24px -12px color-mix(in srgb, var(--text) 26%, transparent);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+    .figure:hover > .fig-frame { translate: none; }
+  }
+
+  /* Stat row */
+  .stats { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-6); margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--rule); }
+  .stats li { display: flex; flex-direction: column; gap: var(--space-1); min-width: 7rem; }
+  .stat-value { font-family: var(--font-mono); font-size: var(--type-subheading); font-weight: 500; line-height: 1.1; }
+  .stat-label { font-size: var(--type-small); color: var(--text-muted); line-height: 1.35; }
+  .stats-lg { margin-top: 0; border-top: 2px solid var(--accent); }
+  .stats-lg .stat-value { font-size: var(--type-heading); }
+
+  /* Process steps: ordered, mono step labels */
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5) var(--grid-gap); margin-top: var(--space-6); }
+  .steps li { padding-top: var(--space-3); border-top: 1px solid var(--rule); }
+  .steps .mono { color: var(--text-muted); margin-bottom: var(--space-2); }
+  .steps p:not(.mono) { font-size: var(--type-small); line-height: 1.5; }
+
+  /* Key decisions */
+  .decisions { display: grid; gap: var(--space-6); margin-top: var(--space-5); }
+  .decision { padding-left: var(--space-4); border-left: 2px solid var(--accent); max-width: 62ch; }
+  .decision .mono { color: var(--text-muted); margin-bottom: var(--space-1); }
+  .decision h3 { font-size: var(--type-subheading); line-height: 1.25; }
+  .decision p:not(.mono) { margin-top: var(--space-2); }
+
+  /* Takeaways */
+  .takeaways { display: grid; gap: var(--space-5); max-width: 62ch; }
+  .takeaways li { padding-top: var(--space-4); border-top: 1px solid var(--rule); }
+  .takeaways strong { font-weight: 600; }
+
+  /* Next project */
+  .next { border-top: 1px solid var(--rule); padding-block: var(--space-7); }
+  .next .wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-4) var(--space-6); }
+  .next-link { font-size: var(--type-subheading); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+  .next-link:hover { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+  .next-all { font-size: var(--type-body); font-weight: 500; text-underline-offset: 0.25em; }
+  .next-all:hover { text-decoration-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--rule); padding-block: var(--space-6); color: var(--text-muted); }
+
+  @media (max-width: 860px) {
+    .hero-art { display: none; }
+    .meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tldr { grid-template-columns: 1fr; }
+    .figs-2, .figs-3, .steps { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    :root { --grid-margin: 1rem; }
+    .nav ul { gap: var(--space-4); }
+    .section { padding-block: var(--space-7); }
+  }
+
+  /* Header figure: three layers turn slowly; Still under reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-art .ring { animation: hero-turn 180s linear infinite; }
+    .hero-art .spokes { animation: hero-turn 150s linear infinite reverse; }
+    .hero-art .rose { animation: hero-turn 120s linear infinite; }
+    @keyframes hero-turn { to { transform: rotate(360deg); } }
+  }
+
+  /* Figure scroll-in: a scroll-linked rise, no rotation, opacity stays 1. Text never moves. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .fig-frame { animation: fig-in var(--ease) both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+      @keyframes fig-in { from { transform: translateY(32px); } to { transform: none; } }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav id="nav">
-  <a href="index.html" class="nav-back">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to Portfolio
-  </a>
-  <a href="index.html" class="nav-name">Daniel J. Baek</a>
-</nav>
-
-<section class="proj-hero">
-  <div class="hero-img">
-    <img src="assets/images/dea/dea_img7.png" alt="Law enforcement evidence storage"/>
+<header class="nav">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Daniel J. Baek</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="assets/resume/daniel-j-baek-resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
   </div>
-  <div class="proj-hero-content">
-    <p class="proj-eyebrow">Amazon · AWS · Open Source · Global Law Enforcement</p>
-    <h1 class="proj-title">
-      <span class="proj-title-line">Digital</span>
-      <span class="proj-title-line"><em>Evidence</em></span>
-      <span class="proj-title-line">Archive</span>
-    </h1>
-    <p class="proj-tagline">A secure, web-based evidence management system built for police departments globally, reducing manual workflows by ~45 minutes per case.</p>
-  </div>
-</section>
+</header>
 
-<div class="proj-meta">
-  <div class="proj-meta-item"><span class="meta-label">Role</span><p class="meta-val">Lead Product Designer</p></div>
-  <div class="proj-meta-item"><span class="meta-label">Company</span><p class="meta-val">Amazon · AWS</p></div>
-  <div class="proj-meta-item"><span class="meta-label">Release</span><p class="meta-val">Open Source</p></div>
-  <div class="proj-meta-item"><span class="meta-label">Users</span><p class="meta-val">Global Law Enforcement</p></div>
-</div>
+<main id="main">
+  <header class="cs-head">
+     <div class="hero-art" aria-hidden="true">
+        <svg viewBox="5 5 390 390" focusable="false">
+          <g class="ring"><path class="l-rule" d="M389.3 216.6L383.3 216M387.1 233L381.2 232M383.5 249.2L377.7 247.6M378.5 265L372.9 262.9M372.2 280.3L366.8 277.8M355.6 309L350.7 305.5M345.5 322.1L341 318.3M334.4 334.4L330.1 330.1M322.1 345.5L318.3 341M309 355.6L305.5 350.7M280.3 372.2L277.8 366.8M265 378.5L262.9 372.9M249.2 383.5L247.6 377.7M233 387.1L232 381.2M216.6 389.3L216 383.3M183.4 389.3L184 383.3M167 387.1L168 381.2M150.8 383.5L152.4 377.7M135 378.5L137.1 372.9M119.7 372.2L122.2 366.8M91 355.6L94.5 350.7M77.9 345.5L81.7 341M65.6 334.4L69.9 330.1M54.5 322.1L59 318.3M44.4 309L49.3 305.5M27.8 280.3L33.2 277.8M21.5 265L27.1 262.9M16.5 249.2L22.3 247.6M12.9 233L18.8 232M10.7 216.6L16.7 216M10.7 183.4L16.7 184M12.9 167L18.8 168M16.5 150.8L22.3 152.4M21.5 135L27.1 137.1M27.8 119.7L33.2 122.2M44.4 91L49.3 94.5M54.5 77.9L59 81.7M65.6 65.6L69.9 69.9M77.9 54.5L81.7 59M91 44.4L94.5 49.3M119.7 27.8L122.2 33.2M135 21.5L137.1 27.1M150.8 16.5L152.4 22.3M167 12.9L168 18.8M183.4 10.7L184 16.7M216.6 10.7L216 16.7M233 12.9L232 18.8M249.2 16.5L247.6 22.3M265 21.5L262.9 27.1M280.3 27.8L277.8 33.2M309 44.4L305.5 49.3M322.1 54.5L318.3 59M334.4 65.6L330.1 69.9M345.5 77.9L341 81.7M355.6 91L350.7 94.5M372.2 119.7L366.8 122.2M378.5 135L372.9 137.1M383.5 150.8L377.7 152.4M387.1 167L381.2 168M389.3 183.4L383.3 184"/><path class="l-mute" d="M390 200L377 200M364.5 295L353.3 288.5M295 364.5L288.5 353.3M200 390L200 377M105 364.5L111.5 353.3M35.5 295L46.7 288.5M10 200L23 200M35.5 105L46.7 111.5M105 35.5L111.5 46.7M200 10L200 23M295 35.5L288.5 46.7M364.5 105L353.3 111.5"/></g>
+          <circle class="l-text" cx="200" cy="200" r="190"/>
+          <circle class="l-rule" cx="200" cy="200" r="172"/>
+          <circle class="l-mute" cx="200" cy="200" r="150"/>
+          <g class="spokes"><path class="l-rule" d="M229.7 203.9L348.7 219.6M227.7 211.5L338.6 257.4M223.8 218.3L319 291.3M218.3 223.8L291.3 319M211.5 227.7L257.4 338.6M203.9 229.7L219.6 348.7M196.1 229.7L180.4 348.7M188.5 227.7L142.6 338.6M181.7 223.8L108.7 319M176.2 218.3L81 291.3M172.3 211.5L61.4 257.4M170.3 203.9L51.3 219.6M170.3 196.1L51.3 180.4M172.3 188.5L61.4 142.6M176.2 181.7L81 108.7M181.7 176.2L108.7 81M188.5 172.3L142.6 61.4M196.1 170.3L180.4 51.3M203.9 170.3L219.6 51.3M211.5 172.3L257.4 61.4M218.3 176.2L291.3 81M223.8 181.7L319 108.7M227.7 188.5L338.6 142.6M229.7 196.1L348.7 180.4"/></g>
+          <g class="rose"><path class="l-text" d="M200 110m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M245 122.1m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M277.9 155m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M290 200m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M277.9 245m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M245 277.9m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M200 290m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M155 277.9m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M122.1 245m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M110 200m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M122.1 155m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0M155 122.1m60 0a60 60 0 1 0 -120 0a60 60 0 1 0 120 0"/></g>
+          <circle class="l-mute" cx="200" cy="200" r="30"/>
+          <circle class="l-rule" cx="200" cy="200" r="12"/>
+        </svg>
+    </div>
+    <div class="wrap">
+      <h1>Digital Evidence Archive</h1>
+      <p class="cs-lead">A web-based archive for police agencies to store and manage digital evidence, released as open source by Amazon. It cuts manual file handling by about 45 minutes per case.</p>
+      <dl class="meta">
+        <div><dt class="mono">Company</dt><dd>Amazon (AWS)</dd></div>
+        <div><dt class="mono">Role</dt><dd>User Experience Designer, design lead</dd></div>
+        <div><dt class="mono">Years</dt><dd>2022–2023</dd></div>
+        <div><dt class="mono">Status</dt><dd>Open source</dd></div>
+        <div><dt class="mono">Users</dt><dd>Police investigators, detectives and admins</dd></div>
+      </dl>
+      <div class="tldr">
+        <section aria-labelledby="tldr-role"><h2 id="tldr-role" class="mono">Role</h2><p>Design lead from research to handoff: research, journey maps, wireframes and accessibility annotations. I worked with engineering, TPMs, and research and accessibility specialists.</p></section>
+        <section aria-labelledby="tldr-problem"><h2 id="tldr-problem" class="mono">Problem</h2><p>Agencies were storing video, photos and documents in systems built for physical evidence, with no standard structure, no clear chain of custody and no audit trail.</p></section>
+        <section class="tldr-outcome" aria-labelledby="tldr-outcome"><h2 id="tldr-outcome" class="mono">Outcome</h2><p>An open-source archive on AWS, validated against WCAG 2.1 with accessibility specialists, that cuts manual file handling by about 45 minutes per case.</p></section>
+      </div>
+    </div>
+  </header>
 
-<div class="proj-body">
+  <section class="section">
+    <div class="wrap">
+      <h2>The Problem</h2>
+      <div class="prose">
+        <p>As crime becomes more digitally sophisticated, law enforcement organizations face a growing challenge: their evidence storage systems were built for physical evidence. Digital files like videos, photos, and documents were being shoved into workflows that were never designed for them.</p>
+        <p>Investigators were spending significant time managing files manually across disconnected systems, with no clear chain of custody, no standardized structure, and no accessible audit trail. The question driving the project: <strong>how might we optimize digital evidence storage for investigators worldwide?</strong></p>
+        <p>The Digital Evidence Archive is a web-based application, built within AWS, that gives law enforcement a purpose-built system to securely store, organize, and manage digital evidence across cases.</p>
+      </div>
+      <div class="figs">
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img6.png" width="987" height="540" loading="lazy" alt="Digital Evidence Archive cases dashboard"></div>
+          <figcaption class="mono"><span>Fig. 1</span> · Digital Evidence Archive cases dashboard</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 
-  <!-- OVERVIEW -->
-  <div class="proj-section reveal">
-    <p class="section-label">Overview</p>
-    <div>
-      <h2>The <em>Problem</em></h2>
-      <p>As crime becomes more digitally sophisticated, law enforcement organizations face a growing challenge: their evidence storage systems were built for physical evidence. Digital files like videos, photos, and documents were being shoved into workflows that were never designed for them.</p>
-      <p>Investigators were spending significant time managing files manually across disconnected systems, with no clear chain of custody, no standardized structure, and no accessible audit trail. The question driving the project: <strong>how might we optimize digital evidence storage for investigators worldwide?</strong></p>
-      <p>The Digital Evidence Archive is a web-based application, built within AWS, that gives law enforcement a purpose-built system to securely store, organize, and manage digital evidence across cases.</p>
+  <section class="section">
+    <div class="wrap">
+      <h2>Understanding the Users</h2>
+      <div class="prose">
+        <p>I began with user flow identification, meeting with 6 users across 30-minute sessions to map both the current state and the desired future state. This gave the team a shared foundation and ensured alignment across all stakeholders before a single screen was designed.</p>
+        <p>From there, I led user validation research across <strong>3 user groups</strong> and <strong>12 sessions</strong> of 60 minutes each. The research surfaced the real complexity of the problem: diverse team structures (Investigators, Detectives, Admins, and Hybrid roles), varying expectations around hash numbers and case naming conventions, and gaps in how file size versus count was being communicated.</p>
+        <p>These findings shaped every design decision that followed, from navigation structure to the evidence tagging model.</p>
+      </div>
+      <ul class="stats">
+        <li><span class="stat-value">12</span><span class="stat-label">Validation sessions</span></li>
+        <li><span class="stat-value">3</span><span class="stat-label">User groups</span></li>
+        <li><span class="stat-value">14</span><span class="stat-label">Research insights</span></li>
+        <li><span class="stat-value">2</span><span class="stat-label">Research reports</span></li>
+      </ul>
+      <div class="figs figs-2">
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img2.png" width="2000" height="1361" loading="lazy" alt="User flows: Create Case, Upload Files, File Details"></div>
+          <figcaption class="mono"><span>Fig. 2</span> · User flow mapping</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img1.png" width="2000" height="1640" loading="lazy" alt="Design roadmap and status tracker"></div>
+          <figcaption class="mono"><span>Fig. 3</span> · Design roadmap &amp; status tracker</figcaption>
+        </figure>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- PRODUCT HERO SHOT -->
-  <div class="img-full reveal">
-    <img src="assets/images/dea/dea_img6.png" alt="Digital Evidence Archive cases dashboard" style="object-position: center top;"/>
-  </div>
+  <section class="section">
+    <div class="wrap">
+      <h2>From Research to Release</h2>
+      <div class="prose">
+        <p>I owned the design process end to end, from early research and journey mapping through high-fidelity wireframes, accessibility annotations, and handoff. A structured design roadmap kept the work on track, outlining review dates, deliverables, resources, and deadlines across multiple stakeholder groups.</p>
+        <p>Working in close partnership with engineering, TPMs, and external experts in research and accessibility, every artifact was reviewed and validated before moving forward. I also collaborated closely with experts in the field during dedicated office hours sessions alongside development and product management.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <p class="mono">Step 1 · Discovery &amp; Research</p>
+          <p>User interviews, current and future state journey mapping with 6 participants. 12 validation sessions across 3 user groups established alignment before design began.</p>
+        </li>
+        <li>
+          <p class="mono">Step 2 · Design &amp; Validation</p>
+          <p>Low-fidelity wireframes and user flows for usability testing. High-fidelity designs reviewed across multiple stakeholder sessions with PMs and engineering leads.</p>
+        </li>
+        <li>
+          <p class="mono">Step 3 · Accessibility &amp; Handoff</p>
+          <p>Full accessibility annotations for all personas, with 320-width variations to support visually impaired users. Validated against WCAG 2.1 with accessibility specialists.</p>
+        </li>
+      </ol>
+      <div class="figs figs-2">
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img4.png" width="2000" height="1935" loading="lazy" alt="DEA Research Report: Executive Summary"></div>
+          <figcaption class="mono"><span>Fig. 4</span> · Research report: executive summary</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img3.png" width="2000" height="1771" loading="lazy" alt="Hi-fi wireframes with accessibility annotations"></div>
+          <figcaption class="mono"><span>Fig. 5</span> · Hi-fi wireframes with accessibility annotations</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 
-  <!-- RESEARCH -->
-  <div class="proj-section reveal">
-    <p class="section-label">Research</p>
-    <div>
-      <h2>Understanding the <em>Users</em></h2>
-      <p>I began with user flow identification, meeting with 6 users across 30-minute sessions to map both the current state and the desired future state. This gave the team a shared foundation and ensured alignment across all stakeholders before a single screen was designed.</p>
-      <p>From there, I led user validation research across <strong>3 user groups</strong> and <strong>12 sessions</strong> of 60 minutes each. The research surfaced the real complexity of the problem: diverse team structures (Investigators, Detectives, Admins, and Hybrid roles), varying expectations around hash numbers and case naming conventions, and gaps in how file size versus count was being communicated.</p>
-      <p>These findings shaped every design decision that followed, from navigation structure to the evidence tagging model.</p>
+  <section class="section">
+    <div class="wrap">
+      <h2>A Unified Evidence System</h2>
+      <div class="prose">
+        <p>The Digital Evidence Archive gives investigators a clear, structured system to create cases, upload and organize digital files, manage case access across team members, and maintain a complete audit trail of every action taken.</p>
+        <p>The interface was designed to work across both desktop and mobile, accommodating the range of devices used in the field. The result was a system that cut manual file handling by roughly <strong>45 minutes per case</strong>, time that investigators could redirect toward the actual work of solving crimes.</p>
+      </div>
+      <div class="figs figs-2">
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img8.png" width="830" height="625" loading="lazy" alt="All Cases: admin view"></div>
+          <figcaption class="mono"><span>Fig. 6</span> · All Cases: admin view</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img12.png" width="822" height="617" loading="lazy" alt="Case 4444: detail page"></div>
+          <figcaption class="mono"><span>Fig. 7</span> · Case detail page</figcaption>
+        </figure>
+      </div>
+      <div class="figs figs-3">
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img9.png" width="328" height="852" loading="lazy" alt="Mobile: Cases list"></div>
+          <figcaption class="mono"><span>Fig. 8</span> · Mobile · Cases list</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img10.png" width="328" height="852" loading="lazy" alt="Mobile: Create case"></div>
+          <figcaption class="mono"><span>Fig. 9</span> · Mobile · Create case</figcaption>
+        </figure>
+        <figure class="figure">
+          <div class="fig-frame"><img src="assets/images/dea/dea_img11.png" width="193" height="852" loading="lazy" alt="Mobile: Case detail"></div>
+          <figcaption class="mono"><span>Fig. 10</span> · Mobile · Case detail</figcaption>
+        </figure>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- RESEARCH STATS -->
-  <div class="stats-row reveal">
-    <div class="stat-cell"><p class="stat-num">12</p><p class="stat-label">Validation sessions</p></div>
-    <div class="stat-cell"><p class="stat-num">3</p><p class="stat-label">User groups</p></div>
-    <div class="stat-cell"><p class="stat-num">14</p><p class="stat-label">Research insights</p></div>
-    <div class="stat-cell"><p class="stat-num">2</p><p class="stat-label">Research reports</p></div>
-  </div>
-
-  <div class="img-grid-2 reveal">
-    <div class="img-cell" style="min-height: 500px; background: #f0eeeb;">
-      <img src="assets/images/dea/dea_img2.png" alt="User flows: Create Case, Upload Files, File Details" style="object-fit: contain; padding: 40px; mix-blend-mode: multiply;"/>
-      <div class="img-caption"><span>User flow mapping</span></div>
-    </div>
-    <div class="img-cell" style="min-height: 500px; background: #f0eeeb;">
-      <img src="assets/images/dea/dea_img1.png" alt="Design roadmap and status tracker" style="object-fit: contain; padding: 40px; mix-blend-mode: multiply;"/>
-      <div class="img-caption"><span>Design roadmap & status tracker</span></div>
-    </div>
-  </div>
-
-  <!-- PROCESS -->
-  <div class="proj-section reveal">
-    <p class="section-label">Process</p>
-    <div>
-      <h2>From Research <em>to Release</em></h2>
-      <p>I owned the design process end to end, from early research and journey mapping through high-fidelity wireframes, accessibility annotations, and handoff. A structured design roadmap kept the work on track, outlining review dates, deliverables, resources, and deadlines across multiple stakeholder groups.</p>
-      <p>Working in close partnership with engineering, TPMs, and external experts in research and accessibility, every artifact was reviewed and validated before moving forward. I also collaborated closely with experts in the field during dedicated office hours sessions alongside development and product management.</p>
-    </div>
-  </div>
-
-  <div class="process-steps reveal">
-    <div class="process-step">
-      <p class="step-num">01</p>
-      <p class="step-title">Discovery & Research</p>
-      <p class="step-desc">User interviews, current and future state journey mapping with 6 participants. 12 validation sessions across 3 user groups established alignment before design began.</p>
-    </div>
-    <div class="process-step">
-      <p class="step-num">02</p>
-      <p class="step-title">Design & Validation</p>
-      <p class="step-desc">Low-fidelity wireframes and user flows for usability testing. High-fidelity designs reviewed across multiple stakeholder sessions with PMs and engineering leads.</p>
-    </div>
-    <div class="process-step">
-      <p class="step-num">03</p>
-      <p class="step-title">Accessibility & Handoff</p>
-      <p class="step-desc">Full accessibility annotations for all personas, with 320-width variations to support visually impaired users. Validated against WCAG 2.1 with accessibility specialists.</p>
-    </div>
-  </div>
-
-  <!-- RESEARCH REPORT + ANNOTATIONS -->
-  <div class="img-grid-2 reveal">
-    <div class="img-cell" style="min-height: 520px; background: #f0eeeb;">
-      <img src="assets/images/dea/dea_img4.png" alt="DEA Research Report: Executive Summary" style="object-fit: contain; padding: 32px; mix-blend-mode: multiply;"/>
-      <div class="img-caption"><span>Research report: executive summary</span></div>
-    </div>
-    <div class="img-cell dark-bg" style="min-height: 520px;">
-      <img src="assets/images/dea/dea_img3.png" alt="Hi-fi wireframes with accessibility annotations"/>
-      <div class="img-caption"><span>Hi-fi wireframes with accessibility annotations</span></div>
-    </div>
-  </div>
-
-  <!-- SOLUTION -->
-  <div class="proj-section reveal">
-    <p class="section-label">The Solution</p>
-    <div>
-      <h2>A Unified <em>Evidence System</em></h2>
-      <p>The Digital Evidence Archive gives investigators a clear, structured system to create cases, upload and organize digital files, manage case access across team members, and maintain a complete audit trail of every action taken.</p>
-      <p>The interface was designed to work across both desktop and mobile, accommodating the range of devices used in the field. The result was a system that cut manual file handling by roughly <strong>45 minutes per case</strong>, time that investigators could redirect toward the actual work of solving crimes.</p>
-    </div>
-  </div>
-
-  <!-- DESKTOP SCREENS -->
-  <div class="img-grid-2 reveal">
-    <div class="img-cell dark-bg" style="min-height: 460px;">
-      <img src="assets/images/dea/dea_img8.png" alt="All Cases: admin view"/>
-      <div class="img-caption"><span>All Cases: admin view</span></div>
-    </div>
-    <div class="img-cell dark-bg" style="min-height: 460px;">
-      <img src="assets/images/dea/dea_img12.png" alt="Case 4444: detail page"/>
-      <div class="img-caption"><span>Case detail page</span></div>
-    </div>
-  </div>
-
-  <!-- MOBILE SCREENS -->
-  <div class="img-grid-3 reveal">
-    <div class="img-cell dark-bg" style="min-height: 560px;">
-      <img src="assets/images/dea/dea_img9.png" alt="Mobile: Cases list" style="object-position: center top;"/>
-      <div class="img-caption"><span>Mobile · Cases list</span></div>
-    </div>
-    <div class="img-cell dark-bg" style="min-height: 560px;">
-      <img src="assets/images/dea/dea_img10.png" alt="Mobile: Create case" style="object-position: center top;"/>
-      <div class="img-caption"><span>Mobile · Create case</span></div>
-    </div>
-    <div class="img-cell dark-bg" style="min-height: 560px;">
-      <img src="assets/images/dea/dea_img11.png" alt="Mobile: Case detail" style="object-fit: contain; object-position: center top; padding: 0;"/>
-      <div class="img-caption"><span>Mobile · Case detail</span></div>
-    </div>
-  </div>
-
-  <!-- KEY DECISIONS -->
-  <div class="proj-section reveal">
-    <p class="section-label">Key Decisions</p>
-    <div>
-      <h2>Design <em>Choices</em></h2>
+  <section class="section">
+    <div class="wrap">
+      <h2>Design Choices</h2>
       <div class="decisions">
         <div class="decision">
-          <p class="decision-tag">Accessibility first</p>
-          <div class="decision-text">
-            <h4>Treating WCAG compliance as a design constraint, not a checklist</h4>
-            <p>Accessibility annotations were built into every artifact from day one. 320-width variations were created for all high-fidelity screens to ensure the product worked for visually impaired users, a non-negotiable for a public-facing government tool.</p>
-          </div>
+          <p class="mono">Accessibility first</p>
+          <h3>Treating WCAG compliance as a design constraint, not a checklist</h3>
+          <p>Accessibility annotations were built into every artifact from day one. 320-width variations were created for all high-fidelity screens to ensure the product worked for visually impaired users, a non-negotiable for a public-facing government tool.</p>
         </div>
         <div class="decision">
-          <p class="decision-tag">Team structure diversity</p>
-          <div class="decision-text">
-            <h4>Designing for four distinct user roles within a single system</h4>
-            <p>Research revealed that law enforcement teams aren't uniform. Investigators, Detectives, Admins, and Hybrid roles all had different access needs and workflows. The permission model was designed to accommodate all four without requiring four separate interfaces.</p>
-          </div>
+          <p class="mono">Team structure diversity</p>
+          <h3>Designing for four distinct user roles within a single system</h3>
+          <p>Research revealed that law enforcement teams aren't uniform. Investigators, Detectives, Admins, and Hybrid roles all had different access needs and workflows. The permission model was designed to accommodate all four without requiring four separate interfaces.</p>
         </div>
         <div class="decision">
-          <p class="decision-tag">Data architecture</p>
-          <div class="decision-text">
-            <h4>Resolving conflicting mental models around file structure</h4>
-            <p>Users had different expectations around hash numbers, case naming conventions, and whether file count or file size was the meaningful metric. Aligning these into a consistent data model, validated with users during research, was one of the most consequential design decisions on the project.</p>
-          </div>
+          <p class="mono">Data architecture</p>
+          <h3>Resolving conflicting mental models around file structure</h3>
+          <p>Users had different expectations around hash numbers, case naming conventions, and whether file count or file size was the meaningful metric. Aligning these into a consistent data model, validated with users during research, was one of the most consequential design decisions on the project.</p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- OUTCOMES -->
-  <div class="stats-row reveal">
-    <div class="stat-cell"><p class="stat-num">~45</p><p class="stat-label">Minutes saved per case</p></div>
-    <div class="stat-cell"><p class="stat-num">Global</p><p class="stat-label">Police agency adoption</p></div>
-    <div class="stat-cell"><p class="stat-num">Open</p><p class="stat-label">Source release</p></div>
-    <div class="stat-cell"><p class="stat-num">WCAG</p><p class="stat-label">2.1 compliant</p></div>
-  </div>
-
-  <!-- LESSONS LEARNED -->
-  <div class="proj-section reveal">
-    <p class="section-label">Lessons Learned</p>
-    <div>
-      <h2>What I <em>Took Away</em></h2>
-      <div class="lessons">
-        <div class="lesson">
-          <p class="lesson-num">01</p>
-          <p>Avoid trying to come up with solutions on the spot during calls. Taking time to process feedback before reacting leads to better design decisions and more confident communication with stakeholders.</p>
-        </div>
-        <div class="lesson">
-          <p class="lesson-num">02</p>
-          <p>Understand the audience for each artifact. A journey map for a PM reads differently than one for an engineer. Tailoring artifacts to who will use them makes collaboration faster and more effective.</p>
-        </div>
-        <div class="lesson">
-          <p class="lesson-num">03</p>
-          <p>Stay committed to the structure and process. On a project with many stakeholders and moving parts, the design roadmap wasn't overhead. It was what kept the work moving and the team aligned.</p>
-        </div>
-      </div>
+  <section class="section" aria-label="Outcomes">
+    <div class="wrap">
+      <ul class="stats stats-lg">
+        <li><span class="stat-value">~45 min</span><span class="stat-label">saved per case</span></li>
+        <li><span class="stat-value">4</span><span class="stat-label">user roles, one permission model</span></li>
+      </ul>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>What I Took Away</h2>
+      <ol class="takeaways">
+        <li><strong>Process feedback before answering it.</strong> In office hours with investigators and specialists, I stopped proposing fixes on the call. Taking feedback away first led to better decisions and clearer follow-ups.</li>
+        <li><strong>Write each artifact for its reader.</strong> A journey map for a PM answers different questions than one for an engineer, and tailoring each one shortened our reviews.</li>
+        <li><strong>Keep the roadmap, even when it feels like overhead.</strong> With engineering, TPMs, and research and accessibility specialists all reviewing, the dated roadmap of reviews and deliverables is what kept the project moving.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<nav class="next" aria-label="Next project">
+  <div class="wrap">
+    <a class="next-link" href="contxtiq.html">Next project: ContxtIQ</a>
+    <a class="next-all" href="index.html#work">All work</a>
   </div>
+</nav>
 
-</div>
-
-<div class="back-footer">
-  <a href="index.html" class="back-link">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M7 2L2 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to all work
-  </a>
-</div>
-
-<script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
-
-  if (typeof gsap !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.set('.proj-eyebrow, .proj-tagline', { opacity: 0 });
-    gsap.set('.proj-title-line', { opacity: 0, y: 50 });
-    const tl = gsap.timeline({ delay: 0.1 });
-    tl.to('.proj-eyebrow', { opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.3)
-      .to('.proj-title-line', { opacity: 1, y: 0, duration: 1.0, stagger: 0.12, ease: 'power3.out' }, 0.5)
-      .to('.proj-tagline', { opacity: 1, duration: 0.8, ease: 'power2.out' }, 1.0);
-    gsap.utils.toArray('.reveal').forEach(el => {
-      gsap.set(el, { opacity: 0, y: 24 });
-      gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 83%', once: true } });
-    });
-  }
-</script>
+<footer>
+  <div class="wrap"><p class="mono">© 2026 Daniel J. Baek · San Diego, CA</p></div>
+</footer>
 </body>
 </html>

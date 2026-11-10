@@ -2,850 +2,409 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daniel J. Baek, Product Designer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daniel J. Baek · Senior Product Designer</title>
+<meta name="description" content="Senior Product Designer at Intuit, designing AI tools for experts. Document automation that saved $3.54M across TurboTax Live, QuickBooks Live and BizTax.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Daniel J. Baek · Senior Product Designer">
+<meta property="og:description" content="Senior Product Designer at Intuit, designing AI tools for experts. Document automation that saved $3.54M across TurboTax Live, QuickBooks Live and BizTax.">
+<meta property="og:url" content="https://danieljbaek.com/">
+<meta property="og:image" content="https://danieljbaek.com/assets/images/dea/dea_img8.png">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=Red+Hat+Mono:wght@400;500&display=swap">
+
 <style>
   :root {
-    --type-display: clamp(3.5rem, 8vw, 7rem);
-    --type-heading: clamp(2rem, 3vw, 2.625rem);
-    --type-subheading: 1.5rem;
-    --type-lead: 1.25rem;
+    /* Color */
+    --bg: #F2F4F6;            /* paper, tinted toward blue-gray */
+    --surface: #FFFFFF;       /* figures, frames */
+    --surface-2: #E8ECF0;     /* image wells */
+    --text: #14181D;
+    --text-muted: #4B5563;
+    --rule: #CBD2DA;          /* hairlines, never text */
+    --accent: #B42318;        /* reviewer's red pen: outcomes, current section */
+    --on-dark: #F2F4F6;       /* text on --text surfaces */
+    --text-hover: #2B323A;    /* hover fill for --text buttons */
+
+    /* Type families */
+    --font-sans: 'Schibsted Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'Red Hat Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    /* Type scale: the only seven sizes */
+    --type-display: clamp(2.25rem, 1.4rem + 3.6vw, 4rem);
+    --type-heading: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+    --type-subheading: 1.375rem;
+    --type-lead: clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem);
     --type-body: 1rem;
     --type-small: 0.875rem;
-    --type-label: 0.6875rem;
-    --track-label: 0.16em;
-    --bg: #EDE9E3;
-    --bg-warm: #E5E0D8;
-    --bg-light: #F2EDE8;
-    --text: #2a2725;
-    --text-muted: #625c56;
-    --accent: #6e5d4c;
-    --accent-dark: #5e4e3d;
-    --sage: #7D6A55;
-    --sage-muted: #8a7865;
-    --charcoal: #3C3834;
-    --border: #ddd8d2;
-    --marble: #1a1816;
-    --cream: #F0EBE4;
-    --font-display: 'Fraunces', Georgia, serif;
-    --font-body: 'Outfit', sans-serif;
+    --type-label: 0.8125rem;
+
+    /* Spacing scale (4px base) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+    --space-9: 6rem;
+
+    /* Grid */
+    --grid-max: 1200px;
+    --grid-cols: 12;
+    --grid-gap: 1.5rem;
+    --grid-margin: 1.5rem;
+
+    /* Motion */
+    --dur-fast: 150ms;
+    --dur-base: 300ms;
+      --ease: cubic-bezier(0.2, 0, 0, 1);
   }
 
-  .marble-bg {
-    background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-  .marble-bg::after {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(200,185,160,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 70% 60%, rgba(180,165,140,0.08) 0%, transparent 40%),
-      radial-gradient(ellipse at 40% 80%, rgba(160,145,120,0.06) 0%, transparent 45%),
-      linear-gradient(45deg, transparent 30%, rgba(200,185,160,0.04) 35%, transparent 40%),
-      linear-gradient(135deg, transparent 40%, rgba(180,165,140,0.06) 45%, transparent 50%);
-    pointer-events: none;
-    border-radius: inherit;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; -webkit-text-size-adjust: 100%; }
   body {
+    margin: 0;
     background: var(--bg);
     color: var(--text);
-    font-family: var(--font-body);
-    font-weight: 300;
+    font-family: var(--font-sans);
     font-size: var(--type-body);
-    line-height: 1.7;
-    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  ul, dl, dd, p, figure { margin: 0; padding: 0; }
+  ul { list-style: none; }
+  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 64px;
-    transition: padding 0.4s ease;
-    background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
-  }
-  nav.scrolled { padding: 12px 64px; }
-  .nav-name {
-    font-family: var(--font-display);
-    font-size: 17px; font-weight: 400; letter-spacing: 0.03em;
-    color: var(--text); text-decoration: none; position: relative; z-index: 1;
-  }
-  .nav-links { display: flex; gap: 40px; list-style: none; position: relative; z-index: 1; }
-  .nav-links a {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--text-muted); text-decoration: none; transition: color 0.2s; font-weight: 400;
-  }
-  .nav-links a:hover { color: var(--sage); }
+  .mono { font-family: var(--font-mono); font-size: var(--type-label); letter-spacing: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 64px 88px;
-    position: relative; overflow: hidden;
-    background: var(--bg);
+  .skip {
+    position: absolute; left: var(--space-4); top: -4rem; z-index: 20;
+    background: var(--text); color: var(--on-dark);
+    padding: var(--space-2) var(--space-4); font-size: var(--type-small);
   }
-  .hero-marble-strip {
-    width: 64px; height: 3px; margin-bottom: 40px;
-    background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
-  }
-  .hero-portrait {
-    position: absolute; top: 0; right: 0; bottom: 0;
-    width: 48%; z-index: 0; pointer-events: none; overflow: hidden;
-  }
-  .hero-portrait img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: center center;
-    display: block; filter: saturate(0.7) contrast(0.95) brightness(1.02);
-    opacity: 0.78;
-  }
-  .hero-portrait::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 1;
-    background:
-      /* ambient bloom */
-      radial-gradient(ellipse 60% 70% at 68% 48%, rgba(255,205,135,0.16) 0%, transparent 65%),
-      /* core warm lantern glow */
-      radial-gradient(ellipse 38% 48% at 68% 48%,
-        rgba(255,230,170,0.42) 0%,
-        rgba(248,205,145,0.30) 28%,
-        rgba(225,175,120,0.16) 55%,
-        rgba(195,150,100,0.06) 80%,
-        transparent 100%);
-    pointer-events: none;
-    mix-blend-mode: soft-light;
-  }
-  .hero-portrait::after {
-    content: '';
-    position: absolute; inset: 0; z-index: 2;
-    background:
-      linear-gradient(to right, var(--bg) 0%, rgba(237,233,227,0.96) 22%, rgba(237,233,227,0.4) 55%, transparent 100%),
-      linear-gradient(to bottom, var(--bg) 0%, transparent 18%),
-      linear-gradient(to top, var(--bg) 0%, transparent 18%);
-  }
-  .hero-content { position: relative; z-index: 1; max-width: 860px; }
-  .hero-eyebrow {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--accent); margin-bottom: 26px; font-weight: 400;
-  }
-  .hero-name {
-    font-family: var(--font-display);
-    font-size: var(--type-display);
-    font-weight: 300; line-height: 0.92;
-    letter-spacing: -0.02em; margin-bottom: 36px;
-  }
-  .hero-name-line { display: block; }
-  .hero-name em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
-  .hero-tagline {
-    font-family: var(--font-body);
-    font-size: var(--type-lead); font-weight: 300;
-    color: var(--text-muted); max-width: 480px; line-height: 1.65;
-  }
-  .hero-scroll {
-    position: absolute; bottom: 88px; right: 64px;
-    display: flex; flex-direction: column; align-items: center; gap: 14px;
-  }
-  .hero-scroll span {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--text-muted); writing-mode: vertical-rl; font-weight: 400;
-  }
-  .scroll-line {
-    width: 1px; height: 56px;
-    background: linear-gradient(to bottom, var(--charcoal), transparent);
-    animation: scrollPulse 2.2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%   { transform: scaleY(0); transform-origin: top; }
-    48%  { transform: scaleY(1); transform-origin: top; }
-    52%  { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
+  .skip:focus { top: var(--space-3); }
 
-  /* ABOUT */
-  #about {
-    padding: 140px 64px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-    border-top: 1px solid var(--border);
+  .wrap {
+    width: 100%; max-width: calc(var(--grid-max) + 2 * var(--grid-margin));
+    margin-inline: auto; padding-inline: var(--grid-margin);
   }
-  .section-label {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--accent); margin-bottom: 36px; font-weight: 400;
-  }
-  .about-left h2 {
-    font-family: var(--font-display);
-    font-size: var(--type-heading); font-weight: 300;
-    line-height: 1.1; letter-spacing: -0.01em;
-  }
-  .about-left h2 em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
-  .about-right { padding-top: 64px; }
-  .about-bio {
-    font-family: var(--font-body);
-    font-size: var(--type-body); line-height: 1.85;
-    color: var(--text-muted); margin-bottom: 44px; font-weight: 300;
-  }
-  .about-bio strong { color: var(--text); font-weight: 400; }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px 32px;
-    border-top: 1px solid var(--border); padding-top: 36px;
-  }
-  .about-item-label {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--accent); margin-bottom: 6px; display: block; font-weight: 400;
-  }
-  .about-item-val {
-    font-family: var(--font-body);
-    font-size: var(--type-small); color: var(--text); line-height: 1.5; font-weight: 300;
-  }
+  .grid { display: grid; grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr)); column-gap: var(--grid-gap); }
 
-  /* WORK */
-  #work { border-top: 1px solid var(--border); }
-  .work-header {
-    padding: 80px 64px 80px;
-    display: flex; justify-content: space-between; align-items: baseline;
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: 3.5rem; }
+  .nav-name { font-weight: 600; text-decoration: none; font-size: var(--type-body); white-space: nowrap; }
+  .nav ul { display: flex; gap: var(--space-5); }
+  .nav ul a {
+    font-size: var(--type-small); text-decoration: none; color: var(--text-muted);
+    padding-block: var(--space-2); border-bottom: 2px solid transparent;
+    transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
   }
-  .work-header h2 {
-    font-family: var(--font-display);
-    font-size: var(--type-heading); font-weight: 300; letter-spacing: -0.01em;
-  }
-  .work-count {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); font-weight: 400;
-  }
+  .nav ul a:hover { color: var(--text); }
+  .nav ul a[aria-current="location"] { color: var(--text); border-bottom-color: var(--accent); }
 
-  /* Project rows */
-  .project {
-    display: grid; grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--border);
-    min-height: 580px; overflow: hidden;
-  }
-  .project:nth-of-type(even) .project-media { order: 2; }
-  .project:nth-of-type(even) .project-info  { order: 1; }
+  /* Hero */
+  .hero { padding-block: var(--space-9) var(--space-8); }
+  .hero h1 { font-size: var(--type-display); line-height: 1.05; letter-spacing: -0.02em; max-width: 16ch; grid-column: 1 / span 10; }
+  .hero-lead { grid-column: 1 / span 8; font-size: var(--type-lead); line-height: 1.5; margin-top: var(--space-6); max-width: 60ch; }
+  .hero-links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 
-  .project:nth-of-type(even) .project-info .proj-num { color: var(--charcoal); }
-  .project:nth-of-type(even) .project-info .proj-company { color: var(--charcoal); }
-  .project:nth-of-type(even) .project-info .proj-stats { border-top-color: rgba(60,50,35,0.18); }
+  .btn {
+    display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-5);
+    font-size: var(--type-body); font-weight: 500; text-decoration: none;
+    border: 1px solid var(--text); transition: background var(--dur-fast) var(--ease);
+  }
+  .btn-primary { background: var(--text); color: var(--on-dark); }
+  .btn-primary:hover { background: var(--text-hover); }
+  .btn-secondary { background: transparent; color: var(--text); }
+  .btn-secondary:hover { background: var(--surface-2); }
 
-  .project-media {
-    position: relative; overflow: hidden;
-    background: var(--bg-warm);
-  }
-  .proj-svg {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    transition: transform 0.9s ease;
-  }
-  .project-media:hover .proj-svg { transform: scale(1.03); }
-  /* Floating laptop mockup */
-  .laptop {
-    --s: 0.8; --rx: 56deg; --rz: -24deg; --open: -78deg; --w: 812px; --h: 790px; --tx: 26px; --ty: 178px;
-    position: relative; width: calc(var(--w) * var(--s)); height: calc(var(--h) * var(--s));
-    perspective: calc(2750px * var(--s)); pointer-events: none;
-  }
-  .lt-scale {
-    position: absolute; left: 50%; top: 50%; width: 640px; height: 430px;
-    margin: -215px 0 0 -320px; transform-style: preserve-3d;
-    transform: translate(calc(var(--tx) * var(--s)), calc(var(--ty) * var(--s))) scale3d(var(--s), var(--s), var(--s));
-  }
-  .lt-bob { width: 100%; height: 100%; transform-style: preserve-3d; animation: lt-bob 7s ease-in-out infinite; }
-  .lt {
-    position: relative; width: 100%; height: 100%; transform-style: preserve-3d;
-    transform: rotateX(var(--rx)) rotateZ(var(--rz));
-    border-radius: 18px;
-    background: linear-gradient(180deg, #e4e4e6 0%, #d6d6d9 100%);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
-  }
-  .lt::after {
-    content: ''; position: absolute; left: 10px; right: 10px; bottom: 0; height: 12px;
-    transform-origin: bottom; transform: rotateX(-90deg); border-radius: 0 0 12px 12px;
-    background: linear-gradient(#c9c9cc, #a9a9ad);
-  }
-  .lt-screen {
-    position: absolute; left: 0; right: 0; bottom: 100%; height: 392px;
-    transform-origin: bottom center; transform: rotateX(var(--open));
-    background: #111; border-radius: 16px 16px 4px 4px; padding: 14px 14px 30px;
-    box-shadow: inset 0 0 0 2px #3a3a3c;
-  }
-  .lt-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; border-radius: 3px; }
-  .lt-kb {
-    position: absolute; left: 78px; right: 78px; top: 30px; height: 196px;
-    display: grid; grid-template-rows: 0.55fr 1fr 1fr 1fr 1fr 1fr; gap: 4px;
-  }
-  .lt-kb i { --k: calc(100% / 14); display: block; background: repeating-linear-gradient(90deg, #1d1d1f 0 calc(var(--k) - 4px), transparent calc(var(--k) - 4px) var(--k)); }
-  .lt-kb i.f { --k: calc(100% / 16); }
-  .lt-kb i.s { background: linear-gradient(90deg, #1d1d1f 0 calc(100%/7*2 - 4px), transparent 0 calc(100%/7*2), #1d1d1f 0 calc(100%/7*5 - 4px), transparent 0 calc(100%/7*5), #1d1d1f 0 calc(100%/7*6 - 4px), transparent 0 calc(100%/7*6), #1d1d1f 0); }
-  .lt-spk { position: absolute; top: 30px; width: 48px; height: 196px; background: radial-gradient(circle, #8e8e93 1px, transparent 1.4px) 0 0 / 5px 5px; opacity: 0.7; }
-  .lt-spk.l { left: 18px; } .lt-spk.r { right: 18px; }
-  .lt-pad {
-    position: absolute; left: 50%; top: 246px; width: 250px; height: 156px; margin-left: -125px;
-    border-radius: 10px; background: linear-gradient(#dcdcdf, #d2d2d5); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
-  }
-  .lt-shadow {
-    position: absolute; inset: 40px 30px -10px 30px; transform: translateZ(-150px);
-    background: rgba(42,39,37,0.5); filter: blur(34px); border-radius: 50%;
-  }
-  @keyframes lt-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-  /* Laptop poses: rotation, lid angle, and the measured box/offset for each */
-  .pose-a     { --rx: 56deg; --rz: -24deg; --open: -78deg; --w: 812px; --h: 756px; --tx: 26px;  --ty: 181px; }
-  .pose-b     { --rx: 58deg; --rz: 22deg;  --open: -78deg; --w: 802px; --h: 734px; --tx: -21px; --ty: 184px; }
-  .pose-front { --rx: 62deg; --rz: -4deg;  --open: -84deg; --w: 688px; --h: 626px; --tx: -8px;  --ty: 194px; }
-  .pose-steep { --rx: 48deg; --rz: 34deg;  --open: -80deg; --w: 844px; --h: 848px; --tx: -44px; --ty: 167px; }
-  /* Floating phone mockup */
-  .phone {
-    --s: 0.8; position: absolute; width: calc(170px * var(--s)); height: calc(350px * var(--s));
-    perspective: calc(1400px * var(--s)); pointer-events: none;
-  }
-  .ph-bob { width: 100%; height: 100%; transform-style: preserve-3d; animation: lt-bob 7s -2.5s ease-in-out infinite; }
-  .ph {
-    width: 100%; height: 100%; box-sizing: border-box; padding: calc(7px * var(--s));
-    border-radius: calc(28px * var(--s)); background: #111;
-    box-shadow: inset 0 0 0 calc(2px * var(--s)) #3a3a3c, calc(-18px * var(--s)) calc(30px * var(--s)) calc(50px * var(--s)) calc(-12px * var(--s)) rgba(42,39,37,0.45);
-    transform: rotateX(14deg) rotateY(-24deg) rotateZ(7deg);
-  }
-  .ph img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: calc(22px * var(--s)); }
-  .project-media .laptop {
-    --s: 0.64; position: absolute; left: 50%; top: 50%;
-    margin: calc(var(--h) * var(--s) / -2) 0 0 calc(var(--w) * var(--s) / -2);
-  }
-  .project-media.duo .laptop { --s: 0.52; margin-left: calc(var(--w) * var(--s) / -2 + 7%); }
-  .project-media .phone { --s: 0.78; left: 10%; top: 36%; }
-  @media (max-width: 1200px) { .project-media .laptop, .project-media.duo .laptop { --s: 0.42; } .project-media .phone { --s: 0.62; } }
+  /* Sections */
+  .section { padding-block: var(--space-8); border-top: 1px solid var(--rule); }
+  .section > .wrap > h2 { font-size: var(--type-heading); line-height: 1.15; margin-bottom: var(--space-7); }
 
-  .project-chip {
-    position: absolute; top: 24px; left: 24px;
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--text-muted);
-    background: rgba(237,233,227,0.90); backdrop-filter: blur(8px);
-    padding: 6px 14px; border-radius: 2px;
-    border: 1px solid var(--border);
-    font-weight: 400;
+  /* Work cards */
+  .card {
+    display: grid; grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr)); column-gap: var(--grid-gap);
+    padding-block: var(--space-7); border-top: 1px solid var(--rule);
+    grid-template-rows: auto 1fr;
   }
+  .card:first-of-type { padding-top: 0; border-top: 0; }
+  .card-head { grid-column: 1 / span 5; }
+  .card-body { grid-column: 1 / span 5; }
+  .card-fig { grid-column: 6 / span 7; grid-row: 1 / span 2; align-self: start; }
+  .card h3 { font-size: var(--type-subheading); line-height: 1.2; }
+  .card-desc { font-size: var(--type-lead); color: var(--text-muted); margin-top: var(--space-2); line-height: 1.4; }
+  .card-meta { margin-top: var(--space-4); color: var(--text-muted); }
+  .card-summary { margin-top: var(--space-5); max-width: 62ch; }
 
-  .project-info {
-    padding: 72px 68px;
-    display: flex; flex-direction: column; justify-content: center;
-    position: relative;
-  }
-  .proj-num {
-    font-family: var(--font-display); font-size: var(--type-small);
-    color: var(--accent); margin-bottom: 18px; letter-spacing: 0;
-    position: relative; z-index: 1;
-  }
-  .proj-title {
-    font-family: var(--font-display);
-    font-size: var(--type-heading); font-weight: 300;
-    line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 10px;
-    position: relative; z-index: 1;
-  }
-  .proj-title em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
-  .proj-company {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--accent); margin-bottom: 26px; font-weight: 400;
-    position: relative; z-index: 1;
-  }
-  .proj-desc {
-    font-family: var(--font-body);
-    font-size: var(--type-body); line-height: 1.78; color: var(--text-muted);
-    margin-bottom: 28px; max-width: 380px; font-weight: 300;
-    position: relative; z-index: 1;
-  }
-  .proj-role {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--charcoal); margin-bottom: 32px; font-weight: 400;
-    position: relative; z-index: 1;
-  }
-  .proj-stats {
-    display: flex; gap: 28px; flex-wrap: wrap;
-    border-top: 1px solid var(--border); padding-top: 28px; margin-top: auto;
-    position: relative; z-index: 1;
-  }
-  .stat strong {
-    display: block; font-family: var(--font-display);
-    font-size: var(--type-subheading); font-weight: 300; line-height: 1; margin-bottom: 4px;
-  }
-  .stat span {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-muted); font-weight: 400;
-  }
-  .proj-note { font-family: var(--font-body); font-size: var(--type-small); color: var(--accent); font-style: italic; margin-top: 14px; }
+  .stats { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-6); margin-top: var(--space-5); padding-top: var(--space-4); border-top: 2px solid var(--accent); }
+  .stats li { display: flex; flex-direction: column; gap: var(--space-1); min-width: 7rem; }
+  .stat-value { font-family: var(--font-mono); font-size: var(--type-subheading); font-weight: 500; line-height: 1.1; }
+  .stat-label { font-size: var(--type-small); color: var(--text-muted); line-height: 1.35; }
 
-  .proj-link {
-    display: inline-flex; align-items: center; gap: 12px;
-    margin-top: 32px;
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: #fff; text-decoration: none;
-    background: var(--sage);
-    padding: 14px 28px; border-radius: 2px;
-    transition: background 0.2s;
-    width: fit-content; font-weight: 400;
-    position: relative; z-index: 1;
+  .card-link {
+    display: inline-block; margin-top: var(--space-5); font-weight: 500;
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em;
   }
-  .proj-link:hover { background: #7D6A55; }
-  .proj-link svg { transition: transform 0.2s ease; }
-  .proj-link:hover svg { transform: translateX(4px); }
+  .card-link:hover { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 
-  .project:nth-of-type(even) .proj-link:hover { background: #7D6A55; }
+  /* One frame for every card figure: 16:10, full column width, one whole product screen; see design-system.md 4.3a. */
+  .fig img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--surface); outline: 1px solid var(--rule); outline-offset: -1px; }
 
-  .proj-status {
-    font-family: var(--font-body);
-    margin-top: 28px; font-size: var(--type-label); letter-spacing: var(--track-label);
-    text-transform: uppercase; color: var(--text-muted); font-weight: 400;
-    position: relative; z-index: 1;
-  }
+  /* About */
+  .about-grid { row-gap: var(--space-7); }
+  .about-copy { grid-column: 1 / span 5; }
+  .about-copy p + p { margin-top: var(--space-4); }
+  .about-copy p { max-width: 58ch; }
+  .facts { margin-top: var(--space-6); border-top: 1px solid var(--rule); }
+  .facts > div { display: grid; grid-template-columns: 7.5rem 1fr; align-items: baseline; gap: var(--space-4); padding-block: var(--space-2); border-bottom: 1px solid var(--rule); }
+  .facts dt { color: var(--text-muted); }
+  .facts dd { font-size: var(--type-small); }
 
-  /* CONTACT */
-  #contact {
-    padding: 140px 64px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
-    border-top: 1px solid var(--border);
+  /* Photo wall: ten paper notes at fixed angles, sized in % of the wall so the layout scales whole. See design-system.md 4.3b. */
+  .wall { grid-column: 7 / span 6; align-self: start; position: relative; aspect-ratio: 100 / 136; }
+  .note {
+    position: absolute; left: var(--x); top: var(--y); width: var(--s); aspect-ratio: 1;
+    transform: rotate(var(--r));
+    background: color-mix(in srgb, var(--surface) 70%, var(--bg));
+    border: 1px solid color-mix(in srgb, var(--rule) 60%, transparent);
+    box-shadow: 0 1px 1px color-mix(in srgb, var(--text) 10%, transparent), 0 8px 14px -8px color-mix(in srgb, var(--text) 28%, transparent);
   }
-  .contact-left h2 {
-    font-family: var(--font-display);
-    font-size: var(--type-display); font-weight: 300;
-    line-height: 0.96; letter-spacing: -0.02em; margin-bottom: 36px;
+  .note::before {
+    content: ""; position: absolute; top: -5%; left: 50%; width: 36%; height: 10%;
+    transform: translateX(-50%) rotate(var(--t));
+    background: color-mix(in srgb, var(--rule) 60%, transparent);
+    border-inline: 1px solid color-mix(in srgb, var(--rule) 80%, transparent);
   }
-  .contact-left h2 em { font-style: italic; font-weight: 400; color: var(--sage-muted); }
-  .contact-marble-strip {
-    width: 48px; height: 2px; margin-bottom: 28px;
-    background: rgba(237,233,227,0.82); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
-  }
-  .contact-email {
-    font-family: var(--font-body);
-    display: inline-block; font-size: var(--type-body); font-weight: 300;
-    color: var(--text); text-decoration: none;
-    border-bottom: 1px solid var(--charcoal); padding-bottom: 3px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .contact-email:hover { color: var(--sage); border-color: var(--sage); }
-  .contact-right p {
-    font-family: var(--font-body);
-    font-size: var(--type-body); color: var(--text-muted); line-height: 1.75; margin-bottom: 36px; font-weight: 300;
-  }
-  .contact-links { display: flex; flex-direction: column; }
-  .contact-link {
-    font-family: var(--font-body);
-    display: flex; align-items: center; gap: 16px;
-    text-decoration: none; color: var(--text-muted);
-    font-size: var(--type-small); letter-spacing: 0; font-weight: 300;
-    padding: 14px 0; border-bottom: 1px solid var(--border);
-    transition: color 0.2s;
-  }
-  .contact-link:hover { color: var(--sage); }
-  .cl-label {
-    font-family: var(--font-body);
-    font-size: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase;
-    color: var(--accent); width: 72px; flex-shrink: 0; font-weight: 400;
-  }
-  .cl-arrow { margin-left: auto; opacity: 0.35; flex-shrink: 0; }
+  .note img { position: absolute; inset: 7%; width: 86%; height: 86%; object-fit: cover; object-position: var(--op); }
+  .n10 { --s: 40%; --x: 4%; --y: 3.68%; --r: 2deg; --t: -3deg; --op: 25% 50%; }
+  .n04 { --s: 23%; --x: 49%; --y: 3.68%; --r: -4deg; --t: 4deg; --op: 10% 50%; }
+  .n06 { --s: 23%; --x: 74%; --y: 8.09%; --r: 3deg; --t: -5deg; --op: 60% 50%; }
+  .n11 { --s: 30%; --x: 60%; --y: 26.47%; --r: -2deg; --t: 5deg; --op: 0% 50%; }
+  .n13 { --s: 30%; --x: 2%; --y: 36.76%; --r: 4deg; --t: -4deg; --op: 10% 50%; }
+  .n01 { --s: 23%; --x: 35%; --y: 38.24%; --r: -5deg; --t: 3deg; --op: 50% 40%; }
+  .n03 { --s: 30%; --x: 4%; --y: 63.24%; --r: -3deg; --t: -2deg; --op: 60% 50%; }
+  .n05 { --s: 23%; --x: 39%; --y: 61.76%; --r: 1deg; --t: 5deg; --op: 55% 50%; }
+  .n16 { --s: 30%; --x: 66%; --y: 52.94%; --r: -1deg; --t: -4deg; --op: 50% 60%; }
+  .n08 { --s: 23%; --x: 70%; --y: 77.94%; --r: 5deg; --t: 2deg; --op: 70% 50%; }
 
-  footer {
-    padding: 0 64px;
-    background: var(--marble);
-    display: flex; justify-content: space-between; align-items: center;
-    min-height: 72px; position: relative;
-  }
-  footer::after {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 15% 50%, rgba(200,185,160,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 50%, rgba(180,165,140,0.05) 0%, transparent 40%);
-    pointer-events: none;
-  }
-  footer p {
-    font-family: var(--font-body);
-    font-size: var(--type-small); color: rgba(240,235,228,0.6); letter-spacing: 0; font-weight: 300;
-    position: relative; z-index: 1;
-  }
+  /* Contact */
+  .contact-body { max-width: 52ch; }
+  .contact-links { margin-top: var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); }
+  .contact-links a { font-weight: 500; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
+  .contact-links a:hover { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 
-  /* reveal base state */
-  .reveal { }
+  footer { border-top: 1px solid var(--rule); padding-block: var(--space-6); color: var(--text-muted); }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav, nav.scrolled { padding: 12px 20px; }
-    .nav-name { font-size: 14px; }
-    .nav-links { gap: 20px; }
-    .hero-portrait { width: 75%; opacity: 0.45; }
-    #hero { padding: 0 28px 64px; }
-    .hero-scroll { right: 28px; }
-    #about { grid-template-columns: 1fr; gap: 40px; padding: 80px 28px; }
-    .about-right { padding-top: 0; }
-    .work-header { padding: 60px 28px 50px; }
-    .project { grid-template-columns: 1fr; min-height: auto; }
-    .project:nth-of-type(even) .project-media { order: 1; }
-    .project:nth-of-type(even) .project-info  { order: 2; }
-    .project-media { min-height: 340px; }
-    .project-media .laptop, .project-media.duo .laptop { --s: 0.36; }
-    .project-media .phone { --s: 0.5; left: 12%; top: 30%; }
-    .project-info { padding: 40px 28px; }
-    #contact { grid-template-columns: 1fr; padding: 80px 28px; }
-    footer { padding: 20px 28px; flex-direction: column; gap: 6px; min-height: auto; }
+  /* Tablet and below */
+  @media (max-width: 860px) {
+    .hero { padding-block: var(--space-8) var(--space-7); }
+    .hero h1, .hero-lead { grid-column: 1 / -1; }
+    .card { grid-template-rows: none; }
+    .card-head, .card-body, .card-fig { grid-column: 1 / -1; grid-row: auto; }
+    .card-fig { margin-top: var(--space-5); }
+    .card-body { margin-top: var(--space-5); }
+    .card-summary { margin-top: 0; }
+    .about-copy { grid-column: 1 / -1; }
+    .wall { grid-column: 1 / -1; order: -1; width: 100%; max-width: 36rem; }
   }
-
-  @media (max-width: 480px) { .project-media .laptop, .project-media.duo .laptop { --s: 0.32; } .project-media .phone { --s: 0.42; left: 8%; } }
+  @media (max-width: 480px) {
+    :root { --grid-margin: 1rem; }
+    .nav ul { gap: var(--space-4); }
+    .facts > div { grid-template-columns: 7rem 1fr; gap: var(--space-3); }
+    .section { padding-block: var(--space-7); }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#hero" class="nav-name">Daniel J. Baek</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-portrait" aria-hidden="true">
-    <img src="IMG_4418.jpeg" alt="">
+<header class="nav">
+  <div class="wrap">
+    <a class="nav-name" href="#top">Daniel J. Baek</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="assets/resume/daniel-j-baek-resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </div>
+</header>
 
-  <div class="hero-content">
-    <div class="hero-marble-strip" aria-hidden="true"></div>
-    <p class="hero-eyebrow">Sr. Product Designer · Intuit · San Diego, CA</p>
-    <h1 class="hero-name">
-      <span class="hero-name-line">Designing</span>
-      <span class="hero-name-line">where <em>human</em></span>
-      <span class="hero-name-line">meets <em>machine.</em></span>
-    </h1>
-    <p class="hero-tagline">I build AI-powered tools that honor the expertise of the people who use them, from enterprise platforms to open-source public infrastructure.</p>
-  </div>
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap grid">
+      <h1>I design AI tools that know when to act and when to ask.</h1>
+      <p class="hero-lead">Senior Product Designer at Intuit in San Diego. My document automation for TurboTax Live, QuickBooks Live and BizTax experts cut 46 minutes from each engagement and saved $3.54M. I prototype in code as well as Figma.</p>
+      <div class="hero-links">
+        <a class="btn btn-secondary" href="assets/resume/daniel-j-baek-resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+        <a class="btn btn-primary" href="#work">See the work</a>
+      </div>
+    </div>
+  </section>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
-</section>
+  <section class="section" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">Selected work</h2>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-left reveal">
-    <p class="section-label">About</p>
-    <h2>Daniel<br>Baek.<br><em>Designer &<br>Co-creator.</em></h2>
-  </div>
-  <div class="about-right reveal">
-    <p class="about-bio">
-      I design through an <strong>AI-augmented workflow</strong> that accelerates exploration without compromising craft. I use modern tooling to move from problem framing to interactive prototypes quickly, then apply design judgment to shape the details that make products usable, trusted, and differentiated.
-      <br><br>
-      My focus is pushing <strong>industry-leading design techniques</strong> with the new technology now available: rapid concept branching, live co-creation with domain experts, and tighter build loops between design and engineering. The result is systems-level UX that lands in production faster and with higher quality.
-    </p>
-    <div class="about-grid">
-      <div>
-        <span class="about-item-label">Currently</span>
-        <p class="about-item-val">Sr. Product Designer<br>Intuit Innovation</p>
-      </div>
-      <div>
-        <span class="about-item-label">Focus</span>
-        <p class="about-item-val">AI Systems<br>Human-in-the-Loop UX</p>
-      </div>
-      <div>
-        <span class="about-item-label">Previously</span>
-        <p class="about-item-val">Amazon<br>Deloitte Digital</p>
-      </div>
-      <div>
-        <span class="about-item-label">Approach</span>
-        <p class="about-item-val">AI-augmented design<br>System-level execution</p>
-      </div>
-    </div>
-  </div>
-</section>
+      <article class="card">
+        <div class="card-head">
+          <h3>Service Studio</h3>
+          <p class="card-desc">An AI workspace that turns a plain-English brief into a buildable expert service</p>
+          <p class="card-meta mono">Intuit · Senior Product Designer, concept through launch · 2025–present · Shipping 2026</p>
+        </div>
+        <div class="card-body">
+          <p class="card-summary">New expert services were defined in decks and tickets, then settled downstream by whoever hit the gap first. In Service Studio a team describes the service in plain English, one question at a time, and the journey, the expert's screens and the agent bundle draw as they answer. The result is one definition people can't misread and an agent can build from. I designed it from the first prototype to a 2026 launch. Shown with internal names removed.</p>
+        </div>
+        <figure class="card-fig fig">
+          <img src="assets/images/home/servicestudio.jpg" srcset="assets/images/home/servicestudio.jpg 2x" width="690" height="431" loading="lazy" alt="Service Studio drafting a new service: on the left a conversation in which the assistant asks one question at a time and the designer answers in plain English, on the right a journey of four connected steps, Onboarding, Monitoring, Return assembly and Filing, with a dashed line for a step that waits on a condition.">
+        </figure>
+      </article>
 
-<!-- WORK -->
-<section id="work">
-  <div class="work-header">
-    <h2 class="reveal">Selected Work</h2>
-    <span class="work-count reveal">04 Projects</span>
-  </div>
+      <article class="card">
+        <div class="card-head">
+          <h3>Digital Evidence Archive</h3>
+          <p class="card-desc">Open-source evidence management for police agencies</p>
+          <p class="card-meta mono">Amazon · User Experience Designer, design lead · 2022–2023 · Open source</p>
+        </div>
+        <div class="card-body">
+          <p class="card-summary">Police agencies were storing video, photos and documents in systems built for physical evidence. I led design from research to handoff for an archive that gives every file a case, a structure and an audit trail.</p>
+          <ul class="stats">
+            <li><span class="stat-value">~45 min</span><span class="stat-label">saved per case</span></li>
+            <li><span class="stat-value">12</span><span class="stat-label">validation sessions</span></li>
+            <li><span class="stat-value">4</span><span class="stat-label">user roles, one permission model</span></li>
+          </ul>
+          <a class="card-link" href="dea.html">Read the case study<span class="sr-only"> on the Digital Evidence Archive</span></a>
+        </div>
+        <figure class="card-fig fig">
+          <img src="assets/images/home/dea.jpg" width="803" height="502" loading="lazy" alt="Digital Evidence Archive All Cases screen: a table of cases with file counts, sizes, creation dates and status.">
+        </figure>
+      </article>
 
-  <!-- 01 ATLAS -->
-  <article class="project">
-    <div class="project-media">
-      <div class="laptop pose-a" aria-hidden="true">
-        <div class="lt-scale"><div class="lt-bob"><div class="lt">
-          <div class="lt-shadow"></div>
-          <div class="lt-screen"><img src="assets/images/atlas/atlas_walkthrough_1.jpg" alt="" loading="lazy"/></div>
-          <div class="lt-spk l"></div><div class="lt-spk r"></div>
-          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
-          <div class="lt-pad"></div>
-        </div></div></div>
-      </div>
-      <span class="project-chip">Innovation · 2024–Present</span>
-    </div>
-    <div class="project-info">
-      <p class="proj-num">01</p>
-      <h3 class="proj-title"><em>Atlas</em><br>AI-Powered Workspace</h3>
-      <p class="proj-company">Intuit · Innovation Team</p>
-      <p class="proj-desc">A unified workspace where AI agents do the work and experts manage: the shift from operator to orchestrator. Built as a native app that connects to Slack, Outlook, IEP, and internal systems, powered by a framework any team can extend with .md expertise files.</p>
-      <p class="proj-role">Lead Product Designer</p>
-      <div class="proj-stats">
-        <div class="stat"><strong>Lead</strong><span>Designer on project</span></div>
-        <div class="stat"><strong>Agent‑First</strong><span>Interaction model</span></div>
-      </div>
-      <a href="atlas.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </article>
+      <article class="card">
+        <div class="card-head">
+          <h3>Agent workspace</h3>
+          <p class="card-desc">An AI workspace where agents do the work and experts approve it</p>
+          <p class="card-meta mono">Intuit · Senior Product Designer, concept through launch · 2024–present · In pilot</p>
+        </div>
+        <div class="card-body">
+          <p class="card-summary">Experts drove every action across disconnected tools while AI helped one task at a time. In this workspace agents do the work and experts approve it: a new client arrives with documents pulled, a refund estimated and a welcome message drafted. I designed it from the first prototype through launch, and it's now in a limited pilot. Shown with internal names removed.</p>
+        </div>
+        <figure class="card-fig fig">
+          <img src="assets/images/home/vision.jpg" srcset="assets/images/home/vision.jpg 2x" width="690" height="431" loading="lazy" alt="Agent workspace prototype home screen: activity cards with 18 of 22 active returns and a 92 percent completion rate, a call-activity card, a daily schedule and a customers table.">
+        </figure>
+      </article>
 
-  <!-- 02 Service Studio -->
-  <article class="project">
-    <div class="project-media">
-      <div class="laptop pose-b" aria-hidden="true">
-        <div class="lt-scale"><div class="lt-bob"><div class="lt">
-          <div class="lt-shadow"></div>
-          <div class="lt-screen"><img src="assets/images/servicestudio/blueprint.jpg" alt="" loading="lazy"/></div>
-          <div class="lt-spk l"></div><div class="lt-spk r"></div>
-          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
-          <div class="lt-pad"></div>
-        </div></div></div>
-      </div>
-      <span class="project-chip">Platform Design · 2026</span>
+      <article class="card">
+        <div class="card-head">
+          <h3>ContxtIQ</h3>
+          <p class="card-desc">A live copilot for recruiters screening technical candidates</p>
+          <p class="card-meta mono">ContxtIQ · Co-founder, design and front-end · 2025–present · In use</p>
+        </div>
+        <div class="card-body">
+          <p class="card-summary">Recruiters screen engineers and designers without being able to judge a technical answer. ContxtIQ grades each answer during the call and suggests the follow-up a technical interviewer would ask. I took it from a Figma Make prototype to pull requests on the production app. A venture alongside my work at Intuit.</p>
+          <ul class="stats">
+            <li><span class="stat-value">30+</span><span class="stat-label">live screening sessions</span></li>
+            <li><span class="stat-value">2</span><span class="stat-label">recruiters using it</span></li>
+            <li><span class="stat-value">1</span><span class="stat-label">design-partner company</span></li>
+          </ul>
+          <a class="card-link" href="contxtiq.html">Read the case study<span class="sr-only"> on ContxtIQ</span></a>
+        </div>
+        <figure class="card-fig fig">
+          <img src="assets/images/home/contxtiq.jpg" width="1338" height="836" loading="lazy" alt="ContxtIQ review screen after a screening call for an HVAC technician role: three sections of questions, each answer with a score badge such as 85.7% and a response summary of bullet points written by the AI, and an average score for each section.">
+        </figure>
+      </article>
     </div>
-    <div class="project-info">
-      <p class="proj-num">02</p>
-      <h3 class="proj-title"><em>Service</em><br>Studio</h3>
-      <p class="proj-company">Intuit · Expert Workspace Platform</p>
-      <p class="proj-desc">A workspace where new expert services get fully defined before anyone builds them. A builder agent that already knows the platform drafts the service blueprint, previews it in Expert Workspace, and validates readiness across every craft, so services are assembled from shared parts instead of hand-built one at a time.</p>
-      <p class="proj-role">Product Designer · Concept, vision &amp; prototype</p>
-      <div class="proj-stats">
-        <div class="stat"><strong>2→n</strong><span>Services on the platform</span></div>
-        <div class="stat"><strong>Agent‑ready</strong><span>Service definition</span></div>
-        <div class="stat"><strong>6</strong><span>Pieces, one spine</span></div>
-      </div>
-      <a href="servicestudio.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </article>
+  </section>
 
-  <!-- 03 ContxtIQ -->
-  <article class="project">
-    <div class="project-media">
-      <div class="laptop pose-front" aria-hidden="true">
-        <div class="lt-scale"><div class="lt-bob"><div class="lt">
-          <div class="lt-shadow"></div>
-          <div class="lt-screen"><img src="assets/images/contxtiq/product-shots/app-welcome.jpg" alt="" loading="lazy"/></div>
-          <div class="lt-spk l"></div><div class="lt-spk r"></div>
-          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
-          <div class="lt-pad"></div>
-        </div></div></div>
-      </div>
-      <span class="project-chip">Startup · 2025–Present</span>
-    </div>
-    <div class="project-info">
-      <p class="proj-num">03</p>
-      <h3 class="proj-title">ContxtIQ<br><em>Live Screening</em><br>Copilot</h3>
-      <p class="proj-company">ContxtIQ · Startup</p>
-      <p class="proj-desc">A desktop copilot that supports recruiters during live screening calls for script-based roles. Real-time AI grades candidate responses, surfaces contextual follow-ups, and answers questions on the fly, turning structured interviews into adaptive, evidence-backed conversations.</p>
-      <p class="proj-role">Chief Experience Officer · Full experience lead</p>
-      <div class="proj-stats">
-        <div class="stat"><strong>Live</strong><span>Response grading</span></div>
-        <div class="stat"><strong>In-context</strong><span>AI conversation</span></div>
-        <div class="stat"><strong>0→1</strong><span>End-to-end experience</span></div>
-      </div>
-      <a href="contxtiq.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </article>
+  <section class="section" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <h2 id="about-h">About</h2>
+      <div class="grid about-grid">
+        <div class="about-copy">
+          <p>I've designed software since 2020: first at Deloitte Digital across client projects, then at Amazon on an open-source evidence archive for police agencies, and since 2023 at Intuit, on AI tools for its tax and bookkeeping experts.</p>
+          <p>Most of my work answers one question: when should software act on its own, and when should a person decide? At Intuit that meant a confidence threshold for renaming customer documents. At ContxtIQ, a startup I co-founded, it means grading interview answers live while the recruiter stays in charge of the call.</p>
+          <p>I prototype in Figma and in code. At ContxtIQ I ship interface changes to the production app myself.</p>
+          <dl class="facts">
+            <div><dt class="mono">Based in</dt><dd>San Diego, CA</dd></div>
+            <div><dt class="mono">Now</dt><dd>Senior Product Designer, Intuit, 2023–present</dd></div>
+            <div><dt class="mono">Also</dt><dd>Co-founder, ContxtIQ, 2025–present</dd></div>
+            <div><dt class="mono">Before</dt><dd>User Experience Designer, Amazon, 2022–2023</dd></div>
+            <div><dt class="mono">Before</dt><dd>User Experience Designer, Deloitte Digital, 2020–2022</dd></div>
+            <div><dt class="mono">Education</dt><dd>B.S. Information Technology, Virginia Tech, summa cum laude</dd></div>
+            <div><dt class="mono">Certification</dt><dd>NN/g UX Certification, UX Research specialization, 2022</dd></div>
+            <div><dt class="mono">Outside work</dt><dd>Hiking, camping, golf</dd></div>
+          </dl>
+        </div>
 
-  <!-- 03 CIMx (hidden — pending replacement project) -->
-  <template id="hidden-cimx">
-  <article class="project">
-    <div class="project-media">
-      <svg class="proj-svg" viewBox="0 0 700 580" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-label="CIMx project placeholder">
-        <rect width="700" height="580" fill="#dfd8d0"/>
-        <defs>
-          <radialGradient id="c1" cx="70%" cy="30%" r="50%">
-            <stop offset="0%" stop-color="#c9b99a" stop-opacity="0.25"/>
-            <stop offset="100%" stop-color="#dfd8d0" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="500" cy="200" rx="260" ry="220" fill="url(#c1)"/>
-        <!-- Upload area -->
-        <rect x="72" y="88" width="220" height="280" rx="6" fill="#cfc5bb" opacity="0.5"/>
-        <!-- Document icon -->
-        <rect x="122" y="130" width="120" height="160" rx="4" fill="#bfb5ab" opacity="0.75"/>
-        <polygon points="202,130 222,148 222,130" fill="#cfc5bb"/>
-        <rect x="136" y="166" width="88" height="7" rx="2" fill="#d4cdc5" opacity="0.8"/>
-        <rect x="136" y="180" width="76" height="6" rx="2" fill="#d4cdc5" opacity="0.6"/>
-        <rect x="136" y="193" width="84" height="6" rx="2" fill="#d4cdc5" opacity="0.55"/>
-        <!-- Scan line -->
-        <rect x="122" y="225" width="120" height="2" rx="1" fill="#a89285" opacity="0.65"/>
-        <!-- AI badge -->
-        <circle cx="346" cy="228" r="26" fill="#c4b8ac" opacity="0.5"/>
-        <text x="338" y="233" font-size="16" fill="#7a6a62" opacity="0.75">✦</text>
-        <!-- Arrow -->
-        <path d="M294 228 L318 228" stroke="#a89285" stroke-width="2" fill="none" opacity="0.7"/>
-        <polygon points="315,224 322,228 315,232" fill="#a89285" opacity="0.7"/>
-        <path d="M372 228 L396 228" stroke="#a89285" stroke-width="2" fill="none" opacity="0.7"/>
-        <polygon points="393,224 400,228 393,232" fill="#a89285" opacity="0.7"/>
-        <!-- Folder list -->
-        <rect x="404" y="94"  width="224" height="46" rx="5" fill="#c4bab0" opacity="0.55"/>
-        <text x="422" y="122" font-family="Georgia" font-size="13" fill="#5a4e46" opacity="0.8">📁 2023 Tax Returns</text>
-        <rect x="404" y="150" width="224" height="46" rx="5" fill="#c4bab0" opacity="0.48"/>
-        <text x="422" y="178" font-family="Georgia" font-size="13" fill="#5a4e46" opacity="0.75">📁 Business Expenses</text>
-        <rect x="404" y="206" width="224" height="46" rx="5" fill="#c4bab0" opacity="0.42"/>
-        <text x="422" y="234" font-family="Georgia" font-size="13" fill="#5a4e46" opacity="0.7">📄 W-2_2023_auto.pdf</text>
-        <!-- Savings callout -->
-        <rect x="404" y="320" width="224" height="96" rx="6" fill="#b5a99e" opacity="0.32"/>
-        <text x="424" y="360" font-family="Georgia,serif" font-size="26" font-weight="300" fill="#4a3e36" opacity="0.85">$3.54M</text>
-        <text x="424" y="380" font-family="Georgia,serif" font-size="10" fill="#7a6e64" letter-spacing="2" opacity="0.65">REALIZED COST SAVINGS</text>
-        <text x="424" y="400" font-family="Georgia,serif" font-size="10" fill="#7a6e64" letter-spacing="1" opacity="0.55">23% handling time reduction</text>
-        <text x="72" y="490" font-family="Georgia,serif" font-size="11" fill="#7a6e64" letter-spacing="4" opacity="0.5">CIMx · INTUIT</text>
-      </svg>
-      <span class="project-chip">TurboTax · QuickBooks · BizTax</span>
-    </div>
-    <div class="project-info">
-      <p class="proj-num">03</p>
-      <h3 class="proj-title">Customer<br><em>Information</em><br>Management</h3>
-      <p class="proj-company">Intuit · CIMx</p>
-      <p class="proj-desc">AI-powered document intelligence across TurboTax, QuickBooks, and BizTax. Designed how customers submit and manage documents. AI analyzes uploads, auto-organizes into structured folders, detects missing or incorrect documentation, and renames files for consistency. Reduced handling time by 23% and delivered $3.54M in realized savings.</p>
-      <p class="proj-role">Product Designer · Document Intelligence</p>
-      <div class="proj-stats">
-        <div class="stat"><strong>23%</strong><span>Handling time reduced</span></div>
-        <div class="stat"><strong>$3.54M</strong><span>Cost savings</span></div>
-        <div class="stat"><strong>46 min</strong><span>Saved per engagement</span></div>
+        <!-- Sticky-note wall: ten fixed notes, plain HTML and CSS, no script. Positions and angles live in the .nNN rules. Frame 10 is the large note at top left. -->
+        <ul class="wall" aria-label="Photos">
+          <li class="note n10"><img src="assets/images/about/wall-10.jpg" width="470" height="470" loading="lazy" alt="Daniel smiling in a pine forest, late-afternoon sun through the trees."></li>
+          <li class="note n04"><img src="assets/images/about/wall-04.jpg" width="470" height="470" loading="lazy" alt="Daniel in profile, blurred by motion, with city lights behind him."></li>
+          <li class="note n06"><img src="assets/images/about/wall-06.jpg" width="470" height="470" loading="lazy" alt="Daniel's head bowed in silhouette against a pink and violet sunset."></li>
+          <li class="note n11"><img src="assets/images/about/wall-11.jpg" width="470" height="470" loading="lazy" alt="Daniel in sunglasses at sunset above a city skyline."></li>
+          <li class="note n13"><img src="assets/images/about/wall-13.jpg" width="470" height="470" loading="lazy" alt="A sunset framed by a sun-and-cloud sculpture at a crowded lookout."></li>
+          <li class="note n01"><img src="assets/images/about/wall-01.jpg" width="470" height="470" loading="lazy" alt="Motion-blurred profile of Daniel looking out a cable-car window."></li>
+          <li class="note n03"><img src="assets/images/about/wall-03.jpg" width="470" height="470" loading="lazy" alt="Daniel in silhouette watching the sunset over the sea and a lit bridge from a cable car."></li>
+          <li class="note n05"><img src="assets/images/about/wall-05.jpg" width="470" height="470" loading="lazy" alt="Daniel in silhouette facing the sea at dusk, a buoy light on the water."></li>
+          <li class="note n16"><img src="assets/images/about/wall-16.jpg" width="470" height="470" loading="lazy" alt="Daniel smiling on a rooftop with city towers behind him at golden hour."></li>
+          <li class="note n08"><img src="assets/images/about/wall-08.jpg" width="470" height="470" loading="lazy" alt="Daniel seen from behind, watching the sea at dusk."></li>
+        </ul>
       </div>
-      <a href="cimx.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
-  </article>
-  </template>
+  </section>
 
-  <!-- 04 DEA @ Amazon -->
-  <article class="project">
-    <div class="project-media duo">
-      <div class="laptop pose-steep" aria-hidden="true">
-        <div class="lt-scale"><div class="lt-bob"><div class="lt">
-          <div class="lt-shadow"></div>
-          <div class="lt-screen"><img src="assets/images/dea/dea_img8.png" alt="" loading="lazy"/></div>
-          <div class="lt-spk l"></div><div class="lt-spk r"></div>
-          <div class="lt-kb"><i class="f"></i><i></i><i></i><i></i><i></i><i class="s"></i></div>
-          <div class="lt-pad"></div>
-        </div></div></div>
+  <section class="section" id="contact" aria-labelledby="contact-h">
+    <div class="wrap">
+      <h2 id="contact-h">Contact</h2>
+      <p class="contact-body">Email is the fastest way to reach me.</p>
+      <div class="contact-links">
+        <a href="mailto:daniel.j.baek5@gmail.com">daniel.j.baek5@gmail.com</a>
+        <a href="https://www.linkedin.com/in/danieljbaek/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="assets/resume/daniel-j-baek-resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
       </div>
-      <div class="phone" aria-hidden="true">
-        <div class="ph-bob"><div class="ph"><img src="assets/images/dea/dea_img9.png" alt="" loading="lazy"/></div></div>
-      </div>
-      <span class="project-chip">Open Source · Global Law Enforcement</span>
     </div>
-    <div class="project-info">
-      <p class="proj-num">04</p>
-      <h3 class="proj-title">Digital<br><em>Evidence</em><br>Archive</h3>
-      <p class="proj-company">Amazon</p>
-      <p class="proj-desc">Led design of an open-source application used by global police agencies to store and manage digital evidence, from initial research through implementation. Produced wireframes, accessibility annotations, personas, and journey maps in close collaboration with engineering, TPMs, and domain experts in research and accessibility.</p>
-      <p class="proj-role">Lead Designer · Research to Delivery</p>
-      <div class="proj-stats">
-        <div class="stat"><strong>Global</strong><span>Police agency adoption</span></div>
-        <div class="stat"><strong>Open</strong><span>Source release</span></div>
-        <div class="stat"><strong>WCAG</strong><span>Accessibility compliant</span></div>
-      </div>
-      <a href="dea.html" class="proj-link">View Project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-  </article>
-
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-left reveal">
-    <p class="section-label">Get in touch</p>
-    <h2>Let's<br>work<br><em>together.</em></h2>
-    <div class="contact-marble-strip" aria-hidden="true"></div>
-    <a href="mailto:Daniel.j.baek5@gmail.com" class="contact-email">Daniel.j.baek5@gmail.com</a>
-  </div>
-  <div class="contact-right reveal">
-    <p>I'm always open to conversations about meaningful design work, especially at the intersection of AI, enterprise systems, and the humans who use them.</p>
-    <div class="contact-links">
-      <a href="https://www.linkedin.com/in/danieljbaek/" class="contact-link" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-        <span class="cl-label">LinkedIn</span>
-        linkedin.com/in/danieljbaek
-        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
-      </a>
-      <a href="mailto:Daniel.j.baek5@gmail.com" class="contact-link" aria-label="Send email">
-        <span class="cl-label">Email</span>
-        Daniel.j.baek5@gmail.com
-        <svg class="cl-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2h10v10M2 12L12 2" stroke="currentColor" stroke-width="1.2"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
+  </section>
+</main>
 
 <footer>
-  <p>© 2025 Daniel J. Baek</p>
-  <p>Product Designer · San Diego, CA</p>
+  <div class="wrap"><p class="mono">© 2026 Daniel J. Baek · San Diego, CA</p></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Nav scroll state (no GSAP needed)
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
-
-  // Only run animations if GSAP loaded
-  if (typeof gsap !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Set initial states in JS so elements are visible if GSAP fails
-    gsap.set('.nav-name, .nav-links', { opacity: 0 });
-    gsap.set('.hero-eyebrow, .hero-tagline, .hero-scroll', { opacity: 0 });
-    gsap.set('.hero-name-line', { opacity: 0, y: 64 });
-    gsap.set('.reveal', { opacity: 0, y: 28 });
-
-    // Hero entrance
-    const tl = gsap.timeline({ delay: 0.15 });
-    tl.to('.nav-name',      { opacity: 1, duration: 0.9, ease: 'power2.out' }, 0.7)
-      .to('.nav-links',     { opacity: 1, duration: 0.9, ease: 'power2.out' }, 0.8)
-      .to('.hero-eyebrow',  { opacity: 1, duration: 0.8, ease: 'power2.out' }, 0.35)
-      .to('.hero-name-line',{ opacity: 1, y: 0, duration: 1.1, stagger: 0.14, ease: 'power3.out' }, 0.55)
-      .to('.hero-tagline',  { opacity: 1, duration: 0.9, ease: 'power2.out' }, 1.15)
-      .to('.hero-scroll',   { opacity: 1, duration: 0.9, ease: 'power2.out' }, 1.5);
-
-    // Scroll reveals
-    gsap.utils.toArray('.reveal').forEach(el => {
-      gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 83%', once: true }
+<script>
+  // Current section marker in the nav
+  (function () {
+    var links = {};
+    document.querySelectorAll('.nav ul a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var ids = ['work', 'about', 'contact'];
+    function update() {
+      var y = window.scrollY + window.innerHeight * 0.35, cur = null;
+      ids.forEach(function (id) { var el = document.getElementById(id); if (el && el.offsetTop <= y) cur = id; });
+      Object.keys(links).forEach(function (id) {
+        if (id === cur) links[id].setAttribute('aria-current', 'location'); else links[id].removeAttribute('aria-current');
       });
-    });
-
-    // Project staggered entrance
-    document.querySelectorAll('.project').forEach((proj, i) => {
-      const info  = proj.querySelector('.project-info');
-      const media = proj.querySelector('.project-media');
-      const even  = i % 2 === 1;
-      gsap.fromTo(info,
-        { opacity: 0, x: even ? -44 : 44 },
-        { opacity: 1, x: 0, duration: 1.0, ease: 'power2.out',
-          scrollTrigger: { trigger: proj, start: 'top 78%', once: true } }
-      );
-      gsap.fromTo(media,
-        { opacity: 0 },
-        { opacity: 1, duration: 1.2, ease: 'power2.out',
-          scrollTrigger: { trigger: proj, start: 'top 82%', once: true } }
-      );
-    });
-  } // end GSAP guard
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
 </script>
 </body>
 </html>

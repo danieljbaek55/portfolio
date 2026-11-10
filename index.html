@@ -119,15 +119,16 @@
   .hero h1 { font-size: var(--type-display); line-height: 1.05; letter-spacing: -0.02em; max-width: 16ch; grid-column: 1 / span 8; grid-row: 1; }
   .hero-lead { grid-column: 1 / span 8; grid-row: 2; font-size: var(--type-lead); line-height: 1.5; margin-top: var(--space-6); max-width: 60ch; }
   /* Hero drawing: decorative, top-aligned with the h1 in the right four columns. */
-  .hero-art { grid-column: 9 / -1; grid-row: 1 / span 2; align-self: start; justify-self: end; width: 100%; max-width: 20rem; }
+  .hero-art { grid-column: 9 / -1; grid-row: 1 / span 3; align-self: start; justify-self: end; width: 100%; max-width: 24rem; }
   .hero-art svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .hero-art .ln { fill: none; stroke: var(--text-muted); stroke-width: 1; vector-effect: non-scaling-stroke; }
-  .hero-art .nd { fill: var(--bg); stroke: var(--text); stroke-width: 1; vector-effect: non-scaling-stroke; }
-  .hero-art .wait { stroke: var(--accent); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; }
-  .hero-art .mk { fill: var(--accent); transform: translate(210px, 70px); }
-  @supports (offset-path: path("M0 0")) {
-    .hero-art .mk { transform: none; offset-path: path("M100 140 L140 70 H290 V210 H140 Z"); offset-rotate: 0deg; offset-distance: 25%; }
-  }
+  .hero-art svg * { fill: none; stroke-width: 0.75; vector-effect: non-scaling-stroke; }
+  .hero-art .l-rule { stroke: var(--rule); }
+  .hero-art .l-mute { stroke: var(--text-muted); }
+  .hero-art .l-text { stroke: var(--text); }
+  .hero-art .nd { fill: var(--bg); stroke: var(--text); }
+  .hero-art .ac { fill: var(--accent); stroke: none; }
+  .hero-art .ac-ring { fill: var(--bg); stroke: var(--accent); stroke-width: 1; }
+  .hero-art .ring, .hero-art .spokes, .hero-art .star, .hero-art .walk { transform-origin: 200px 200px; }
   .hero-links { grid-column: 1 / -1; grid-row: 3; display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 
   .btn {
@@ -188,19 +189,11 @@
     .fig:hover > .fig-frame { transform: none; }
   }
 
-  /* Figure caption: numbered in the document format, with one control. */
-  .fig-cap { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-4); margin-top: var(--space-2); color: var(--text-muted); }
+  /* Figure caption: numbered in the document format. The clips are controlled by their frame. */
+  .fig-cap { margin-top: var(--space-2); color: var(--text-muted); }
   .cap-text { display: grid; padding-block: var(--space-1); }
   .cap-text > span { grid-area: 1 / 1; }
-  .fig-btn {
-    display: none; flex-shrink: 0; align-items: center; min-height: 2rem; padding: var(--space-1) 0; cursor: pointer;
-    font-family: var(--font-sans); font-size: var(--type-small); font-weight: 500; color: var(--text); background: none; border: 0;
-    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em;
-  }
-  .fig-btn:hover { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
-  .js .fig-btn { display: inline-flex; }
-  .fig-btn[hidden] { display: none; }
-  @media (pointer: coarse) { .fig-btn { min-height: 2.75rem; min-width: 2.75rem; } }
+  .fig[data-clip-src] .fig-frame { cursor: pointer; }
 
   /* About */
   .about-grid { row-gap: var(--space-7); }
@@ -261,9 +254,6 @@
     .about-copy { grid-column: 1 / -1; }
     .wall { grid-column: 1 / -1; order: -1; width: 100%; max-width: 36rem; }
   }
-  @media (max-width: 560px) {
-    .fig-cap { flex-direction: column; gap: 0; }
-  }
   @media (max-width: 480px) {
     :root { --grid-margin: 1rem; }
     .nav ul { gap: var(--space-4); }
@@ -271,21 +261,39 @@
     .section { padding-block: var(--space-7); }
   }
 
-  /* Hero drawing loop: 10s. The marker acts along the lower branch and waits at the accent node on the upper one. */
+  /* Hero figure: three layers turn slowly in opposite directions; the accent node steps around the dodecagon and waits at each vertex (36s loop). */
   @media (prefers-reduced-motion: no-preference) {
-    @supports (offset-path: path("M0 0")) {
-      .hero-art .mk { animation: hero-run 10s infinite; }
-      .hero-art .wait { animation: hero-ask 10s ease-in-out infinite; }
-    }
-    @keyframes hero-run {
-      0% { offset-distance: 0%; animation-timing-function: cubic-bezier(0.1, 0.4, 0.4, 1); }
-      22% { offset-distance: 25%; }
-      40% { offset-distance: 25%; animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.7); }
-      100% { offset-distance: 100%; }
-    }
-    @keyframes hero-ask {
-      0%, 22%, 40%, 100% { transform: scale(1); }
-      31% { transform: scale(1.35); }
+    .hero-art .ring { animation: hero-turn 180s linear infinite; }
+    .hero-art .spokes { animation: hero-turn 150s linear infinite reverse; }
+    .hero-art .star { animation: hero-turn 100s linear infinite; }
+    .hero-art .walk { animation: hero-step 36s ease-in-out infinite; }
+    @keyframes hero-turn { to { transform: rotate(360deg); } }
+    @keyframes hero-step {
+      0% { transform: rotate(0deg); }
+      6.9% { transform: rotate(0deg); }
+      8.3% { transform: rotate(30deg); }
+      15.3% { transform: rotate(30deg); }
+      16.7% { transform: rotate(60deg); }
+      23.6% { transform: rotate(60deg); }
+      25% { transform: rotate(90deg); }
+      31.9% { transform: rotate(90deg); }
+      33.3% { transform: rotate(120deg); }
+      40.3% { transform: rotate(120deg); }
+      41.7% { transform: rotate(150deg); }
+      48.6% { transform: rotate(150deg); }
+      50% { transform: rotate(180deg); }
+      56.9% { transform: rotate(180deg); }
+      58.3% { transform: rotate(210deg); }
+      65.3% { transform: rotate(210deg); }
+      66.7% { transform: rotate(240deg); }
+      73.6% { transform: rotate(240deg); }
+      75% { transform: rotate(270deg); }
+      81.9% { transform: rotate(270deg); }
+      83.3% { transform: rotate(300deg); }
+      90.3% { transform: rotate(300deg); }
+      91.7% { transform: rotate(330deg); }
+      98.6% { transform: rotate(330deg); }
+      100% { transform: rotate(360deg); }
     }
   }
 
@@ -394,15 +402,21 @@
       <h1>I design AI tools that know when to act and when to ask.</h1>
       <p class="hero-lead">Senior Product Designer at Intuit in San Diego. My document automation for TurboTax Live, QuickBooks Live and BizTax experts cut 46 minutes from each engagement and saved $3.54M. I prototype in code as well as Figma.</p>
       <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 54 320 172" focusable="false">
-          <path class="ln" d="M24 140 H100 L140 70 H290 V210 H140 L100 140"/>
-          <circle class="nd" cx="24" cy="140" r="4"/>
-          <circle class="nd" cx="100" cy="140" r="5"/>
-          <circle class="nd" cx="290" cy="70" r="5"/>
-          <circle class="nd" cx="290" cy="210" r="5"/>
-          <circle class="nd" cx="210" cy="210" r="5"/>
-          <circle class="nd wait" cx="210" cy="70" r="8"/>
-          <circle class="mk" cx="0" cy="0" r="3.5"/>
+        <svg viewBox="5 5 390 390" focusable="false">
+          <g class="ring"><path class="l-rule" d="M389.3 216.6L383.3 216M387.1 233L381.2 232M383.5 249.2L377.7 247.6M378.5 265L372.9 262.9M372.2 280.3L366.8 277.8M355.6 309L350.7 305.5M345.5 322.1L341 318.3M334.4 334.4L330.1 330.1M322.1 345.5L318.3 341M309 355.6L305.5 350.7M280.3 372.2L277.8 366.8M265 378.5L262.9 372.9M249.2 383.5L247.6 377.7M233 387.1L232 381.2M216.6 389.3L216 383.3M183.4 389.3L184 383.3M167 387.1L168 381.2M150.8 383.5L152.4 377.7M135 378.5L137.1 372.9M119.7 372.2L122.2 366.8M91 355.6L94.5 350.7M77.9 345.5L81.7 341M65.6 334.4L69.9 330.1M54.5 322.1L59 318.3M44.4 309L49.3 305.5M27.8 280.3L33.2 277.8M21.5 265L27.1 262.9M16.5 249.2L22.3 247.6M12.9 233L18.8 232M10.7 216.6L16.7 216M10.7 183.4L16.7 184M12.9 167L18.8 168M16.5 150.8L22.3 152.4M21.5 135L27.1 137.1M27.8 119.7L33.2 122.2M44.4 91L49.3 94.5M54.5 77.9L59 81.7M65.6 65.6L69.9 69.9M77.9 54.5L81.7 59M91 44.4L94.5 49.3M119.7 27.8L122.2 33.2M135 21.5L137.1 27.1M150.8 16.5L152.4 22.3M167 12.9L168 18.8M183.4 10.7L184 16.7M216.6 10.7L216 16.7M233 12.9L232 18.8M249.2 16.5L247.6 22.3M265 21.5L262.9 27.1M280.3 27.8L277.8 33.2M309 44.4L305.5 49.3M322.1 54.5L318.3 59M334.4 65.6L330.1 69.9M345.5 77.9L341 81.7M355.6 91L350.7 94.5M372.2 119.7L366.8 122.2M378.5 135L372.9 137.1M383.5 150.8L377.7 152.4M387.1 167L381.2 168M389.3 183.4L383.3 184"/><path class="l-mute" d="M390 200L377 200M364.5 295L353.3 288.5M295 364.5L288.5 353.3M200 390L200 377M105 364.5L111.5 353.3M35.5 295L46.7 288.5M10 200L23 200M35.5 105L46.7 111.5M105 35.5L111.5 46.7M200 10L200 23M295 35.5L288.5 46.7M364.5 105L353.3 111.5"/></g>
+          <circle class="l-text" cx="200" cy="200" r="190"/>
+          <circle class="l-rule" cx="200" cy="200" r="172"/>
+          <circle class="l-rule" cx="200" cy="200" r="150"/>
+          <circle class="l-rule" cx="200" cy="200" r="144.9"/>
+          <path class="l-text" d="M200 50 L275 70.1 L329.9 125 L350 200 L329.9 275 L275 329.9 L200 350 L125 329.9 L70.1 275 L50 200 L70.1 125 L125 70.1Z"/>
+          <g class="spokes"><path class="l-rule" d="M223.8 203.1L348.7 219.6M222.2 209.2L338.6 257.4M219 214.6L319 291.3M214.6 219L291.3 319M209.2 222.2L257.4 338.6M203.1 223.8L219.6 348.7M196.9 223.8L180.4 348.7M190.8 222.2L142.6 338.6M185.4 219L108.7 319M181 214.6L81 291.3M177.8 209.2L61.4 257.4M176.2 203.1L51.3 219.6M176.2 196.9L51.3 180.4M177.8 190.8L61.4 142.6M181 185.4L81 108.7M185.4 181L108.7 81M190.8 177.8L142.6 61.4M196.9 176.2L180.4 51.3M203.1 176.2L219.6 51.3M209.2 177.8L257.4 61.4M214.6 181L291.3 81M219 185.4L319 108.7M222.2 190.8L338.6 142.6M223.8 196.9L348.7 180.4"/></g>
+          <g class="star"><path class="l-mute" d="M200 70 L312.6 265 L87.4 265ZM200 330 L87.4 135 L312.6 135Z"/><path class="l-text" d="M200 125 L265 162.5 L265 237.5 L200 275 L135 237.5 L135 162.5Z"/></g>
+          <circle class="l-mute" cx="200" cy="200" r="65"/>
+          <circle class="l-mute" cx="200" cy="200" r="75.1"/>
+          <circle class="l-text" cx="200" cy="200" r="24"/>
+          <circle class="l-rule" cx="200" cy="200" r="10"/>
+          <path class="nd" d="M200 50m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M275 70.1m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M329.9 125m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M350 200m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M329.9 275m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M275 329.9m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M200 350m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M125 329.9m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M70.1 275m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M50 200m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M70.1 125m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0M125 70.1m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0"/>
+          <g class="walk"><circle class="ac-ring" cx="200" cy="50" r="7"/><circle class="ac" cx="200" cy="50" r="3"/></g>
         </svg>
       </div>
       <div class="hero-links">
@@ -431,7 +445,6 @@
           </div>
           <figcaption class="fig-cap">
             <span class="cap-text mono"><span class="cap-base">Fig. 1 · Service Studio, a draft journey of four steps</span></span>
-            <button type="button" class="fig-btn" data-clip>Pause</button>
           </figcaption>
         </figure>
       </article>
@@ -476,7 +489,6 @@
           </div>
           <figcaption class="fig-cap">
             <span class="cap-text mono"><span class="cap-base">Fig. 3 · Agent workspace, home screen with activity cards</span></span>
-            <button type="button" class="fig-btn" data-clip>Pause</button>
           </figcaption>
         </figure>
       </article>
@@ -584,14 +596,13 @@
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Clip: the still stays until the card is near the screen, then a muted video replaces it.
-    // The button and aria-pressed follow the viewer's choice (wantPlay), never the observer's play and pause.
+    // The frame is the control (click, Enter or Space) and follows the viewer's choice (wantPlay), never the observer's play and pause.
     document.querySelectorAll('[data-clip-src]').forEach(function (fig) {
-      var btn = fig.querySelector('.fig-btn'), frame = fig.querySelector('.fig-frame'), cap = fig.querySelector('.cap-base');
-      var video = null, wantPlay = !reduce, visible = false, started = false;
-      if (!('IntersectionObserver' in window)) { btn.hidden = true; return; }
+      var frame = fig.querySelector('.fig-frame'), cap = fig.querySelector('.cap-base');
+      var video = null, wantPlay = !reduce, visible = false;
+      if (!('IntersectionObserver' in window)) return;
       function label() {
-        btn.setAttribute('aria-pressed', wantPlay ? 'true' : 'false');
-        btn.textContent = wantPlay ? 'Pause' : (started ? 'Play' : 'Play clip');
+        frame.setAttribute('aria-label', fig.getAttribute('data-clip-label') + (wantPlay ? ' Select to pause.' : ' Select to play.'));
       }
       function make() {
         if (video) return;
@@ -599,9 +610,7 @@
         video.muted = true; video.defaultMuted = true; video.setAttribute('muted', '');
         video.loop = true; video.playsInline = true; video.preload = 'none';
         video.poster = fig.getAttribute('data-clip-poster');
-        video.setAttribute('aria-label', fig.getAttribute('data-clip-label'));
         video.src = fig.getAttribute('data-clip-src');
-        video.addEventListener('playing', function () { started = true; });
         frame.replaceChild(video, frame.querySelector('img'));
         cap.textContent = fig.getAttribute('data-clip-caption');
       }
@@ -609,11 +618,16 @@
         if (!video) return;
         if (wantPlay && visible) { var p = video.play(); if (p && p.catch) p.catch(function () {}); } else video.pause();
       }
+      frame.setAttribute('role', 'button'); frame.tabIndex = 0;
       label();
-      btn.addEventListener('click', function () {
+      function toggle() {
         wantPlay = !wantPlay;
         if (wantPlay) make();
         label(); sync();
+      }
+      frame.addEventListener('click', toggle);
+      frame.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
       });
       new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting && !reduce) { make(); sync(); } }, { rootMargin: '200px 0px' }).observe(fig);
       new IntersectionObserver(function (es) { visible = es[es.length - 1].isIntersecting; sync(); }, { threshold: 0.5 }).observe(frame);

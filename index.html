@@ -26,7 +26,7 @@
     --text: #14181D;
     --text-muted: #4B5563;
     --rule: #CBD2DA;          /* hairlines, never text */
-    --accent: #B42318;        /* reviewer's red pen: outcomes, current section */
+    --accent: #2457C5;        /* reviewer's blue pen: outcomes, current section */
     --on-dark: #F2F4F6;       /* text on --text surfaces */
     --text-hover: #2B323A;    /* hover fill for --text buttons */
 
@@ -270,20 +270,20 @@
     @supports (animation-timeline: view()) {
       .card {
         view-timeline: --card block;
-        --in-x: 48px; --in-r: 2deg; --in-fx: 72px; --in-fr: 3deg;
+        --in-x: 120px; --in-r: 6deg; --in-fx: 180px; --in-fr: 8deg;
       }
       .card-head, .card-body {
         transform-origin: left bottom;
-        animation: card-in-left var(--ease) both; animation-timeline: --card; animation-range: entry 10% cover 35%;
+        animation: card-in-left var(--ease) both; animation-timeline: --card; animation-range: entry 0% cover 45%;
       }
       .card-fig {
         transform-origin: right bottom;
-        animation: card-in-right var(--ease) both; animation-timeline: --card; animation-range: entry 10% cover 35%;
+        animation: card-in-right var(--ease) both; animation-timeline: --card; animation-range: entry 0% cover 45%;
       }
       /* The first card is already on the first screen at load: it stays at rest */
       .card:first-of-type .card-head, .card:first-of-type .card-body, .card:first-of-type .card-fig { animation: none; }
       @media (max-width: 860px) {
-        .card { --in-x: 24px; --in-r: 1deg; --in-fx: 36px; --in-fr: 1.5deg; }
+        .card { --in-x: 60px; --in-r: 3deg; --in-fx: 90px; --in-fr: 4deg; }
       }
     }
     @keyframes card-in-left { from { transform: translateX(calc(var(--in-x) * -1)) rotate(calc(var(--in-r) * -1)); } to { transform: none; } }

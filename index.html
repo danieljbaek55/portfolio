@@ -262,7 +262,7 @@
     .section { padding-block: var(--space-7); }
   }
 
-  /* Scroll-in motion. Start states are transforms of fully visible content: nothing starts at opacity 0. */
+  /* Scroll-in motion. Start states are transforms of fully visible content, with one deliberate exception: the project cards also fade in (see the card keyframes below and "Round 4 change" in .claude/plans/home-scroll-in.md). */
   @media (prefers-reduced-motion: no-preference) {
     main { overflow-x: clip; }
 
@@ -304,8 +304,8 @@
     }
     @keyframes card-in-left-s {
       from { transform: translateX(calc(var(--in-x) * -1)) rotate(calc(var(--in-r) * -1)); opacity: 0; }
-      39% { opacity: 0; animation-timing-function: linear; }
-      47% { opacity: 1; }
+      36% { opacity: 0; animation-timing-function: linear; }
+      44% { opacity: 1; }
       to { transform: none; opacity: 1; }
     }
     @keyframes card-in-right-s {

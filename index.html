@@ -262,6 +262,56 @@
     .section { padding-block: var(--space-7); }
   }
 
+  /* Scroll-in motion. Start states are transforms of fully visible content: nothing starts at opacity 0. */
+  @media (prefers-reduced-motion: no-preference) {
+    main { overflow-x: clip; }
+
+    /* Cards: text enters from the left, figure from the right, scrubbed by scroll position */
+    @supports (animation-timeline: view()) {
+      .card {
+        view-timeline: --card block;
+        --in-x: 48px; --in-r: 2deg; --in-fx: 72px; --in-fr: 3deg;
+      }
+      .card-head, .card-body {
+        transform-origin: left bottom;
+        animation: card-in-left var(--ease) both; animation-timeline: --card; animation-range: entry 10% cover 35%;
+      }
+      .card-fig {
+        transform-origin: right bottom;
+        animation: card-in-right var(--ease) both; animation-timeline: --card; animation-range: entry 10% cover 35%;
+      }
+      /* The first card is already on the first screen at load: it stays at rest */
+      .card:first-of-type .card-head, .card:first-of-type .card-body, .card:first-of-type .card-fig { animation: none; }
+      @media (max-width: 860px) {
+        .card { --in-x: 24px; --in-r: 1deg; --in-fx: 36px; --in-fr: 1.5deg; }
+      }
+    }
+    @keyframes card-in-left { from { transform: translateX(calc(var(--in-x) * -1)) rotate(calc(var(--in-r) * -1)); } to { transform: none; } }
+    @keyframes card-in-right { from { transform: translateX(var(--in-fx)) rotate(var(--in-fr)); } to { transform: none; } }
+
+    /* Photo wall: notes start lifted off the wall and press on once (script adds .armed, then .is-stuck) */
+    .wall.armed .note:nth-child(odd) { --dx: 10px; --dr: 7deg; }
+    .wall.armed .note:nth-child(even) { --dx: -10px; --dr: -7deg; }
+    .wall.armed .note {
+      --note-lift: translate(var(--dx), -14px) rotate(calc(var(--r) + var(--dr))) scale(1.1);
+      --note-lift-shadow: 0 2px 3px color-mix(in srgb, var(--text) 8%, transparent), 0 22px 30px -12px color-mix(in srgb, var(--text) 26%, transparent);
+    }
+    .wall.armed .note:not(.is-stuck) { transform: var(--note-lift); box-shadow: var(--note-lift-shadow); }
+    .wall.armed .note:not(.is-stuck)::before { transform: translateX(-50%) rotate(var(--t)) scaleX(0); }
+    .wall.armed .note.is-stuck { animation: note-stick 520ms var(--ease) calc(var(--i, 0) * 70ms) backwards; }
+    .wall.armed .note.is-stuck::before { animation: tape-lay 180ms var(--ease) calc(var(--i, 0) * 70ms + 390ms) backwards; }
+    /* No `to` keyframe: the animation ends on the note's own rest transform and shadow */
+    @keyframes note-stick {
+      from { transform: var(--note-lift); box-shadow: var(--note-lift-shadow); }
+      75% { transform: rotate(var(--r)) scale(0.985);
+        box-shadow: 0 1px 1px color-mix(in srgb, var(--text) 10%, transparent), 0 4px 8px -6px color-mix(in srgb, var(--text) 28%, transparent); }
+    }
+    @keyframes tape-lay {
+      from { transform: translateX(-50%) rotate(var(--t)) scaleX(0); }
+      to { transform: translateX(-50%) rotate(var(--t)); }
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -308,7 +358,7 @@
           <p class="card-meta mono">Intuit · Senior Product Designer, concept through launch · 2025–present · Shipping 2026</p>
         </div>
         <div class="card-body">
-          <p class="card-summary">New expert services were defined in decks and tickets, then settled downstream by whoever hit the gap first. In Service Studio a team describes the service in plain English, one question at a time, and the journey, the expert's screens and the agent bundle draw as they answer. The result is one definition people can't misread and an agent can build from. I designed it from the first prototype to a 2026 launch.</p>
+          <p class="card-summary">A team describes a new service in plain English, and the journey, the expert's screens and the agent bundle draw as they answer. I designed it from the first prototype to a 2026 launch.</p>
         </div>
         <figure class="card-fig fig" data-clip-src="assets/video/servicestudio-home.mp4" data-clip-caption="Fig. 1 · Service Studio, drafting a service blueprint" data-clip-poster="assets/video/servicestudio-home.jpg" data-clip-label="Service Studio drafting a service: a grid of steps by role and milestone, and one step is dragged from the client lane to the tax expert lane.">
           <div class="fig-frame">
@@ -328,7 +378,7 @@
           <p class="card-meta mono">Amazon · User Experience Designer, design lead · 2022–2023 · Open source</p>
         </div>
         <div class="card-body">
-          <p class="card-summary">Police agencies were storing video, photos and documents in systems built for physical evidence. I led design from research to handoff for an archive that gives every file a case, a structure and an audit trail.</p>
+          <p class="card-summary">Police agencies were storing digital evidence in systems built for physical evidence. I led design from research to handoff for an archive that gives every file a case, a structure and an audit trail.</p>
           <ul class="stats">
             <li><span class="stat-value">~45 min</span><span class="stat-label">saved per case</span></li>
             <li><span class="stat-value">12</span><span class="stat-label">validation sessions</span></li>
@@ -354,7 +404,7 @@
           <p class="card-meta mono">Intuit · Senior Product Designer, concept through launch · 2024–present · In pilot</p>
         </div>
         <div class="card-body">
-          <p class="card-summary">Experts drove every action across disconnected tools while AI helped one task at a time. In this workspace agents do the work and experts approve it: a new client arrives with documents pulled, a refund estimated and a welcome message drafted. I designed it from the first prototype through launch, and it's now in a limited pilot.</p>
+          <p class="card-summary">Agents do the work and experts approve it: a new client arrives with documents pulled, a refund estimated and a welcome message drafted. I designed it from the first prototype to a limited pilot.</p>
         </div>
         <figure class="card-fig fig" data-clip-src="assets/video/agentworkspace-home.mp4" data-clip-caption="Fig. 3 · Agent workspace, a new client arrives" data-clip-poster="assets/video/agentworkspace-home.jpg" data-clip-label="Agent workspace: the home screen of activity cards and a customers table, then a new client matched to the expert with a drafted welcome message and a folder of documents.">
           <div class="fig-frame">
@@ -374,7 +424,7 @@
           <p class="card-meta mono">ContxtIQ · Co-founder, design and front-end · 2025–present · In use</p>
         </div>
         <div class="card-body">
-          <p class="card-summary">Recruiters screen engineers and designers without being able to judge a technical answer. ContxtIQ grades each answer during the call and suggests the follow-up a technical interviewer would ask. I took it from a Figma Make prototype to pull requests on the production app. A venture alongside my work at Intuit.</p>
+          <p class="card-summary">ContxtIQ grades each answer during a screening call and suggests the follow-up a technical interviewer would ask. I took it from a Figma Make prototype to pull requests on the production app.</p>
           <ul class="stats">
             <li><span class="stat-value">30+</span><span class="stat-label">live screening sessions</span></li>
             <li><span class="stat-value">2</span><span class="stat-label">recruiters using it</span></li>
@@ -414,7 +464,7 @@
           </dl>
         </div>
 
-        <!-- Sticky-note wall: ten fixed notes, plain HTML and CSS, no script. Positions and angles live in the .nNN rules. Frame 10 is the large note at top left. -->
+        <!-- Sticky-note wall: ten fixed notes, plain HTML and CSS, with a scroll-in script at the end of the page. Positions and angles live in the .nNN rules. Frame 10 is the large note at top left. -->
         <ul class="wall" aria-label="Photos">
           <li class="note n10"><img src="assets/images/about/wall-10.jpg" width="470" height="470" loading="lazy" alt="Daniel smiling in a pine forest, late-afternoon sun through the trees."></li>
           <li class="note n04"><img src="assets/images/about/wall-04.jpg" width="470" height="470" loading="lazy" alt="Daniel in profile, blurred by motion, with city lights behind him."></li>
@@ -515,6 +565,22 @@
       new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting && !reduce) { make(); sync(); } }, { rootMargin: '200px 0px' }).observe(fig);
       new IntersectionObserver(function (es) { visible = es[es.length - 1].isIntersecting; sync(); }, { threshold: 0.5 }).observe(frame);
     });
+  })();
+  // Photo wall: notes press onto the wall once, staggered, as they scroll into view
+  (function () {
+    var wall = document.querySelector('.wall');
+    if (!wall || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var io = new IntersectionObserver(function (es) {
+      var n = 0;
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.setProperty('--i', n++);
+        e.target.classList.add('is-stuck');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    wall.classList.add('armed');
+    wall.querySelectorAll('.note').forEach(function (n) { io.observe(n); });
   })();
 </script>
 </body>
